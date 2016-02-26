@@ -18,6 +18,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function(req, res){
     res.render('login.ejs');
 });
+
+app.get('/instructor-performance', function(req, res){
+    res.render('instructor-performance.ejs');
+});
+
+app.get('/leaderboard', function(req, res){
+    res.render('leaderboard.ejs');
+});
+
+app.post('/instructor-home', function(req, res){
+    res.render('instructor-home.ejs');
+});
+
+app.get('/add-quiz', function(req, res){
+  res.render('add-quiz.ejs');
+});
+
 app.post('/dashboard', function(req, res){
     res.render('dashboard.ejs', {'name': req.body.name});
 });
