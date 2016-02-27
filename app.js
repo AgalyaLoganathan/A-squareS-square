@@ -20,7 +20,8 @@ app.get('/', function(req, res){
 });
 
 app.get('/instructor-performance', function(req, res){
-    res.render('instructor-performance.ejs');
+    // res.render('instructor-performance.ejs');
+    res.render('student-performance.ejs');
 });
 
 app.get('/leaderboard', function(req, res){
