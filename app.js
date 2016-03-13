@@ -1,8 +1,6 @@
 var express = require('express')
     , http = require('http')
-    , mail = require('./routes/dashboard')
     , path = require('path')
-    , nodemailer = require('nodemailer')
     , bodyParser = require('body-parser');
 
 var app = express();
@@ -18,9 +16,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res){
-    res.render('login1.ejs');
+    res.render('login.ejs');
 });
-
 
 app.get('/get_flare', function(req, res){
     var flare =   {"name": "flare",
@@ -392,7 +389,6 @@ app.get('/get_flare', function(req, res){
     res.send(flare);
 });
 
-
 app.get('/testing', function(req, res){
 	var smtpTransport = nodemailer.createTransport("SMTP",{
    service: "Gmail",
@@ -417,7 +413,6 @@ app.get('/testing', function(req, res){
 
 
 });
-
 
 app.get('/instructor-performance', function(req, res){
     res.render('instructor-performance.ejs');
@@ -460,5 +455,4 @@ app.post('/dashboard', function(req, res){
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
 
