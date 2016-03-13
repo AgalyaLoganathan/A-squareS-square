@@ -1,6 +1,8 @@
 var express = require('express')
     , http = require('http')
+    , mail = require('./routes/dashboard')
     , path = require('path')
+    , nodemailer = require('nodemailer')
     , bodyParser = require('body-parser');
 
 var app = express();
@@ -16,8 +18,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res){
-    res.render('login.ejs');
+    res.render('login1.ejs');
 });
+
 
 app.get('/get_flare', function(req, res){
     var flare =   {"name": "flare",
@@ -389,6 +392,33 @@ app.get('/get_flare', function(req, res){
     res.send(flare);
 });
 
+
+app.get('/testing', function(req, res){
+	var smtpTransport = nodemailer.createTransport("SMTP",{
+   service: "Gmail",
+   auth: {
+       user: "akshay.manikandan@gmail.com",
+       pass: "ak1sh2ay3"
+   }
+  });
+
+  smtpTransport.sendMail({
+   from: "akshay.manikandan@gmail.com", // sender address
+   to: "chronicnexus11@gmail.com", // comma separated list of receivers
+   subject: "Hello ✔", // Subject line
+   text: "Hello world ✔" // plaintext body
+  }, function(error, response){
+   if(error){
+       console.log(error);
+    }else{
+       console.log("Message sent: " + response.message);
+     }
+  });
+
+
+});
+
+
 app.get('/instructor-performance', function(req, res){
     res.render('instructor-performance.ejs');
     // res.render('student-performance.ejs');
@@ -430,4 +460,5 @@ app.post('/dashboard', function(req, res){
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
 
