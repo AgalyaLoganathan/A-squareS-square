@@ -398,7 +398,7 @@ app.get('/testing', function(req, res){
    service: "Gmail",
    auth: {
        user: "akshay.manikandan@gmail.com",
-       pass: "ak1sh2ay3"
+       pass: "ENter account password"
    }
   });
 
