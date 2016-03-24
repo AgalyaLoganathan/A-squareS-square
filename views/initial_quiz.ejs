@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/initial_quiz.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="initial_questions" value="1"><a href="#">Question - 1</a></li>
+            <li class="initial_questions" value="2"><a href="#">Question - 2</a></li>
+            <li class="initial_questions" value="3"><a href="#">Question - 3</a></li>
+            <li class="initial_questions" value="4"><a href="#">Question - 4</a></li>
+            <li class="initial_questions" value="5"><a href="">Question - 5</a></li>
+            <li class="initial_questions" value="6"><a href="">Question - 6</a></li>
+            <li class="initial_questions" value="7"><a href="">Question - 7</a></li>
+            <li class="initial_questions" value="8"><a href="">Question - 8</a></li>
+            <li class="initial_questions" value="9"><a href="">Question - 9</a></li>
+            <li class="initial_questions" value="10"><a href="">Question - 10</a></li>
+          </ul>
+        </div>
+
+        <!-- <div class="question"> -->
+            <div class="initial_quiz_container">
+
+            </div>
+
+        <!-- </div> -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/ejs.js"></script>
+    <script src="js/initial_quiz.js"></script>
+    <script type="text/javascript">
+    var questions = [{
+    "question_title": "Question 1",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1"
+    ]
+
+},
+{
+    "question_title": "Question 2",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 3",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 4",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 5",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 6",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 7",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 8",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 9",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+},
+{
+    "question_title": "Question 10",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2"
+    ]
+
+}]
+
+$('.initial_questions').click(function(){
+    console.log("clicked "+$(this).attr("value"));
+    var questionNumber = $(this).attr("value");
+    var templateData = {"details": questions[questionNumber-1],
+                        "progress": (questionNumber*10)}
+    var question_snippet = new EJS({url: '/templates/initial_individual_question.ejs'}).render(templateData);
+    console.log(question_snippet);
+    $(".initial_quiz_container").html(question_snippet);
+});
+    </script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

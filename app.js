@@ -1,14 +1,16 @@
 var express = require('express')
     , http = require('http')
     , path = require('path')
+    , fs = require('fs')
     , bodyParser = require('body-parser');
+
 
 var app = express();
 var router = express.Router();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
+app.set('/views', express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(router);
@@ -17,6 +19,43 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res){
     res.render('login.ejs');
+});
+
+app.post("/register", function(req, res){
+    console.log(req.body);
+    var data = req.body;
+    if(data.password != data['confirm-password']){
+      res.render('login.ejs');
+    }else{
+      fs.appendFile('user_details.txt', data, function(err){
+        console.log("Registration is successful")
+        res.render('initial_quiz.ejs');
+      });
+    }
+});
+
+var temp_question = {
+    "question_title": "Question Title",
+    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
+    "question_options":[
+        "option_1",
+        "option_2",
+        "option_3",
+        "option_4"
+    ]
+
+}
+
+app.get('/initial_quiz', function(req, res){
+  res.render('initial_quiz.ejs', {"details": temp_question});
+});
+
+app.post("/login", function(req, res){
+    console.log(req.body);
+    var data = req.body;
+    var contents = fs.readFile('user_details.txt');
+    var jsonContent = JSON.parse(contents);
+    console.log(jsonContent);
 });
 
 app.get('/get_flare', function(req, res){
