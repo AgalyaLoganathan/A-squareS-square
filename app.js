@@ -461,7 +461,20 @@ app.get('/instructor-performance', function(req, res){
 app.get('/leaderboard', function(req, res){
     res.render('leaderboard.ejs');
 });
+/* student screen */
+app.get('/student_home', function(req, res){
+    res.render('student_screens/student_home.ejs');
+});
 
+app.get('/student_course', function(req, res){
+    res.render('student_screens/student_course.ejs');
+});
+
+app.get('/student_performance', function(req, res){
+    res.render('student_screens/student_performance_landing_page.ejs');
+});
+
+/* end of student screen */
 app.post('/instructor-home', function(req, res){
     res.render('instructor-home.ejs');
 });
