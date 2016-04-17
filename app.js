@@ -32,6 +32,34 @@ var userSchema = new mongoDb.Schema({
 });
 var User = mongoDb.model('User', userSchema);
 
+var courseSchema = new mongoDb.Schema({
+  courseName: { type: String },
+  courseCode: { type: String },
+  instructorName: { type: String }
+});
+var Course = mongoDb.model('Course', courseSchema);
+
+var studentEnrollmentSchema = new mongoDb.Schema({
+  studentName: { type: String },
+  studentEmail: {type: String},
+  courseCode: { type: String }
+});
+var StudentCourse = mongoDb.model('StudentCourse', studentEnrollmentSchema);
+
+var studentPerformanceSchema = new mongoDb.Schema({
+  studentName: { type: String },
+  studentEmail: {type: String},
+  courseCode: { type: String },
+  totalScore: Number,
+  studentScore: Number,
+  subTopic: { type: String },
+  strengthCategory: { type: String },
+  questionId: Number
+});
+var StudentPerformance = mongoDb.model('StudentPerformance', studentPerformanceSchema);
+
+// current user
+var currentUser = {}
 app.get('/', function(req, res){
     res.render('login.ejs');
 });
@@ -48,6 +76,7 @@ app.post("/login", function(req, res){
       res.render('login.ejs', {message:'Server error. Try again.'});
     }
     if(user) {
+        currentUser = user;
         if(user['role'] == 'student') {
            res.render('student_screens/student_home.ejs');
         } else{
@@ -72,6 +101,7 @@ app.post("/register", function(req, res){
           , role : data['role']
           , password : data['password']
         });
+        currentUser = user;
       user.save(function(err, firstUser) {
       if (err) {
         return console.error(err);
