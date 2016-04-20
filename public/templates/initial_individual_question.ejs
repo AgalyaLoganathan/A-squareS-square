@@ -1,17 +1,17 @@
-            <h3>Java Quiz Question 1</h3>
+            <h3>Java Quiz Question</h3>
             <form>
               <div class="form-group">
                 <label for="question_title"><%= details.question_title %></label>
                 <p class="question_block"><%= details.question_text%></p>
               </div>
               <% for(var i = 0; i < details.question_options.length; i++) { %>
-                <div class="checkbox">
+                <div class="radio">
                 <label>
-                  <input type="checkbox"> <%= details.question_options[i] %>
+                  <input type="radio" name="answer_options" value="<%= details.question_options[i] %>"> <%= details.question_options[i] %>
                 </label>
               </div>
               <% } %>
-              <button type="submit" class="btn btn-default">Submit</button>
+              <input type='button' class="btnSubmit btn btn-default" value="Submit" />
             </form>
             </br>
             <% var progressBar = "style = \"width :" +progress +"%\"" %>

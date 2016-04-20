@@ -39,9 +39,15 @@
             <div class="initial_quiz_container">
 
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class = "results col-md-8 col-md-offset-2">
+
+        </div>
+    </div>
 
         <!-- </div> -->
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -49,7 +55,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/ejs.js"></script>
-    <script src="js/initial_quiz.js"></script>
+    <!-- <script src="js/initial_quiz.js"></script> -->
     <script type="text/javascript">
     var questions = [{
     "question_title": "Question 1",
@@ -159,16 +165,43 @@
     ]
 
 }]
-
+var questionNumber;
 $('.initial_questions').click(function(){
     console.log("clicked "+$(this).attr("value"));
-    var questionNumber = $(this).attr("value");
+    questionNumber = $(this).attr("value");
     var templateData = {"details": questions[questionNumber-1],
                         "progress": (questionNumber*10)}
     var question_snippet = new EJS({url: '/templates/initial_individual_question.ejs'}).render(templateData);
     console.log(question_snippet);
     $(".initial_quiz_container").html(question_snippet);
 });
+var answers = [];
+
+$(document).on('click',".btnSubmit",function(){
+    var selectedAnswer = $("input[name=answer_options]:checked").val();
+    //console.log("Selected answer" + selectedAnswer);
+    //var questionNumber = $('.initial_questions').attr("value");
+    flag = false;
+    for(i=0;i<answers.length;i++){
+        if(questionNumber == answers[i].questionNumber){
+            answers[i].selectedAnswer = selectedAnswer;
+            flag = true;
+        }
+    }
+    if(!flag)
+        answers.push({"questionNumber" : questionNumber, "selectedAnswer" : selectedAnswer});
+    if(questionNumber == 10){
+        //console.log(answers);
+        displayResults(answers);
+    }
+
+});
+function displayResults(answers){
+    var results = new EJS({url:'/templates/initial_quiz_results.ejs'}).render(answers);
+    //console.log(results);
+    $('.results').html(results);
+
+}
     </script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
 

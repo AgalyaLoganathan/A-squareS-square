@@ -1,0 +1,31 @@
+<div>
+    <table class="table table-striped table-hover table-bordered">
+            <tr><big>
+                <td class="text-success text-center">
+                    Question Number
+                </td>
+                <td class="text-success text-center">
+                    Your Answer
+                </td>
+                <td class="text-success text-center">
+                    Result
+                </td>
+            </big></tr>
+        <% for(var i = 0; i < answers.length; i++) { %>
+            <tr class="text-center">
+                <td>
+                    <%= answers[i].questionNumber %>
+                </td>
+                <td>
+                    <%= answers[i].selectedAnswer %>
+                </td>
+                <td>
+                    <% if(i % 2 == 0) {%>
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <%} else {%>
+                    <span class="glyphicon glyphicon-remove"></span>
+                </td>
+            </tr>
+            <% }} %>
+    </table>
+</div>
