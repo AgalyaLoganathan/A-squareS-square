@@ -262,11 +262,26 @@ $(document).on('click',".btnSubmit",function(){
         }
     }
     if(!flag)
-        var isCorrect = correctAnswers[i].correct_option == selectedAnswer;
-        answers.push({"questionNumber" : questionNumber, "isCorrect" : });
+        var isCorrect;
+        if(correctAnswers[i].correct_option == selectedAnswer) {
+            isCorrect = true;
+        } else {
+            isCorrect = false;
+        }
+        answers.push({  "questionNumber" : questionNumber,
+                        "isCorrect" : isCorrect,
+                        "topic": questions[i].topic,
+                        "subTopic": questions[i].subTopic});
     if(questionNumber == 10){
-        //console.log(answers);
-        displayResults(answers);
+        var res = {'data': answers};
+        $.ajax({
+            "url": "save_initial_quiz",
+            "data": res,
+            "type": 'POST'
+        }).done(function(){
+            console.log("saved answers");
+            displayResults(answers);
+        });
     }
 
 });

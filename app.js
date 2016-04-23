@@ -65,7 +65,7 @@ var studentInitialQuizSchema = new mongoDb.Schema({
   questionId: Number,
   topic: { type: String },
   subTopic: { type: String },
-  correctness: Boolean
+  isCorrect: Boolean
 });
 var StudentInitialQuiz = mongoDb.model('StudentInitialQuiz', studentInitialQuizSchema);
 
@@ -127,20 +127,8 @@ app.post("/register", function(req, res){
     }
 });
 
-var temp_question = {
-    "question_title": "Question Title",
-    "question_text": "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised.",
-    "question_options":[
-        "option_1",
-        "option_2",
-        "option_3",
-        "option_4"
-    ]
-
-}
-
 app.get('/initial_quiz', function(req, res){
-  res.render('initial_quiz.ejs', {"details": temp_question});
+  res.render('initial_quiz.ejs');
 });
 
 app.get('/testing', function(req, res){
@@ -176,6 +164,36 @@ app.get('/instructor-performance', function(req, res){
 app.get('/leaderboard', function(req, res){
     res.render('leaderboard.ejs');
 });
+
+/* save initial quiz */
+app.post('/save_initial_quiz', function(req, res){
+ console.log("Entered server");
+ var answers = req.body.data;
+ console.log(answers);
+ _.each(answers, function(ans){
+  var answer = new StudentInitialQuiz({
+      'questionId' : ans['questionNumber'],
+      'topic' : ans['topic'],
+      'subTopic' : ans['subTopic'],
+      'isCorrect' :  ans['isCorrect'],
+      'studentName' : currentUser['studentName'],
+      'studentEmail' : currentUser['studentEmail'],
+      'courseCode' : currentUser['courseCode']
+  });
+  console.log("answer " + answer);
+
+
+  answer.save(function(err){
+    if(err){
+      console.log("Error in saving quiz");
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
+ });
+})  ;
+
 /* student screen */
 app.get('/student_home', function(req, res){
     res.render('student_screens/student_home.ejs');

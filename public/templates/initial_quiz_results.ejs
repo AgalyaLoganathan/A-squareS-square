@@ -20,7 +20,7 @@
                     <%= answers[i].selectedAnswer %>
                 </td>
                 <td>
-                    <% if(i % 2 == 0) {%>
+                    <% if(answers[i].isCorrect) {%>
                     <span class="glyphicon glyphicon-ok"></span>
                     <%} else {%>
                     <span class="glyphicon glyphicon-remove"></span>
