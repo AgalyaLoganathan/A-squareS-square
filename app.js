@@ -58,6 +58,17 @@ var studentPerformanceSchema = new mongoDb.Schema({
 });
 var StudentPerformance = mongoDb.model('StudentPerformance', studentPerformanceSchema);
 
+var studentInitialQuizSchema = new mongoDb.Schema({
+  studentName: { type: String },
+  studentEmail: {type: String},
+  courseCode: { type: String },
+  questionId: Number,
+  topic: { type: String },
+  subTopic: { type: String },
+  correctness: Boolean
+});
+var StudentInitialQuiz = mongoDb.model('StudentInitialQuiz', studentInitialQuizSchema);
+
 // current user
 var currentUser = {}
 app.get('/', function(req, res){
