@@ -1,0 +1,77 @@
+<!-- Ignore this file 
+This is just the template -->
+
+<div id="carousel-example" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="row">
+        <div class="col-xs-offset-3 col-xs-6">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="carousel-content">
+                        <div class="page-header">
+                            <div class="panel panel-default">
+                                <div class="panel-head">
+                                <h3 style="text-align: center;"> CSE 209: Introduction to Java </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                    <div style="text-align: left; font-size: 20px"><B>Topic: Arrays</B></div>
+                                    <div style="text-align: right; font-size: 18px">Question: 1/5</div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
+                                    <form class="student_course_quiz_question">
+                                      <div class="form-group">
+                                        <p class="question_block"><%= "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised." %></p>
+                                      </div>
+                                      <% for(var i = 0; i < 3; i++) { %>
+                                        <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> <%= "options" %>
+                                        </label>
+                                      </div>
+                                      <% } %>
+                                      <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
+                                    </form>
+                                    </div>
+                                     <!-- <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+                                      <div class="list-group">
+                                        <div style="font-size: 15px; color: green;"> Reading Materials </div>
+                                        <% for(var i = 0; i < 3; i++) { %>
+                                            <a href="#" class="list-group-item">Link</a>
+                                        <% } %>
+                                      </div>
+                                     </div> -->
+                                 </div> <!-- /panel body -->
+                             </div>
+                         </div>
+                     </div>
+                </div>
+                <!-- <div class="item">
+                    <div class="carousel-content">
+                        <div>
+                            <h3>#2</h3>
+                            <p>This is another much longer item. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, sint fuga temporibus nam saepe delectus expedita vitae magnam necessitatibus dolores tempore consequatur dicta cumque repellendus eligendi ducimus placeat! Sapiente, ducimus, voluptas, mollitia voluptatibus nemo explicabo sit blanditiis laborum dolore illum fuga veniam quae expedita libero accusamus quas harum ex numquam necessitatibus provident deleniti tenetur iusto officiis recusandae corporis culpa quaerat?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="carousel-content">
+                        <div>
+                            <h3>#3</h3>
+                            <p>This is the third item.</p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Controls --> <a class="left carousel-control" href="#carousel-example" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+ <a class="right carousel-control" href="#carousel-example" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+<

@@ -89,13 +89,15 @@ app.post("/login", function(req, res){
     if(user) {
         currentUser = user;
         if(user['role'] == 'student') {
-           res.render('student_screens/student_home.ejs');
+        //    res.render('student_screens/student_home.ejs');
+              res.render('student_screens/dashboard.ejs');
         } else{
           res.render('instructor-home.ejs');
         }
     }
     else {
-      res.render('login.ejs', {message:'Incorrect user name or password.'});
+    //   res.render('login.ejs', {message:'Incorrect user name or password.'});
+    res.render('student_screens/dashboard.ejs');
     }
   });
 });
@@ -240,4 +242,3 @@ app.post('/dashboard', function(req, res){
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-

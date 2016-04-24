@@ -1,3 +1,6 @@
+<!-- Need to make the div class "quiz_initial_container" the same size as div class
+"sidebar" -->
+<!-- Have to add formatting to make the page aesthetic -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,13 +18,41 @@
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-extended.css" rel="stylesheet">
   </head>
 
   <body>
+      <div class="jumbotron">
+          <h1 class="text-primary">You are one step away!</h1>
+      </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
+        <div class="col-sm-3 col-md-3 sidebar">
+            <div class="panel btn-group-vertical btn-block">
+
+                <!-- <button type="button" class="btn btn-primary initial_questions" value="2">Question 2</button>
+                <button type="button" class="btn btn-primary initial_questions" value="3">Question 3</button>
+                <button type="button" class="btn btn-primary initial_questions" value="1">Question 1</button>
+                <button type="button" class="btn btn-primary initial_questions" value="4">Question 4</button>
+                <button type="button" class="btn btn-primary initial_questions" value="5">Question 5</button>
+                <button type="button" class="btn btn-primary initial_questions" value="6">Question 6</button>
+                <button type="button" class="btn btn-primary initial_questions" value="7">Question 7</button>
+                <button type="button" class="btn btn-primary initial_questions" value="8">Question 8</button>
+                <button type="button" class="btn btn-primary initial_questions" value="9">Question 9</button>
+                <button type="button" class="btn btn-primary initial_questions" value="10">Question 10</button> -->
+
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="1">Question 1</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="2">Question 2</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="3">Question 3</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="4">Question 4</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="5">Question 5</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="6">Question 6</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="7">Question 7</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="8">Question 8</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="9">Question 9</button>
+                <button type="button" class="btn btn-primary btn-xlarge initial_questions" value="10">Question 10</button>
+            </div>
+          <!-- <ul class="nav nav-sidebar">
             <li class="initial_questions" value="1"><a href="#">Question - 1</a></li>
             <li class="initial_questions" value="2"><a href="#">Question - 2</a></li>
             <li class="initial_questions" value="3"><a href="#">Question - 3</a></li>
@@ -32,11 +63,11 @@
             <li class="initial_questions" value="8"><a href="#">Question - 8</a></li>
             <li class="initial_questions" value="9"><a href="#">Question - 9</a></li>
             <li class="initial_questions" value="10"><a href="#">Question - 10</a></li>
-          </ul>
+          </ul> -->
         </div>
 
         <!-- <div class="question"> -->
-            <div class="initial_quiz_container">
+            <div class="initial_quiz_container col-md-9 col-sm-9 inline-block">
 
             </div>
         </div>
