@@ -52,9 +52,13 @@ var studentPerformanceSchema = new mongoDb.Schema({
   courseCode: { type: String },
   totalScore: Number,
   studentScore: Number,
+  topic: {type: String},
   subTopic: { type: String },
   strengthCategory: { type: String },
-  questionId: Number
+  questionId: Number,
+  submittedAnswer: {type: String},
+  isCorrect: Boolean,
+  weekId: Number
 });
 var StudentPerformance = mongoDb.model('StudentPerformance', studentPerformanceSchema);
 
@@ -68,6 +72,16 @@ var studentInitialQuizSchema = new mongoDb.Schema({
   isCorrect: Boolean
 });
 var StudentInitialQuiz = mongoDb.model('StudentInitialQuiz', studentInitialQuizSchema);
+
+// test data population
+app.get('/populateTestData', function(req, res){
+  new StudentCourse({
+    studentName: "s1",
+    studentEmail: "s1@asu.edu",
+    courseCode: "CSE 280 - Intro to JAVA Programming"
+  }).save();
+});
+
 
 // current user
 var currentUser = {}
@@ -210,6 +224,69 @@ app.get('/student_course', function(req, res){
 app.get('/student_performance', function(req, res){
     res.render('student_screens/student_performance_landing_page.ejs');
 });
+
+app.get('/student_profile', function(req, res){
+  var userProfile = currentUser;
+  User.findOne({'userName': 's1'}, function(err, userProfile){
+  StudentCourse.findOne({'studentName': userProfile['userName']}, function(err, userCourseDetails){
+    console.log("Course Details");
+    console.log(userCourseDetails);
+    userProfile['courseCode'] = userCourseDetails['courseCode'];
+    console.log(userProfile);
+    res.render('student_screens/student_profile.ejs', userProfile);
+  });
+  });
+});
+
+app.get('/study_groups', function(req, res){
+var currentWeekId = 5;
+var countOfCorrectAnswers = 0;
+var totalQuestions = 0;
+ User.findOne({'userName': 's1'}, function(err, user){
+    StudentPerformance.find({
+    'userName': user['userName'],
+    'weekId': currentWeekId,
+    }, function(err, performances){
+      _.each(performances, function(performance){
+        if(performance['isCorrect']) {
+          countOfCorrectAnswers+1;
+        }
+        totalQuestions+1;
+      });
+    if(countOfCorrectAnswers/2 < totalQuestions){
+      // do a Study Group Recommendation for that week
+      var tutors = getTutorStudents(performances[0][topic]);
+        if(tutors > 0) {
+            res.json(tutors);
+        }else{
+          res.render("student_screens/study_groups.ejs",
+            {'message': 'We dont have any tutors to help you'}
+            );
+        }
+    } else{
+            res.render("student_screens/study_groups.ejs",
+            {'message': 'You dont need any study groups'}
+            );
+      // Display you dont have any study group recommendations for this week
+    }
+    });
+});
+});
+
+var getTutorStudents = function(topic){
+  var relatedTopics = [];
+  var tutors= [];
+  relatedTopics.push(topic);
+   StudentPerformance.find({
+    'strengthCategory': 'strong',
+    'topic': {$all: relatedTopics}
+    }, function(err, performances){
+      _.each(performances, function(performance){
+        tutors.append(performance['studentName']);
+      });
+      return _.unique(tutors);
+    });
+};
 
 /* end of student screen */
 app.post('/instructor-home', function(req, res){
