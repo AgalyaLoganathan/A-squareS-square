@@ -89,8 +89,10 @@ app.post("/login", function(req, res){
     if(user) {
         currentUser = user;
         if(user['role'] == 'student') {
-        //    res.render('student_screens/student_home.ejs');
-              res.render('student_screens/dashboard.ejs');
+          var userDetails = {
+            'userName' : currentUser["userName"]
+          }
+          res.render('student_screens/dashboard.ejs', userDetails);
         } else{
           res.render('instructor-home.ejs');
         }
@@ -182,9 +184,6 @@ app.post('/save_initial_quiz', function(req, res){
       'studentEmail' : currentUser['studentEmail'],
       'courseCode' : currentUser['courseCode']
   });
-  console.log("answer " + answer);
-
-
   answer.save(function(err){
     if(err){
       console.log("Error in saving quiz");
@@ -198,7 +197,10 @@ app.post('/save_initial_quiz', function(req, res){
 
 /* student screen */
 app.get('/student_home', function(req, res){
-    res.render('student_screens/student_home.ejs');
+    var userDetails = {
+            'userName' : currentUser["userName"]
+          }
+    res.render('student_screens/dashboard.ejs', userDetails);
 });
 
 app.get('/student_course', function(req, res){
