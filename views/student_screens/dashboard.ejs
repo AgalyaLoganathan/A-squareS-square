@@ -33,7 +33,7 @@
     <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<style>
 			.item{
-		background-color:#ccc;
+		background-color:#986DDA;
 		display:block;
 		}
 
@@ -251,7 +251,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="preferences">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">My Performance</h4>
@@ -280,7 +280,7 @@
 							<div id="carousel-example" class="carousel slide" data-ride="carousel">
 							    <!-- Wrapper for slides -->
 							    <div class="row">
-							        <div class="col-xs-offset-3 col-xs-6">
+							        <div class="col-md-offset-2 col-md-8">
 							            <div id="quizSection" class="carousel-inner">
 							                <!-- <div class="item active">
 							                    <div class="carousel-content">
@@ -311,7 +311,7 @@
 							                                      <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
 							                                    </form>
 							                                    </div>
-							                                 </div> <!-- /panel body -->
+															</div> <! /panel body -->
 							            	</div>
 							        </div>
 							    </div>
@@ -608,6 +608,7 @@
 ]
 }];
 
+
 // var input = {
 //     "week_number": 2,
 //     "question_id": 10,
@@ -627,8 +628,9 @@
 //     ]
 // };
 
+var questions_section = [];
 var temp,i;
-	function getScript(url, callback, c1) {
+	function getScript(url, callback) {
    var script = document.createElement('script');
    script.type = 'text/javascript';
    script.src = url;
@@ -637,68 +639,83 @@ var temp,i;
    document.getElementsByTagName('head')[0].appendChild(script);
    script.onreadystatechange = callback;
    script.onload = callback;
-   c1();
-
 }
-function populateHTML(qnTemplate, count, input){
-	tempString = '<div class = "item active">';
-	tempString1 = '<div class = "item">';
-	for(i=0;i<count;i++){
+function populateHTML(){
+	tempString = '<div class = "item active" id="questions" style="height: 430px;">';
+	tempString1 = '<div class = "item" id="questions" style="height: 430px;">';
+	for(i=0;i<2	;i++){
 		temp = input[i];
+		question_template = '<div class="carousel-content" style="height: 430px;"> ' +
+		'<div class="panel-head">' +
+		'<h3 style="text-align: center;"> ' + temp.topic + '</h3> ' +
+		'</div> ' +
+		'<div class="panel-body"> ' +
+		'    <div> ' +
+		'    <div style="text-align: left; font-size: 20px"><B>' + temp.subtopic + '</B></div>' +
+		'    <div style="text-align: right; font-size: 18px">' + temp.question_title + '</div> ' +
+		'    </div> ' +
+		'</div> ' +
+		'<div class="panel-body">' +
+		'    <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">' +
+		'    <form class="student_course_quiz_question"> ' +
+		'      <div class="form-group"> ' +
+		'        <p class="question_block"> ' + temp.question_text + ' </p> ' +
+		'      </div> ' +
+		'        <div class="checkbox"> ' +
+		'        <label> ' +
+		'          <input type="checkbox"> ' + temp.question_options[0] +
+		'        </label> ' +
+		'      </div> ' +
+
+		'        <div class="checkbox"> ' +
+		'        <label> ' +
+		'          <input type="checkbox"> ' + temp.question_options[1] +
+		'        </label> ' +
+		'      </div> ' +
+
+		'        <div class="checkbox"> ' +
+		'        <label> ' +
+		'          <input type="checkbox"> ' + temp.question_options[2] +
+		'        </label> ' +
+		'      </div> ' +
+
+		'        <div class="checkbox"> ' +
+		'        <label> ' +
+		'          <input type="checkbox"> ' + temp.question_options[3] +
+		'        </label> ' +
+		'      </div> ' +
+
+		'      <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>' +
+		'    </form>' +
+		'    </div>' +
+		'      </div> ' +
+		'     </div>' +
+		' </div>'
+		'</div></div>';
 		if(i==0){
-			questions_section.push(tempString + qnTemplate);
+			questions_section.push(tempString + question_template);
 		}
 		else{
-			questions_section.push(tempString1 + qnTemplate);
+			questions_section.push(tempString1 + question_template);
 		}
-
 	}
-}
-var questions_section = [];
-function populateQuizs(callback){
-	for(i=0;i<2;i++){
-		tempString = '<div class = "item active">';
-		tempString1 = '<div class = "item">';
-		temp = input[i];
-		getScript('bootstrap/js/questions.js', function(){
-			questionTemplate = question_template;
-			if(i==0){
-				questions_section.push(tempString + questionTemplate);
-			}
-			else{
-				questions_section.push(tempString1 + questionTemplate);
-			}
-			console.log(questions_section);
-		},callback);
-	}
-	console.log("DFS");
-	// callback();
-}
-populateQuizs(addInnerHTML);
-function addInnerHTML(){
 	document.getElementById("quizSection").innerHTML = questions_section.join("\n");
-
+	return;
 }
-// temp = input[0];
-// getScript('bootstrap/js/questions.js', function(){
-// 	questionTemplate = question_template;
-// 	populateHTML(questionTemplate,4,input);
-// 	// for(i=0;i<2;i++){
-// 	// //	temp = input;
-// 	// 	questions_section.push(questionTemplate);
-// 	// }
-// 	//console.log(questions_section.join("\n"));
-// 	document.getElementById("quizSection").innerHTML = questions_section.join("\n");
-// 	// var question_snippet = new EJS({url: '/templates/quiz_questions.ejs'}).render(questions_section.join("\n"));
-// 	// console.log(question_snippet);
-// 	// $(".quizSection").html(question_snippet);
-//
-// });
-    	$(document).ready(function(){
+$(document).ready(function(){
 			//var question_snippet = new EJS({url: '/templates/quiz_questions.ejs'}).render();
 		    //console.log(question_snippet);
 		    //$(".quizSection").html(question_snippet);
 
+			// console.log("TEST");
+			// console.log($('#questions').height() + "  and " + $('.carousel-content').height());
+			 var height = Math.max($(".card").height(), $("#quizSection").height());
+			 $("#preferences").height(height);
+			 $("#quizSection").height(height);
+			//  $("#questions").height(height);
+			//  $(".carousel-content").height(height);
+			//  console.log($('#questions').height() + "  and " + $('.carousel-content').height());
+			populateHTML();
         	demo.initChartist();
 
         	$.notify({

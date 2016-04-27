@@ -225,6 +225,10 @@ app.get('/student_performance', function(req, res){
     res.render('student_screens/student_performance_landing_page.ejs');
 });
 
+app.get('/typography.ejs', function(req,res){
+    res.render('student_screens/typography.ejs');
+});
+
 app.get('/student_profile', function(req, res){
   var userProfile = currentUser;
   User.findOne({'userName': 's1'}, function(err, userProfile){
