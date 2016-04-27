@@ -242,6 +242,17 @@ app.get('/student_profile', function(req, res){
   });
 });
 
+app.get('/study_group.ejs', function(req, res){
+    res.render("student_screens/study_group.ejs");
+});
+
+app.get('/dashboard.ejs', function(req, res){
+    var userDetails = {
+      'userName' : currentUser["userName"]
+    }
+    res.render("student_screens/dashboard.ejs", userDetails);
+});
+
 app.get('/study_groups', function(req, res){
 var currentWeekId = 5;
 var countOfCorrectAnswers = 0;
