@@ -229,6 +229,10 @@ app.get('/typography.ejs', function(req,res){
     res.render('student_screens/typography.ejs');
 });
 
+app.get('/table.ejs', function(req,res){
+    res.render('student_screens/table.ejs');
+});
+
 app.get('/student_profile', function(req, res){
   var userProfile = currentUser;
   User.findOne({'userName': 's1'}, function(err, userProfile){
