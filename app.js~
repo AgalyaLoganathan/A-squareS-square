@@ -94,7 +94,7 @@ var QuizQuestions = new mongoDb.Schema({
 
 var QuizQuestions = mongoDb.model('QuizQuestions', QuizQuestions);
 
-var Recommendations = new mongoDb.Schema({
+var Recommendations = new MongoDb.Schema({
 questionId: Number,
 recommendations: [{
             recommendationId: Number,
