@@ -29,6 +29,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
+	<link href="bootstrap/css/d3.stackedbar.css" rel="stylesheet"  />
 	<style>
 	   body {
 		 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -53,6 +54,52 @@
 		 right: 10px;
 		 top: 10px;
 	   }
+
+	   svg {
+        width: 100%;
+        height: 100%;
+        position: center;
+    }
+    text{
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .toolTip {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: absolute;
+        display: none;
+        width: auto;
+        height: auto;
+        background: none repeat scroll 0 0 white;
+        border: 0 none;
+        border-radius: 8px 8px 8px 8px;
+        box-shadow: -3px 3px 15px #888888;
+        color: black;
+        font: 12px sans-serif;
+        padding: 5px;
+        text-align: center;
+    }
+    .legend {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 60%;
+    }
+    text {
+        font: 10px sans-serif;
+    }
+    .axis text {
+        font: 10px sans-serif;
+    }
+    .axis path{
+        fill: none;
+        stroke: #000;
+    }
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    .x.axis path {
+        display: none;
+    }
 
 	   </style>
 
@@ -275,7 +322,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<div class="card">
+						<div class="card" id="stackedBarDiv">
 							<div class="header">
 								<h4 class="title">Performance metrics</h4>
 								<p class="category">
@@ -283,9 +330,9 @@
 								</p>
 							</div>
 							<div class="content">
-								<p>
-									D3 visualization goes here!
-								</p>
+								<div id="stackedBar">
+
+								</div>
 							</div>
 						</div>
 					</div>
@@ -420,7 +467,7 @@
 </body>
 
         <!--   Core JS Files   -->
-    <script src="bootstrap/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="bootstrap/js/jquery-1.12.3.min.js" type="text/javascript"></script>
 	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<!--  Checkbox, Radio & Switch Plugins -->
@@ -441,6 +488,11 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<!-- <script src="assets/js/demo.js"></script> -->
 	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+	<script src="js/d3.core.js"></script>
+	<script src="js/d3.stackedbar.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
 
 <script>
 function drawD3(){
@@ -502,6 +554,15 @@ function drawD3(){
 		.delay(function(d, i) { return i * 10; })
 		.attr("y", function(d) { return y(d.y0 + d.y); })
 		.attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); });
+
+		rect.selectAll("text")
+		      .data(function(d) { return d.y; })
+		      .enter()
+		      .append("text")
+		      .attr("x", 75)
+		      .attr("y", function(d, i) { return y(d.y1) + (y(d.y0) - y(d.y1))/2; })
+		      .style("text-anchor", "middle")
+		      .text("test")
 
 	svg.append("g")
 		.attr("class", "x axis")
@@ -566,12 +627,213 @@ function drawD3(){
 	}
 
 }
-$(document).ready(function(){
-	drawD3();
-	// var width = Math.min($(".card").width(), $("#userViz").width());
-	// $(".card").width(width);
-	// $("#userViz").width(width);
-	// $("#userVizSvg").width(width);
-})
+	$(document).ready(function(){
+		drawD3();
+		 $('#stackedBar').height(504);
+		//  $('#stackedBarDiv').height(700);
+	// 	 var stackedBar1 = new D3StackedBar({
+	//     container: "#stackedBar",
+	//     margin: {top: 20, left: 50, bottom: 50, right: 20},
+	//     spacing: 0.5,
+	//     dataUrl: null,
+	//     data: [
+	//             { key: "category 1", values: [ { x: "FY2008", y: 10 }, { x: "FY2009", y: 20 }, { x: "FY2010", y: 30 }, { x: "FY2011", y: 5 }, { x: "FY2012", y: 15 } ]},
+	//             { key: "category 2", values: [ { x: "FY2008", y: 20 }, { x: "FY2009", y: -40 }, { x: "FY2010", y: 20 }, { x: "FY2011", y: 5 }, { x: "FY2012", y: 10 } ]},
+	//             { key: "category 3", values: [ { x: "FY2008", y: -10 }, { x: "FY2009", y: 10 }, { x: "FY2010", y: 10 }, { x: "FY2011", y: -10 }, { x: "FY2012", y: 10 } ]},
+	//           ],
+	//     resizable: true,
+	//     showLegend: true,
+	//     showTooltip: true,
+	//     showRuler: true,
+	//     showHorizontalGrid: true,
+	//     displayTable: true,
+	//     yFormat: function(d) { return d; },
+	//     colors: ['rgb(166,206,227)','rgb(31,120,180)','rgb(178,223,138)','rgb(51,160,44)','rgb(251,154,153)','rgb(227,26,28)','rgb(253,191,111)','rgb(255,127,0)','rgb(202,178,214)','rgb(106,61,154)','rgb(255,255,153)','rgb(177,89,40)'],
+	//     xTickSize: function(base) { return 10; },
+	//     yTickSize: function(base) { return 10; },
+	//     xTicks: 5,
+	//     yTicks: 5,
+	//     xTickPadding: 5,
+	//     yTickPadding: 5,
+	//     yAxisTranslate: function(base) { return "translate(0,0)"; },
+	//     xAxisTranslate: function(base) { return "translate(0,"+base.height+")"; },
+	//     xTickFormat: function(d) { return d; },
+	//     yTickFormat: function(d) { return d; },
+	//     tooltipText: function(d, element) { return "<p>Tooltip<br />x: "+d.x+"<br />y:"+d.y+"<p>"; }
+	// });
+		var stackedBar = new D3StackedBar({
+			margin: {top: 20, left: 50, bottom: 50, right: 20},
+			container: "#stackedBar",
+			// data: [
+			//     { key: "category 1", values: [ { x: "FY2008", y: 10 }, { x: "FY2009", y: 20 }, { x: "FY2010", y: 30 }, { x: "FY2011", y: 5 }, { x: "FY2012", y: 15 } ]},
+			//     { key: "category 2", values: [ { x: "FY2008", y: 20 }, { x: "FY2009", y: -40 }, { x: "FY2010", y: 20 }, { x: "FY2011", y: 5 }, { x: "FY2012", y: 10 } ]},
+			//     { key: "category 3", values: [ { x: "FY2008", y: -10 }, { x: "FY2009", y: 10 }, { x: "FY2010", y: 10 }, { x: "FY2011", y: -10 }, { x: "FY2012", y: 10 } ]},
+			//   ],
+
+			data: [
+		            { key: "Subtopic1", values: [ { x: "week1", y: 10 , text:"s1"}, { x: "week2", y: 20, text:"s1" }, { x: "week3", y: 30, text:"s1" }, { x: "week4", y: 5, text:"s1" }, { x: "week5", y: 15, text:"s1" } ]},
+		            { key: "Subtopic2", values: [ { x: "week1", y: 20, text:"s2" }, { x: "week2", y: 40, text:"s2" }, { x: "week3", y: 20, text:"s2" }, { x: "week4", y: 5, text:"s2" }, { x: "week5", y: 10, text:"s2" } ]},
+		            { key: "Subtopic3", values: [ { x: "week1", y: 0, text:"s3" }, { x: "week2", y: 10, text:"s3" }, { x: "week3", y: 10 , text:"s3"}, { x: "week4", y: 10, text:"s3" }, { x: "week5", y: 10, text:"s3" } ]},
+					{ key: "Subtopic4", values: [ { x: "week1", y: 10 , text:"s1"}, { x: "week2", y: 20, text:"s1" }, { x: "week3", y: 30, text:"s1" }, { x: "week4", y: 5, text:"s1" }, { x: "week5", y: 15, text:"s1" } ]},
+					{ key: "Subtopic5", values: [ { x: "week1", y: 20, text:"s2" }, { x: "week2", y: 40, text:"s2" }, { x: "week3", y: 20, text:"s2" }, { x: "week4", y: 5, text:"s2" }, { x: "week5", y: 10, text:"s2" } ]},
+					{ key: "Subtopic6", values: [ { x: "week1", y: 0, text:"s3" }, { x: "week2", y: 10, text:"s3" }, { x: "week3", y: 10 , text:"s3"}, { x: "week4", y: 10, text:"s3" }, { x: "week5", y: 10, text:"s3" } ]},
+					{ key: "Subtopic7", values: [ { x: "week1", y: 10 , text:"s1"}, { x: "week2", y: 20, text:"s1" }, { x: "week3", y: 30, text:"s1" }, { x: "week4", y: 5, text:"s1" }, { x: "week5", y: 15, text:"s1" } ]},
+					{ key: "Subtopic8", values: [ { x: "week1", y: 20, text:"s2" }, { x: "week2", y: 40, text:"s2" }, { x: "week3", y: 20, text:"s2" }, { x: "week4", y: 5, text:"s2" }, { x: "week5", y: 10, text:"s2" } ]},
+					{ key: "Subtopic9", values: [ { x: "week1", y: 0, text:"s3" }, { x: "week2", y: 10, text:"s3" }, { x: "week3", y: 10 , text:"s3"}, { x: "week4", y: 10, text:"s3" }, { x: "week5", y: 10, text:"s3" } ]},
+
+				],
+				showTooltip : true,
+				showLegend: true,
+				tooltipText : function(d, element) {console.log(d.text);return d.text}
+		});
+		//stackedBar.show();
+
+		// var width = Math.min($(".card").width(), $("#userViz").width());
+		// $(".card").width(width);
+		// $("#userViz").width(width);
+		// $("#userVizSvg").width(width);
+
+
+	function wrap(text, width) {
+        text.each(function() {
+            var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+            while (word = words.pop()) {
+                line.push(word);
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > width) {
+                    line.pop();
+                    tspan.text(line.join(" "));
+                    line = [word];
+                    tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                }
+            }
+        });
+    }
+    dataset = [
+        {label:"Week1", "a":25, "b":40, "c": 15, "d":20, "e": 10, "f":5 , "g": 14},
+        {label:"week2", "a":5, "b":30, "c": 50, "d":15},
+        {label:"week3", "a":20, "b":30, "c": 40, "d":10},
+        {label:"week4", "a":10, "b":40, "c": 45, "d":5},
+        {label:"week5", "a":5, "b":15, "c": 40, "d":40},
+		{label:"Week6", "a":25, "b":40, "c": 15, "d":20},
+        {label:"week7", "a":5, "b":30, "c": 50, "d":15},
+        {label:"week8", "a":20, "b":30, "c": 40, "d":10},
+        {label:"week9", "a":10, "b":40, "c": 45, "d":5},
+        {label:"week10", "a":5, "b":15, "c": 40, "d":40},
+		{label:"Week11", "a":25, "b":40, "c": 15, "d":20},
+		{label:"week12", "a":5, "b":30, "c": 50, "d":15},
+		{label:"week13", "a":20, "b":30, "c": 40, "d":10},
+		{label:"week14", "a":10, "b":40, "c": 45, "d":5},
+		{label:"week15", "a":5, "b":15, "c": 40, "d":40},
+		{label:"Week16", "a":25, "b":40, "c": 15, "d":20},
+		{label:"week17", "a":5, "b":30, "c": 50, "d":15},
+		{label:"week18", "a":20, "b":30, "c": 40, "d":10},
+		{label:"week19", "a":10, "b":40, "c": 45, "d":5},
+		{label:"week20", "a":5, "b":15, "c": 40, "d":40},
+
+    ];
+    var margin = {top: (parseInt(d3.select('#stackedBarDiv').style('height'), 10)/20), right: (parseInt(d3.select('#stackedBarDiv').style('width'), 10)/20), bottom: (parseInt(d3.select('#stackedBarDiv').style('height'), 10)/6), left: (parseInt(d3.select('#stackedBarDiv').style('width'), 10)/20)},
+            width = parseInt(d3.select('#stackedBar').style('width'), 10) - margin.left - margin.right,
+            height = parseInt(d3.select('#stackedBar').style('height'), 10) - margin.top - margin.bottom;
+    var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1,.3);
+    var y = d3.scale.linear()
+            .rangeRound([height, 0]);
+    var colorRange = d3.scale.category20();
+    var color = d3.scale.ordinal()
+            .range(colorRange.range());
+    var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+    var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .tickFormat(d3.format(".2s"));
+    var svg = d3.select("#stackedBar").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var divTooltip = d3.select("#stackedBar").append("div").attr("class", "toolTip");
+    color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "label"; }));
+    dataset.forEach(function(d) {
+        var y0 = 0;
+        d.values = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+        d.total = d.values[d.values.length - 1].y1;
+    });
+    x.domain(dataset.map(function(d) { return d.label; }));
+    y.domain([0, d3.max(dataset, function(d) { return d.total; })]);
+    svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+    svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 9)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Satisfaction %");
+    var bar = svg.selectAll(".label")
+            .data(dataset)
+            .enter().append("g")
+            .attr("class", "g")
+            .attr("transform", function(d) { return "translate(" + x(d.label) + ",0)"; });
+    svg.selectAll(".x.axis .tick text")
+            .call(wrap, x.rangeBand());
+
+    var bar_enter = bar.selectAll("rect")
+    .data(function(d) { return d.values; })
+    .enter();
+
+bar_enter.append("rect")
+    .attr("width", x.rangeBand())
+    .attr("y", function(d) { return y(d.y1); })
+    .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+    .style("fill", function(d) { return color(d.name); });
+
+bar_enter.append("text")
+    .text(function(d) { return d3.format(".2s")(d.y1-d.y0)+"%"; })
+    .attr("y", function(d) { return y(d.y1)+(y(d.y0) - y(d.y1))/2; })
+    .attr("x", x.rangeBand()/3)
+    .style("fill", '#ffffff');
+
+    bar
+            .on("mousemove", function(d){
+                divTooltip.style("left", d3.event.pageX+10+"px");
+                divTooltip.style("top", d3.event.pageY-25+"px");
+                divTooltip.style("display", "inline-block");
+                var elements = document.querySelectorAll(':hover');
+                l = elements.length
+                l = l-1
+                element = elements[l].__data__
+                value = element.y1 - element.y0
+                divTooltip.html((d.label)+"<br>"+element.name+"<br>"+value+"%");
+            });
+    bar
+            .on("mouseout", function(d){
+                divTooltip.style("display", "none");
+            });
+    svg.append("g")
+            .attr("class", "legendLinear")
+            .attr("transform", "translate(0,"+(height+30)+")");
+    var legend = d3.legend.color()
+            .shapeWidth(height/4)
+            .shapePadding(10)
+            .orient('horizontal')
+            .scale(color);
+    svg.select(".legendLinear")
+            .call(legend);
+		})
 </script>
 </html>
