@@ -142,7 +142,6 @@ app.post('/updateRecommendations',  function(req, res){
 
 
 var courseCode = "CSE 280 - Intro to JAVA Programming";
->>>>>>> # leaderboard working version
 // test data population
 app.get('/populateTestData', function(req, res){
   /* new StudentCourse({
@@ -545,8 +544,8 @@ app.get('/leaderboard', function(req, res){
         console.log("Output ");
         results = d;
         console.log(results);
-        res.render('leaderboard.ejs', results);
-        res.json(results);
+        res.render('student_screens/table.ejs', {'results': results});
+        // res.json(results);
     });
 });
 

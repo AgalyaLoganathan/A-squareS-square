@@ -194,7 +194,21 @@
                                     	<th></th>
                                     </thead>
                                     <tbody id="leaderboard">
-
+                                        <%= console.log(results) %>
+                                        <% for(var i=0; i < results.length; i++) { %>
+                                            <tr>
+                                                <td><%= i+1 %></td>
+                                                <td>
+                                                    <a href="#" class="hover-link" data-hover-image="' + img_path + '"> <%= results[i]['_id']   %></a>
+                                                </td>
+                                                <td>
+                                                    <%= "aa@asu.edu" %>
+                                                </td>
+                                                <td>
+                                                    <%= results[i]['studentTotalScore'] %>
+                                                </td>
+                                            </tr>
+                                        <% } %>
                                     </tbody>
                                 </table>
 
@@ -267,32 +281,32 @@
 	<!-- <script src="assets/js/demo.js"></script> -->
 
 	<script>
-		var input = [{"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"},
-		{"studentName" : "s2", "studentScore": 190, "studentEmail": "s2@asu.edu"},
-		{"studentName" : "s3", "studentScore": 80, "studentEmail": "s3@asu.edu"},
-		{"studentName" : "s4", "studentScore": 50, "studentEmail": "s4@asu.edu"}];
-		var leaderboardTemplate = [];
-		input.sort(function (a,b){
-			return parseFloat(b.studentScore) - parseFloat(a.studentScore)
-		});
-		function populateLeaderboard(){
-			for(i=0;i<10;i++){
-				k = i%2;
-				temp = input[k];
-				img_path = "img/faces/face-" + (i%7) + ".jpg";
-				template = '<tr>' +
-				'<td>' + (i+1) +
-				'</td>' +
-				'<td>' +
-				'<a href="#" class="hover-link" data-hover-image="' + img_path + '">' + temp.studentName + '</a> ' +
-				'</td>' +
-				'<td>' + temp.studentScore +
-				'</td>' +
-				'<td>' + temp.studentEmail +
-				'</td></tr>';
-				leaderboardTemplate.push(template);
-			}
-			$('#leaderboard').html(leaderboardTemplate.join("\n"));
+		// var input = [{"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"},
+		// {"studentName" : "s2", "studentScore": 190, "studentEmail": "s2@asu.edu"},
+		// {"studentName" : "s3", "studentScore": 80, "studentEmail": "s3@asu.edu"},
+		// {"studentName" : "s4", "studentScore": 50, "studentEmail": "s4@asu.edu"}];
+		// var leaderboardTemplate = [];
+		// input.sort(function (a,b){
+		// 	return parseFloat(b.studentScore) - parseFloat(a.studentScore)
+		// });
+		// function populateLeaderboard(){
+		// 	for(i=0;i<10;i++){
+		// 		k = i%2;
+		// 		temp = input[k];
+		// 		img_path = "img/faces/face-" + (i%7) + ".jpg";
+		// 		template = '<tr>' +
+		// 		'<td>' + (i+1) +
+		// 		'</td>' +
+		// 		'<td>' +
+		// 		'<a href="#" class="hover-link" data-hover-image="' + img_path + '">' + temp.studentName + '</a> ' +
+		// 		'</td>' +
+		// 		'<td>' + temp.studentScore +
+		// 		'</td>' +
+		// 		'<td>' + temp.studentEmail +
+		// 		'</td></tr>';
+		// 		leaderboardTemplate.push(template);
+		// 	}
+		// 	$('#leaderboard').html(leaderboardTemplate.join("\n"));
 		}
 		$(document).ready(function(){
 			populateLeaderboard();
