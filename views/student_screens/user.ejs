@@ -12,13 +12,13 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="./public/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Animation library for notifications   -->
-    <link href="./public/bootstrap/css/animate.min.css" rel="stylesheet"/>
+    <link href="bootstrap/css/animate.min.css" rel="stylesheet"/>
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="./public/bootstrap/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="bootstrap/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -28,7 +28,7 @@
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="./public/bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -183,40 +183,39 @@
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group">
-                                                <label>Company (disabled)</label>
-                                                <input type="text" class="form-control" disabled placeholder="Company" value="Creative Code Inc.">
+                                                <label>Course (disabled)</label>
+                                                <input type="text" class="form-control" disabled placeholder="Course" value="Java">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input type="text" class="form-control" placeholder="Username" value="michael23">
+                                                <input type="text" id="userName" class="form-control" placeholder="Username" value="">
                                             </div>
                                         </div>
+									</div>
+									<div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" placeholder="Email">
+                                                <input type="email" id="email" class="form-control" placeholder="Email" value="">
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="Company" value="Mike">
+                                                <label>Name</label>
+                                                <input type="text" id="name" class="form-control" placeholder="Company" value="">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                                <input type="text" id="lName" class="form-control" placeholder="Last Name" value="">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
@@ -244,18 +243,18 @@
                                                 <input type="number" class="form-control" placeholder="ZIP Code">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About Me</label>
                                                 <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                    <button type="button" class="btn btn-info btn-fill pull-right">Update Profile</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -271,8 +270,8 @@
                                      <a href="#">
                                     <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
 
-                                      <h4 class="title">Mike Andrew<br />
-                                         <small>michael24</small>
+                                      <h4 class="title" id="img_name"><br />
+                                         <small></small>
                                       </h4>
                                     </a>
                                 </div>
@@ -335,25 +334,37 @@
 </body>
 
     <!--   Core JS Files   -->
-    <script src="./public/bootstrap/js/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="./public/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<!--  Checkbox, Radio & Switch Plugins -->
-	<script src="./public/bootstrap/js/bootstrap-checkbox-radio-switch.js"></script>
+	<script src="bootstrap/js/bootstrap-checkbox-radio-switch.js"></script>
 
 	<!--  Charts Plugin -->
-	<script src="./public/bootstrap/js/chartist.min.js"></script>
+	<script src="bootstrap/js/chartist.min.js"></script>
 
     <!--  Notifications Plugin    -->
-    <script src="./public/bootstrap/js/bootstrap-notify.js"></script>
+    <script src="bootstrap/js/bootstrap-notify.js"></script>
 
     <!--  Google Maps Plugin    -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-	<script src="./public/bootstrap/js/light-bootstrap-dashboard.js"></script>
+	<script src="bootstrap/js/light-bootstrap-dashboard.js"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<!-- <script src="assets/js/demo.js"></script> -->
+	<script>
+		var input = {"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"};
+		$(document).ready(function(){
+			$('#name').val(input.studentName);
+			$('#email').val(input.studentEmail);
+			$('#userName').val(input.studentName);
+			template = input.studentName + '</br> <small>'+ input.studentName + '</small>';
+			$('#img_name').html(template);
+
+		})
+
+	</script>
 
 </html>
