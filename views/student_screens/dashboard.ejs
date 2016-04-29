@@ -42,6 +42,11 @@
 		color:#000;
 		position:static;
 		}
+
+		img.hover-image{
+			position:absolute;
+			}
+
 	</style>
 
 </head>
@@ -369,14 +374,26 @@
                                 <p class="category">See where you stand!</p>
                             </div>
                             <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
+                                <div>
+									<table class="table table-hover table-striped">
+										<thead>
+											<th>Rank</th>
+											<th>Name</th>
+											<th>Score</th>
+											<th>E-mail Id</th>
+											<th></th>
+										</thead>
+										<tbody id="leaderboard">
 
+										</tbody>
+									</table>
+								</div>
                                 <div class="footer">
-                                    <div class="legend">
+                                    <!-- <div class="legend">
                                         <i class="fa fa-circle text-info"></i> Tesla Model S
                                         <i class="fa fa-circle text-danger"></i> BMW 5 Series
                                     </div>
-                                    <hr>
+                                    <hr> -->
                                     <div class="stats">
                                         <i class="fa fa-check"></i> Data information certified
                                     </div>
@@ -608,27 +625,6 @@
 "url2"
 ]
 }];
-
-
-// var input = {
-//     "week_number": 2,
-//     "question_id": 10,
-//     "topic" : "",
-//     "subtopic" : "",
-//     "question_title": "Question 10",
-//     "question_text": "A process can be",
-//     "question_options":[
-//         "Single threaded",
-//         "Multi threaded",
-//     "both single and multithreaded",
-//     "none of the above"
-// ],
-//     "reading_materials" : [
-//     "url1",
-//     "url2"
-//     ]
-// };
-
 var questions_section = [];
 var temp,i;
 	function getScript(url, callback) {
@@ -703,13 +699,37 @@ function populateHTML(){
 	document.getElementById("quizSection").innerHTML = questions_section.join("\n");
 	return;
 }
-$(document).ready(function(){
-			//var question_snippet = new EJS({url: '/templates/quiz_questions.ejs'}).render();
-		    //console.log(question_snippet);
-		    //$(".quizSection").html(question_snippet);
 
-			// console.log("TEST");
-			// console.log($('#questions').height() + "  and " + $('.carousel-content').height());
+var leaderboardInput = [{"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"},
+{"studentName" : "s2", "studentScore": 190, "studentEmail": "s2@asu.edu"},
+{"studentName" : "s3", "studentScore": 80, "studentEmail": "s3@asu.edu"},
+{"studentName" : "s4", "studentScore": 50, "studentEmail": "s4@asu.edu"}];
+var leaderboardTemplate = [];
+leaderboardInput.sort(function (a,b){
+	return parseFloat(b.studentScore) - parseFloat(a.studentScore)
+});
+function populateLeaderboard(){
+	for(i=0;i<5;i++){
+		k = i%2;
+		temp = leaderboardInput[k];
+		img_path = "img/faces/face-" + (i%7) + ".jpg";
+		console.log(img_path);
+		template = '<tr>' +
+		'<td>' + (i+1) +
+		'</td>' +
+		'<td>' +
+		'<a href="#" class="hover-link" data-hover-image="' + img_path + '">' + temp.studentName + '</a> ' +
+		'</td>' +
+		'<td>' + temp.studentScore +
+		'</td>' +
+		'<td>' + temp.studentEmail +
+		'</td></tr>';
+		leaderboardTemplate.push(template);
+	}
+	$('#leaderboard').html(leaderboardTemplate.join("\n"));
+}
+
+$(document).ready(function(){
 			 var height = Math.max($(".card").height(), $("#quizSection").height());
 			 $("#preferences").height(height);
 			 $("#quizSection").height(height);
@@ -717,11 +737,18 @@ $(document).ready(function(){
 			//  $(".carousel-content").height(height);
 			//  console.log($('#questions').height() + "  and " + $('.carousel-content').height());
 			populateHTML();
-        	demo.initChartist();
+			populateLeaderboard();
+        	// demo.initChartist();
+			$('a.hover-link').mouseenter(function() {
+      			$('img.hover-image').remove();
+      			$(this).append('<img class="hover-image" src="' + $(this).attr('data-hover-image') + '"/>')
+    		}).mouseleave(function() {
+      			$('img.hover-image').remove();
+			});
 
         	$.notify({
             	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+            	message: "Welcome back!"
 
             },{
                 type: 'info',
