@@ -32,8 +32,9 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<style>
+	/*#986DDA*/
 			.item{
-		background-color:#986DDA;
+		background-color:#fff;
 		display:block;
 		}
 
@@ -41,6 +42,11 @@
 		color:#000;
 		position:static;
 		}
+
+		img.hover-image{
+			position:absolute;
+			}
+
 	</style>
 
 </head>
@@ -131,7 +137,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="student_profile">
+			<a href="profile.ejs">
 				<i class="pe-7s-user"></i>
 				<p>User Profile</p>
 			</a>
@@ -368,14 +374,26 @@
                                 <p class="category">See where you stand!</p>
                             </div>
                             <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
+                                <div>
+									<table class="table table-hover table-striped">
+										<thead>
+											<th>Rank</th>
+											<th>Name</th>
+											<th>Score</th>
+											<th>E-mail Id</th>
+											<th></th>
+										</thead>
+										<tbody id="leaderboard">
 
+										</tbody>
+									</table>
+								</div>
                                 <div class="footer">
-                                    <div class="legend">
+                                    <!-- <div class="legend">
                                         <i class="fa fa-circle text-info"></i> Tesla Model S
                                         <i class="fa fa-circle text-danger"></i> BMW 5 Series
                                     </div>
-                                    <hr>
+                                    <hr> -->
                                     <div class="stats">
                                         <i class="fa fa-check"></i> Data information certified
                                     </div>
@@ -395,99 +413,99 @@
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <!-- <td>
                                                     <label class="checkbox">
                                                         <input type="checkbox" value="" data-toggle="checkbox">
                                                     </label>
-                                                </td>
+                                                </td> -->
                                                 <td>Sign contract for "What are conference organizers afraid of?"</td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <!-- <td>
                                                     <label class="checkbox">
                                                         <input type="checkbox" value="" data-toggle="checkbox" checked="">
                                                     </label>
-                                                </td>
+                                                </td> -->
                                                 <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
+												<!-- <td>
                                                     <label class="checkbox">
                                                         <input type="checkbox" value="" data-toggle="checkbox" checked="">
                                                     </label>
-                                                </td>
+                                                </td> -->
                                                 <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
 </td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <!-- <td>
                                                     <label class="checkbox">
                                                         <input type="checkbox" value="" data-toggle="checkbox">
                                                     </label>
-                                                </td>
+                                                </td> -->
                                                 <td>Create 4 Invisible User Experiences you Never Knew About</td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <!-- <td>
                                                     <label class="checkbox">
                                                         <input type="checkbox" value="" data-toggle="checkbox">
                                                     </label>
-                                                </td>
+                                                </td> -->
                                                 <td>Read "Following makes Medium better"</td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <!-- <td>
                                                     <label class="checkbox">
                                                         <input type="checkbox" value="" data-toggle="checkbox">
                                                     </label>
-                                                </td>
+                                                </td> -->
                                                 <td>Unfollow 5 enemies from twitter</td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
+                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -574,27 +592,6 @@
 "url2"
 ]
 }];
-
-
-// var input = {
-//     "week_number": 2,
-//     "question_id": 10,
-//     "topic" : "",
-//     "subtopic" : "",
-//     "question_title": "Question 10",
-//     "question_text": "A process can be",
-//     "question_options":[
-//         "Single threaded",
-//         "Multi threaded",
-//     "both single and multithreaded",
-//     "none of the above"
-// ],
-//     "reading_materials" : [
-//     "url1",
-//     "url2"
-//     ]
-// };
-
 var questions_section = [];
 var temp,i;
 	function getScript(url, callback) {
@@ -669,13 +666,37 @@ function populateHTML(){
 	document.getElementById("quizSection").innerHTML = questions_section.join("\n");
 	return;
 }
-$(document).ready(function(){
-			//var question_snippet = new EJS({url: '/templates/quiz_questions.ejs'}).render();
-		    //console.log(question_snippet);
-		    //$(".quizSection").html(question_snippet);
 
-			// console.log("TEST");
-			// console.log($('#questions').height() + "  and " + $('.carousel-content').height());
+var leaderboardInput = [{"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"},
+{"studentName" : "s2", "studentScore": 190, "studentEmail": "s2@asu.edu"},
+{"studentName" : "s3", "studentScore": 80, "studentEmail": "s3@asu.edu"},
+{"studentName" : "s4", "studentScore": 50, "studentEmail": "s4@asu.edu"}];
+var leaderboardTemplate = [];
+leaderboardInput.sort(function (a,b){
+	return parseFloat(b.studentScore) - parseFloat(a.studentScore)
+});
+function populateLeaderboard(){
+	for(i=0;i<5;i++){
+		k = i%2;
+		temp = leaderboardInput[k];
+		img_path = "img/faces/face-" + (i%7) + ".jpg";
+		console.log(img_path);
+		template = '<tr>' +
+		'<td>' + (i+1) +
+		'</td>' +
+		'<td>' +
+		'<a href="#" class="hover-link" data-hover-image="' + img_path + '">' + temp.studentName + '</a> ' +
+		'</td>' +
+		'<td>' + temp.studentScore +
+		'</td>' +
+		'<td>' + temp.studentEmail +
+		'</td></tr>';
+		leaderboardTemplate.push(template);
+	}
+	$('#leaderboard').html(leaderboardTemplate.join("\n"));
+}
+
+$(document).ready(function(){
 			 var height = Math.max($(".card").height(), $("#quizSection").height());
 			 $("#preferences").height(height);
 			 $("#quizSection").height(height);
@@ -683,11 +704,18 @@ $(document).ready(function(){
 			//  $(".carousel-content").height(height);
 			//  console.log($('#questions').height() + "  and " + $('.carousel-content').height());
 			populateHTML();
-        	demo.initChartist();
+			populateLeaderboard();
+        	// demo.initChartist();
+			$('a.hover-link').mouseenter(function() {
+      			$('img.hover-image').remove();
+      			$(this).append('<img class="hover-image" src="' + $(this).attr('data-hover-image') + '"/>')
+    		}).mouseleave(function() {
+      			$('img.hover-image').remove();
+			});
 
         	$.notify({
             	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+            	message: "Welcome back!"
 
             },{
                 type: 'info',
