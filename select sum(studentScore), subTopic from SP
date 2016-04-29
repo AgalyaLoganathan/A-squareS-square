@@ -1,0 +1,19 @@
+select sum(studentScore), subTopic from SP
+where sN=''
+groupBy wId, subTopic
+
+StudentPerformance.group({
+  "key": {
+      "subTopic": true,
+      "weekId": true
+  },
+  "initial": {
+      "sumstudentScore": 0
+  },
+  "reduce": function(obj, prev) {
+      prev.sumstudentScore = prev.sumstudentScore + obj.studentScore - 0;
+  },
+  "cond": {
+      "studentName": "s1"
+  }
+});

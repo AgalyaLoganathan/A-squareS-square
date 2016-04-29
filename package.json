@@ -11,6 +11,7 @@
     "session": "*",
     "stylus": "*",
     "mongoose" : "*",
-    "underscore": "*"
+    "underscore": "*",
+    "nodemailer": "*"
   }
 }
