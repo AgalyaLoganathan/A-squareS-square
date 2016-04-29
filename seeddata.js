@@ -26,11 +26,6 @@ db.User.insert( {userName:"S12",emailId:"S12@asu.edu",role:"Student",password:"1
 db.User.insert( {userName:"S13",emailId:"S13@asu.edu",role:"Student",password:"123"} )
 db.User.insert( {userName:"S14",emailId:"S14@asu.edu",role:"Student",password:"123"} )
 db.User.insert( {userName:"S15",emailId:"S15@asu.edu",role:"Student",password:"123"} )
-db.User.insert( {userName:"S16",emailId:"S16@asu.edu",role:"Student",password:"123"} )
-db.User.insert( {userName:"S17",emailId:"S17@asu.edu",role:"Student",password:"123"} )
-db.User.insert( {userName:"S18",emailId:"S18@asu.edu",role:"Student",password:"123"} )
-db.User.insert( {userName:"S19",emailId:"S19@asu.edu",role:"Student",password:"123"} )
-db.User.insert( {userName:"S20",emailId:"S20@asu.edu",role:"Student",password:"123"} )
 
 db.User.insert( {userName:"I1",emailId:"I1@asu.edu",role:"Instructor",password:"123"} )
 
@@ -38,13 +33,12 @@ db.Course.drop()
 
 // Create Course Collection
 db.createCollection("Course",{
-  courseName: { type: String },
   courseCode: { type: String },
   instructorName: { type: String }
 })
 
 // Populate Course Collection
-db.Course.insert( {courseName:"Intro to JAVA Programming",courseCode:"CSE280",instructorName:"I1"})
+db.Course.insert( {courseCode:"CSE 280 - Intro to JAVA Programming",instructorName:"I1"})
 
 db.StudentCourse.drop()
 
@@ -56,74 +50,109 @@ db.createCollection("StudentCourse",{
 })
 
 // Populate StudentCourse Collection
-db.StudentCourse.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S16",studentEmail:"S16@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S17",studentEmail:"S17@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S18",studentEmail:"S18@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S19",studentEmail:"S19@asu.edu",courseCode:"CSE280"})
-db.StudentCourse.insert({studentName:"S20",studentEmail:"S20@asu.edu",courseCode:"CSE280"})
+db.StudentCourse.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
+db.StudentCourse.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
 
 
-db.QuizQuestions.drop()
+db.Topics.drop()
+db.createCollection("Topics",{
+  weekId: Number,
+  topic: {type: String},
+  subTopics: [{
+            subTopic1: { type: String },
+            subTopic2: { type: String },
+            subTopic3: { type: String },
+            subTopic4: { type: String },
+	    subTopic5: { type: String }
+        }],
+})
+
+db.Topics.insert({WeekId:1,topic:"Introduction to programming and Expressions",subTopics:[{subTopic1:"Java Platform",subTopic2:"OOPs   Concepts",subTopic3:"Expressions",subTopic4:"Literals",subTopic5:"Variables"}]})
+
+db.Topics.insert({WeekId:2,topic:"Classes,Objects and Designs",subTopics:[{subTopic1:"Objects",subTopic2:"Classes",subTopic3:"Comparing Objects",subTopic4:"Methods",subTopic5:"Constructors"}]})
+
+db.Topics.insert({WeekId:3,topic:"Conditional Statements",subTopics:[{subTopic1:"if block",subTopic2:"Branching statements",subTopic3:"while loops",subTopic4:"Switch statements",subTopic5:"for loops"}]})
+
+
+
+db.Questions.drop()
 //Create QuizQuestions Collections
-db.createCollection("QuizQuestions",{
+db.createCollection("Questions",{
   questionId: Number,
   questionText: {type: String},
-  options: [{
-            option1: { type: String },
-            option2: { type: String },
-            option3: { type: String },
-            option4: { type: String }
-        }],
-  correctAnswer: { type: String },
-  point: Number,
+  options: { type : Array},
+  correctAnswer: Number,
+  points: Number,
   difficultylevel: { type: String },
   topic: { type: String },
   subTopic: { type: String },
-  courseCode: { type: String },
+  InstructorUrl : {type:String },
   weekId: Number
 })
 
+ 
+
 // Populate Questions Table
-db.QuizQuestions.insert({questionId:1,questionsText:"If an expression contains double, int, float, long, then whole expression will promoted into which of these data types?",options:  [{option1:"long",option2:"int",option3:"double",option4:"float"}],correctAnswer:"option3",point: 1,difficultylevel:"easy",topic:"Introduction to programming and Expressions",subTopic:"TypeConversions",courseCode:"CSE280",weekId:1})
 
-db.QuizQuestions.insert({questionId:2,questionsText:"Which is true about an anonymous inner class?",options:  [{option1:"It can extend exactly one class and implement exactly one interface.",option2:"It can extend exactly one class and can implement multiple interfaces.",option3:"It can extend exactly one class or implement exactly one interface.",option4:"It can implement multiple interfaces regardless of whether it also extends a class."}],correctAnswer:"option3",point: 2,difficultylevel:"hard",topic:"Classes and Objects",subTopic:"Nested Classes",courseCode:"CSE280",weekId:2})
+// Week 1
+db.Questions.insert({questionId:1,questionsText:"________ are not machine instructions and therefore, Java interpreter generates machine code that can be directly executed by the machine that is running the Java program.",options:["Compiled Instructions","Compiled code","byte code","Java mid code"],correctAnswer:3,points: 1,difficultylevel:"easy",topic:"Introduction to programming and Expressions",subTopic:"Java Platform",InstructorUrl:"",weekId:1})
 
-db.QuizQuestions.insert({questionId:3,questionsText:"In object oriented programming, composition relates to",options:  [{option1:"The organization of components interacting to achieve a coherent, common behavior",option2:"The use of consistent coding conventions",option3:"The use of data hiding to achieve polymorphic behavior.",option4:"The organization of components interacting not to achieve a coherent common behavior"}],correctAnswer:"option1",point: 1,difficultylevel:"easy",topic:"Class Design",subTopic:"Object Lifecycle",courseCode:"CSE280",weekId:3})
+db.Questions.insert({questionId:2,questionsText:"The term __________ means the ability to take many forms.",options:  ["Inheritance","Polymorphism","Member function","Encapsulation"],correctAnswer:2,points: 1,difficultylevel:"easy",topic:"Introduction to programming and Expressions",subTopic:"OOPs Concepts",InstructorUrl:"",weekId:1})
 
-db.QuizQuestions.insert({questionId:4,questionsText:"Which looping process checks the test condition at the end of the loop?",options:  [{option1:"if",option2:"for",option3:"while",option4:"do-while"}],correctAnswer:"option4",point: 1,difficultylevel:"easy",topic:"Conditional Loops",subTopic:"Loop blocks",courseCode:"CSE280",weekId:4})
+db.Questions.insert({questionId:3,questionsText:"The order of precedence from highest to lowest is :",options:  ["&&, /, |,{}","%, <=, &&, =","<, !, ==, ++","+, -, [], !="],correctAnswer:2,points: 2,difficultylevel:"hard",topic:"Introduction to programming and Expressions",subTopic:"Expressions",InstructorUrl:"",weekId:1})
 
-db.QuizQuestions.insert({questionId:5,questionsText:" Which of these is an incorrect array declaration?",options:  [{option1:"int arr[] = new int[5]",option2:"int [] arr = new int[5]",option3:" int arr[] arr = new int[5]",option4:"int arr[] = int [5] new" }] ,correctAnswer:"option4",point: 2,difficultylevel:"hard",topic:"Data Structures",subTopic:"Arrays",courseCode:"CSE280",weekId:5})
+db.Questions.insert({questionId:4,questionsText:"Which type of literal is written in pair of single quote ?",options:  ["Boolean","Double","Integer","Character"],correctAnswer:4,points: 2,difficultylevel:"hard",topic:"Introduction to programming and Expressions",subTopic:"Literals",InstructorUrl:"",weekId:1})
 
-db.QuizQuestions.insert({questionId:6,questionsText:"Which of these method can be used to increase the capacity of ArrayList object manually?",options:  [{option1:"ensureCapacity()",option2:"Capacity()",option3:"increaseCapacity()",option4:"increaseSize()"}],correctAnswer:"option1",point: 1,difficultylevel:"easy",topic:"Data Structures",subTopic:"Arraylist",courseCode:"CSE280",weekId:6})
+db.Questions.insert({questionId:5,questionsText:"When a data type must contain decimal numbers, assign the type",options:  ["Integer","Character","Double","Boolean"],correctAnswer:3,points: 1,difficultylevel:"easy",topic:"Introduction to programming and Expressions",subTopic:"Variables",InstructorUrl:"",weekId:1})
 
 
+// Week 2 
 
+db.Questions.insert({questionId:6,questionsText:"Which of these class relies upon its subclasses for complete implementation of its methods?",options:  ["Object Class","abstract class","Arraylist Class","None of the above"],correctAnswer:2,points: 1,difficultylevel:"easy",topic:"Classes,Objects and Design",subTopic:"Objects",InstructorUrl:"",weekId:2})
+
+db.Questions.insert({questionId:7,questionsText:"Which of the following is a valid declaration of an object of class Box?",options:  ["Box obj = new Box();","Box obj = new Box;","obj = new Box();","new Box obj;"],correctAnswer:1,points: 1,difficultylevel:"easy",topic:"Classes,Objects and Design",subTopic:"Classes",InstructorUrl:"",weekId:2})
+
+db.Questions.insert({questionId:8,questionsText:"Which of these method of class String is used to compare two String objects for their equality?",options:  ["equals()","Equals()","isequal()","Isequal()"],correctAnswer:1,points: 1,difficultylevel:"easy",topic:"Classes,Objects and Design",subTopic:"Comparing Objects",InstructorUrl:"",weekId:2})
+
+db.Questions.insert({questionId:9,questionsText:"What will be the return type of a method that not returns any value?",options:  ["void","int","double","none of these"],correctAnswer:1,points: 1,difficultylevel:"easy",topic:"Classes,Objects and Design",subTopic:"Methods",InstructorUrl:"",weekId:2})
+
+db.Questions.insert({questionId:10,questionsText:"What is the return type of Constructors?",options:  ["int","float","void","None of the mentioned"],correctAnswer:4,points: 2,difficultylevel:"hard",topic:"Classes,Objects and Design",subTopic:"Constructors",InstructorUrl:"",weekId:2})
+
+//Week 3
+
+db.Questions.insert({questionId:11,questionsText:"The control expression in an if statement must be:",options:  [" an expression with type integer","an expression with either the type boolean or integer ","an expression with either the type boolean or integer with value 0 or 1 "," an expression with type boolean"],correctAnswer:4,points: 2,difficultylevel:"hard",topic:"Conditional Statements",subTopic:"if block",InstructorUrl:"",weekId:3})
+
+db.Questions.insert({questionId:12,questionsText:"Which branching statement will cause a program to immediately exit a loop?",options:  ["break","continue","return","All of the above"],correctAnswer:1,points: 2,difficultylevel:"hard",topic:"Conditional Statements",subTopic:"Branching statements",InstructorUrl:"",weekId:3})
+
+db.Questions.insert({questionId:13,questionsText:"A do-while loop is useful when we want the statement within the loop to be executed",options:  ["only once","at least once","more than once","none of the above"],correctAnswer:2,points: 2,difficultylevel:"hard",topic:"Conditional Statements",subTopic:"while loops",InstructorUrl:"",weekId:3})
+
+db.Questions.insert({questionId:14,questionsText:"Switch case checks for",options:  ["equality","greather than","less than","none of the above"],correctAnswer:1,points: 1,difficultylevel:"easy",topic:"Conditional Statements",subTopic:"Switch Statements",InstructorUrl:"",weekId:3})
+
+db.Questions.insert({questionId:15,questionsText:"Each pass through a loop is called a/an",options:  ["enumeration","iteration","culmination","pass through"],correctAnswer:2,points: 1,difficultylevel:"easy",topic:"Conditional Statements",subTopic:"For loops",InstructorUrl:"",weekId:3})
+
+
+db.StudentPerformance.drop()
 db.createCollection("StudentPerformance",{
   studentName: { type: String },
   studentEmail: {type: String},
   courseCode: { type: String },
-  totalScore: Number,
   studentScore: Number,
-  topic: {type: String},
-  subTopic: { type: String },
   strengthCategory: { type: String },
   questionId: Number,
-  submittedAnswer: {type: String},
+  submittedAnswer: Number,
   isCorrect: Boolean,
   weekId: Number
 })
@@ -131,45 +160,130 @@ db.createCollection("StudentPerformance",{
 
 // Question 1 data
 
-db.StudentPerformance.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Strong",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:1,submittedAnswer:2,isCorrect:false,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:0,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option1",isCorrect:false,weekID:1})
+db.StudentPerformance.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:1,submittedAnswer:2,isCorrect:false,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:1,submittedAnswer:4,isCorrect:false,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:0,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option2",isCorrect:false,weekID:1})
+db.StudentPerformance.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:1,submittedAnswer:2,isCorrect:false,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:1,submittedAnswer:1,isCorrect:false,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,submittedAnswer:3,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S16",studentEmail:"S16@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:0,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option1",isCorrect:false,weekID:1})
+// Question 2 data 
 
-db.StudentPerformance.insert({studentName:"S17",studentEmail:"S17@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Strong",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S18",studentEmail:"S18@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S19",studentEmail:"S19@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:0,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option4",isCorrect:false,weekID:1})
+db.StudentPerformance.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
 
-db.StudentPerformance.insert({studentName:"S20",studentEmail:"S20@asu.edu",courseCode:"CSE280",totalScore:8,studentScore:10,topic:"Introduction to programming and  Expressions",subTopic:"TypeConversions",strengthCategory:"Weak",questionId:1,submittedAnswer:"option3",isCorrect:true,weekID:1})
+db.StudentPerformance.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:false,weekId:1})
 
+db.StudentPerformance.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
 
-//Question 2 Data
+db.StudentPerformance.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:2,submittedAnswer:3,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:2,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:2,submittedAnswer:3,isCorrect:false,weekId:1})
+
+// Question 3 data
+
+db.StudentPerformance.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Strong",questionId:3,submittedAnswer:1,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:4,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:3,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:4,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:1,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:4,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+// Question 4 data
+
+db.StudentPerformance.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Strong",questionId:3,submittedAnswer:1,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:4,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:3,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:4,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:1,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Weak",questionId:3,submittedAnswer:4,isCorrect:false,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+db.StudentPerformance.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:3,submittedAnswer:2,isCorrect:true,weekId:1})
+
+// Question 5 data
