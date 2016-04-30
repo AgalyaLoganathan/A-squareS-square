@@ -337,6 +337,21 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="header">
+								<h4 class="title">Instructor category wise</h4>
+							</div>
+							<div class="content" id="sankeyChartDiv">
+								<div id="sankeyChart">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -493,8 +508,57 @@
 	<script src="js/d3.stackedbar.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
+var sankeyData = [
+  [ 'Strong', 'X', 5 ],
+  [ 'Strong', 'Y', 7 ],
+  [ 'Strong', 'Z', 6 ],
+  [ 'Weak', 'X', 2 ],
+  [ 'Weak', 'Y', 9 ],
+  [ 'Weak', 'Z', 4 ],
+  [ 'Strong', 'A', 5 ],
+  [ 'Strong', 'B', 7 ],
+  [ 'Strong', 'C', 6 ],
+  [ 'Weak', 'A', 2 ],
+  [ 'Weak', 'B', 9 ],
+  [ 'Weak', 'C', 4 ],
+  [ 'Strong', 'D', 5 ],
+  [ 'Strong', 'E', 7 ],
+  [ 'Strong', 'F', 6 ],
+  [ 'Weak', 'D', 2 ],
+  [ 'Weak', 'E', 9 ],
+  [ 'Weak', 'F', 4 ],
+  [ 'Strong', 'G', 5 ],
+  [ 'Strong', 'H', 7 ],
+  [ 'Strong', 'I', 6 ],
+  [ 'Weak', 'G', 2 ],
+  [ 'Weak', 'H', 9 ],
+  [ 'Weak', 'I', 4 ]
+];
+function drawSankey(){
+	google.charts.load('current', {'packages':['sankey']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows(sankeyData);
+
+        // Sets chart options.
+        var options = {
+          width: 1000,
+		  height: 600
+        };
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(document.getElementById('sankeyChart'));
+        chart.draw(data, options);
+      }
+}
 function drawD3(){
 	console.log("inn d3");
 	var divWidth = $(".row").width();
@@ -717,6 +781,24 @@ function drawD3(){
             }
         });
     }
+	// {
+	// 	week:{
+	// 		weekNo:{
+	// 			Subtopic1:{
+	// 				name:
+	// 				qn:
+	// 			},
+	// 			Subtopic2:{
+	// 				name:
+	// 				qn:
+	// 			}
+	// 		}
+	// 	},
+	// 	weekNo:{
+	//
+	// 	}
+	// }
+
     dataset = [
         {label:"Week1", "a":25, "b":40, "c": 15, "d":20, "e": 10, "f":5 , "g": 14},
         {label:"week2", "a":5, "b":30, "c": 50, "d":15},
@@ -834,6 +916,10 @@ bar_enter.append("text")
             .scale(color);
     svg.select(".legendLinear")
             .call(legend);
+
+			var sankeyDivWidth = $('#sankeyChartDiv').width();
+			$('sankeyChart').width(sankeyDivWidth);
+			drawSankey();
 		})
 </script>
 </html>
