@@ -352,6 +352,21 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="header">
+								<h4 class="title">HeatMap STudent perf</h4>
+							</div>
+							<div class="content" id="heatMapDiv">
+								<div id="heatMap">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -509,6 +524,9 @@
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+		<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
 
 <script>
 var sankeyData = [
@@ -558,6 +576,153 @@ function drawSankey(){
         var chart = new google.visualization.Sankey(document.getElementById('sankeyChart'));
         chart.draw(data, options);
       }
+}
+
+var heatMapY = [
+    {
+        "values":[106,122,203,245,261,202,309,410,451,304,203,425,191,206,263,284,251,382,391,405,321,298,302,194],
+        "text":"StudentName1"},
+    {
+        "values":[175,205,283,304,291,258,311,406,125,206,307,254,281,352,395,461,201,302,153,94,101,201,143,124],
+        "text":"StudentName2"},
+    {
+        "values":[101,108,93,84,71,122,253,194,201,92,143,104,221,242,263,304,178,222,243,184,101,92,83,64],
+        "text":"StudentName3"},
+    {
+        "values":[301,402,433,294,406,382,325,407,198,208,298,498,401,452,397,485,508,594,493,454,321,382,403,204],
+        "text":"StudentName4"},
+    {
+        "values":[211,208,175,406,199,207,253,264,301,295,303,284,107,182,193,204,171,250,93,94,106,142,153,204],
+        "text":"StudentName5"},
+    {
+        "values":[201,245,153,174,201,172,309,402,401,392,303,244,254,292,103,144,201,192,175,254,311,252,193,144],
+        "text":"StudentName6"}
+]
+var heatMapX = [
+	"Topic 1","Topic 2 AM","Topic 3 AM","Topic 4 AM","Topic 5 AM","Topic 6 AM","Topic 7 AM","Topic 8 AM","Topic 9 AM","Topic 10 AM","Topic 11 AM","Topic 12 PM","Topic 1 PM","Topic 2 PM","Topic 2 PM","Topic 4 PM","Topic 5 PM","Topic 6 PM","Topic 7 PM","Topic 8 PM","Topic 9 PM","Topic 10 PM","Topic 11 PM","Topic 12 AM"
+]
+function drawHeatMap(){
+	zingchart.THEME='classic';
+var myConfig = {
+    "type": "piano",
+    "background-color": "#325598 #10203a",
+    "fill-type": "radial",
+    "plotarea": {
+        "margin": "30px 30px 85px 105px",
+        "background-color": "none"
+    },
+    "scale-x": {
+        "values": heatMapX,
+        "text-align": "right",
+        "items-overlap": true,
+        "max-labels": 999,
+        "line-color": "#000",
+        "line-width": "2px",
+        "alpha": 0.5,
+        "guide": {
+            "visible": false
+        },
+        "label": {
+            "text": "Local Time for Call Center Region",
+            "padding-top": "15px",
+            "font-family": "arial",
+            "font-size": "12px",
+            "font-color": "#fff",
+            "bold": true
+        },
+        "item": {
+            "font-angle": -90,
+            "padding-top": "5px",
+            "font-color": "#93abc9",
+            "font-family": "arial",
+            "font-size": "10px",
+            "rules": [
+                {
+                    "rule": "%i %2 != 0",
+                    "visible": false
+                }
+            ]
+        },
+        "tick": {
+            "visible": false
+        }
+    },
+    "scale-y": {
+        "values": [
+            "Student Name 1",
+            "Student Name 2",
+            "Student Name 3",
+            "Student Name 4",
+            "Student Name 5",
+            "Student Name 6"
+        ],
+        "line-color": "#000",
+        "line-width": "2px",
+        "alpha": 0.5,
+        "guide": {
+            "visible": false
+        },
+        "label": {
+            "text": "Call Center Location",
+            "padding-right": "20px",
+            "font-family": "arial",
+            "font-size": "12px",
+            "font-color": "#fff",
+            "bold": true
+        },
+        "tick": {
+            "line-color": "#000",
+            "alpha": 0.5
+        },
+        "item": {
+            "padding-right": "5px",
+            "font-color": "#93abc9",
+            "font-family": "arial",
+            "font-size": "10px",
+            "text-align": "right"
+        }
+    },
+    "plot": {
+        "value-box": {
+            "visible": false
+        },
+        "aspect": "brightness",
+        "rules": [
+            {
+                "rule": "%v < 200",
+                "background-color": "#7000ac"
+            },
+            {
+                "rule": "%v >= 200 && %v < 375",
+                "background-color": "#3e99cf"
+            },
+            {
+                "rule": "%v >= 375",
+                "background-color": "#d9dde8"
+            }
+        ]
+    },
+    "tooltip": {
+        "shadow": 0,
+        "text": "Score in %k:<br><b>%v</b>",
+        "font-color": "#fff",
+        "font-family": "Arial",
+        "font-size": "10px",
+        "font-weight": "normal",
+        "padding": "5px 10px",
+        "border-radius": "8px",
+        "border-width": "0px",
+        "border-color": "none"
+    },
+    "series": heatMapY
+};
+
+zingchart.render({
+	id : 'heatMap',
+	data : myConfig,
+	height: 600,
+	width: 1000
+});
 }
 function drawD3(){
 	console.log("inn d3");
@@ -920,6 +1085,7 @@ bar_enter.append("text")
 			var sankeyDivWidth = $('#sankeyChartDiv').width();
 			$('sankeyChart').width(sankeyDivWidth);
 			drawSankey();
+			drawHeatMap();
 		})
 </script>
 </html>
