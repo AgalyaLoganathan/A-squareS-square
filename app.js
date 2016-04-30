@@ -493,6 +493,24 @@ app.get('/get_today_question', function(req, res){
   });
 });
 
+app.post('/update_student_performance', function(req, res){
+  console.log("Entered");
+  var question = req.body;
+  console.log(question);
+  /*new StudentPerformance({
+    questionId : question['questionId'],
+    questionText: question['questionText'],
+    options: question['options'],
+    correctAnswer: question['correctAnswer'],
+    points: question['point'],
+    difficultylevel: question['difficultylevel'],
+    topic: question['topic'],
+    subTopic: question['subTopic'],
+    InstructorUrl: question['InstructorUrl'],
+    weekId: question['weekId']
+  }).save(); */
+});
+
 app.get('/get_weekly_performance', function(req, res){
   var performances = StudentPerformance.find({
     'studentName': currentUser['userName']

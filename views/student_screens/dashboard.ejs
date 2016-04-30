@@ -621,7 +621,7 @@ function populateHTML(){
 		'</div> ' +
 		'<div class="panel-body">' +
 		'    <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">' +
-		'    <form class="student_course_quiz_question"> ' +
+		'    <form id="student_course_quiz_question" method="POST" action="/update_student_performance"> ' +
 		'      <div class="form-group"> ' +
 		'        <p class="question_block"> ' + temp.question_text + ' </p> ' +
 		'      </div> ' +
@@ -649,7 +649,7 @@ function populateHTML(){
 		'        </label> ' +
 		'      </div> ' +
 
-		'      <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>' +
+		'      <button type="submit" class="btn btn-primary student_quiz_submission" style="text-align: center;">Submit</button>' +
 		'    </form>' +
 		'    </div>' +
 		'      </div> ' +
@@ -696,6 +696,9 @@ function populateLeaderboard(){
 	$('#leaderboard').html(leaderboardTemplate.join("\n"));
 }
 
+$('#student_course_quiz_question').submit(function(){
+    $()
+})
 $(document).ready(function(){
 			 var height = Math.max($(".card").height(), $("#quizSection").height());
 			 $("#preferences").height(height);
@@ -723,6 +726,8 @@ $(document).ready(function(){
             });
 
     	});
+
+
 	</script>
 
 </html>
