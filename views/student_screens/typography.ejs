@@ -367,6 +367,20 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="header">
+								<h4 class="title">Student perf vs Topper</h4>
+							</div>
+							<div class="content" id="radarChartDiv" width="400" height="600">
+								<canvas id="radarChart">
+
+								</canvas>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -527,6 +541,7 @@
 	<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
 		<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
 		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>
 
 <script>
 var sankeyData = [
@@ -724,6 +739,45 @@ zingchart.render({
 	width: 1000
 });
 }
+
+var radarTopics = ["Topic1", "Topic2", "Topic3", "Topic4", "Topic5", "Topic6", "Topic7", "Topic8", "Topic9", "Topic10", "Topic11", "Topic12", "Topic13", "Topic14"];
+var radarCurrentStudent = [65, 59, 90, 81, 56, 55, 40,65, 59, 90, 61, 56, 55, 40];
+var radarTopper = [88, 78, 90, 79, 96, 87, 100, 88, 70, 70, 99, 96, 77, 100];
+var radarData = {
+    labels: radarTopics,
+    datasets: [
+        {
+            label: "Current Student",
+            backgroundColor: "rgba(179,181,198,0.2)",
+            borderColor: "rgba(179,181,198,1)",
+            pointBackgroundColor: "rgba(179,181,198,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: radarCurrentStudent
+        },
+        {
+            label: "Class Topper",
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            pointBackgroundColor: "rgba(255,99,132,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(255,99,132,1)",
+            data: radarTopper
+        }
+    ]
+};
+
+function drawRadarChart(){
+	var ctx = document.getElementById("radarChart");
+	var myRadarChart = new Chart(ctx, {
+    type: 'radar',
+    data: radarData,
+    // options: radarOptions
+});
+}
+
 function drawD3(){
 	console.log("inn d3");
 	var divWidth = $(".row").width();
@@ -1086,6 +1140,7 @@ bar_enter.append("text")
 			$('sankeyChart').width(sankeyDivWidth);
 			drawSankey();
 			drawHeatMap();
+			drawRadarChart();
 		})
 </script>
 </html>
