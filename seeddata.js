@@ -46,12 +46,13 @@ db.calendars.insert({weekId:3,startDate: new Date('05-02-2016'),endDate: new Dat
 db.questionrecommendations.drop()
 db.createCollection("questionrecommendations",{
   weekId: Number,
+  questionId: Number,
   topic: { type: String },
   subTopic: { type: String },
   reco: { type : Array}
 })
 
-db.questionrecommendations.insert({weekId:1,topic:"Polymorphism",subTopic:"Constructors",reco:[{recotext:"reco1",is_useful:1}, {recotext:"reco2",is_useful:1} ]})
+db.questionrecommendations.insert({weekId:1,questionId: 1, topic:"Polymorphism",subTopic:"Constructors",reco:[{recotext:"reco1",is_useful:1}, {recotext:"reco2",is_useful:1} ]})
 
 
 db.studentinitialstrengthquizzes.drop()
