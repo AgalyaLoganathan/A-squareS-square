@@ -412,9 +412,9 @@ app.get('/dashboard.ejs', function(req, res){
     // "url2"
     // ]
     }];
-  //   var results = { 'userDetails': userDetails,
-  //     'input': input}
-  //   res.render('student_screens/dashboard.ejs', { results } );
+    var results = { 'userDetails': userDetails,
+      'input': input}
+    res.render('student_screens/dashboard.ejs', { results } );
   // Questions.find({
   //   'weekId' : currentWeekId
   //   'questionId': questionId,
@@ -540,7 +540,8 @@ var totalQuestions = 0;
         });
        if(countOfCorrectAnswers/2 < totalQuestions){
       // do a Study Group Recommendation for that week
-        getTutorStudents(performances[0]['topic'], processTutorResults);
+        var flag = false;
+        getTutorStudents(performances[0]['topic'], processTutorResults(flag));
         }
        else {
             res.render("student_screens/study_groups.ejs",
@@ -553,7 +554,7 @@ var totalQuestions = 0;
 });
 
 
-function processTutorResults(){
+function processTutorResults(flag){
    console.log("Tutors are " + tutors);
         if(tutors && tutors.length > 0) {
             console.log("Finally " + tutors);
@@ -563,6 +564,7 @@ function processTutorResults(){
             {'message': 'We dont have any tutors to help you'}
             );
         }
+    flag
 }
 
 function getTutorStudents(topic){
