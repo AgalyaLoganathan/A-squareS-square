@@ -611,7 +611,7 @@ app.get('/dataset', function(req, res){
     ]).exec(function ( e, d ) {
       //{label:"week2", "a":5, "b":30, "c": 50, "d":15},
         var dataset = [];
-        console.log("Output ");
+        console.log("Output Dataset");
         results = d;
         var weekIds = [];
         _.each(results, function(r){
@@ -682,7 +682,7 @@ app.get('/radarTopics', function(req, res){
       var radarTopics = [];
       //[ { _id: { topic: 'blah', studentName: 's1' },
     // studentTotalScore: 6 } ]
-        console.log("Output ");
+        console.log("Output radar");
         _.each(result, function(r){
           radarTopics.push(r['_id']['topic']);
           if(r['_id']['studentName'] == topper){
@@ -691,14 +691,15 @@ app.get('/radarTopics', function(req, res){
               radarCurrentStudent.push(r['studentTotalScore']);
           }
         });
-        console.log(radarTopper);
-        console.log(radarCurrentStudent);
-        console.log(radarTopics);
+        // console.log(radarTopper);
+        // console.log(radarCurrentStudent);
+        // console.log(radarTopics);
         var response = {
           'radarTopper': radarTopper,
           'radarTopics': radarTopics,
           'radarCurrentStudent': radarCurrentStudent
         }
+        console.log(response);
         res.json(response);
     });
   });
