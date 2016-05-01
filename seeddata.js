@@ -3,7 +3,7 @@ use quiz_of_the_day
 db.user.drop()
 
 // Create user Collection
-db.createCollection("user",{
+db.createCollection("users",{
   userName: { type: String },
   emailId: { type: String },
   role : { type: String },
@@ -29,7 +29,7 @@ db.user.insert( {userName:"S15",emailId:"S15@asu.edu",role:"Student",password:"1
 db.user.insert( {userName:"I1",emailId:"I1@asu.edu",role:"Instructor",password:"123"} )
 
 db.calendar.drop()
-db.createCollection("calendar",{
+db.createCollection("calendars",{
   weekId: Number,
   startDate : { type: Date},
   endDate : { type: Date }
@@ -41,7 +41,7 @@ db.calendar.insert({weekId:3,startDate: new Date('05-02-2016'),endDate: new Date
 
 
 db.lucenereco.drop()
-db.createCollection("lucenereco",{
+db.createCollection("lucenerecos",{
   weekId: Number,
   topic: { type: String },
   subTopic: { type: String },
@@ -54,7 +54,7 @@ db.lucenereco.insert({weekId:1,topic:"Polymorphism",subTopic:"Constructors",reco
 db.course.drop()
 
 // Create course Collection
-db.createCollection("course",{
+db.createCollection("courses",{
   courseCode: { type: String },
   instructorName: { type: String }
 })
@@ -65,7 +65,7 @@ db.course.insert( {courseCode:"CSE 280 - Intro to JAVA Programming",instructorNa
 db.studentcourse.drop()
 
 // Create Studentcourse Collection
-db.createCollection("studentcourse",{
+db.createCollection("studentcourses",{
   studentName: { type: String },
   studentEmail: {type: String},
   courseCode: { type: String }
@@ -167,7 +167,7 @@ db.questions.insert({questionId:15,questionsText:"Each pass through a loop is ca
 
 
 db.studentperformance.drop()
-db.createCollection("studentperformance",{
+db.createCollection("studentperformances",{
   studentName: { type: String },
   studentEmail: {type: String},
   courseCode: { type: String },
@@ -509,7 +509,7 @@ db.studentperformance.insert({studentName:"S15",studentEmail:"S15@asu.edu",cours
 
 
 db.initialquiz.drop()
-db.createCollection("initialquiz",{
+db.createCollection("initialquizes",{
   studentName: { type: String },
   studentEmail: {type: String},
   courseCode: { type: String },
