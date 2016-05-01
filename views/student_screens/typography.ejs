@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Light Bootstrap Dashboard by Creative Tim</title>
+	<title>Student Visualizations</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -110,68 +110,6 @@
     <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
 
     <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
-
-
-    	<!-- <div class="sidebar-wrapper">
-            <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
-                </a>
-            </div>
-
-            <ul class="nav">
-                <li>
-                    <a href="dashboard.html">
-                        <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="user.html">
-                        <i class="pe-7s-user"></i>
-                        <p>User Profile</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="table.html">
-                        <i class="pe-7s-note2"></i>
-                        <p>Table List</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="typography.html">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>Typography</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons.html">
-                        <i class="pe-7s-science"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="notifications.html">
-                        <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
-				<li class="active-pro">
-                    <a href="upgrade.html">
-                        <i class="pe-7s-rocket"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
-            </ul>
-    	</div>
-    </div> -->
-
 	<div class="sidebar-wrapper">
 		<div class="logo">
 			<a href=# class="simple-text">
@@ -204,24 +142,6 @@
 					<p>Visualizations</p>
 				</a>
 			</li>
-			<!-- <li>
-				<a href="icons.html">
-					<i class="pe-7s-science"></i>
-					<p>Icons</p>
-				</a>
-			</li>
-			<li>
-				<a href="maps.html">
-					<i class="pe-7s-map-marker"></i>
-					<p>Maps</p>
-				</a>
-			</li>
-			<li>
-				<a href="notifications.html">
-					<i class="pe-7s-bell"></i>
-					<p>Notifications</p>
-				</a>
-			</li> -->
 			<li>
 				<a href="study_group.ejs">
 					<i class="pe-7s-rocket"></i>
@@ -246,56 +166,14 @@
                     <a class="navbar-brand" href="#">Typography</a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret"></b>
-                                    <span class="notification">5</span>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-                        <li>
-                           <a href="">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </li>
-                    </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                           <a href="">
+                           <a href="profile">
                                Account
                             </a>
                         </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    Dropdown
-                                    <b class="caret"></b>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                              </ul>
-                        </li>
                         <li>
-                            <a href="#">
+                            <a href="logout" id="logout">
                                 Log out
                             </a>
                         </li>
@@ -306,7 +184,7 @@
 
 		<div class="content">
 			<div class="container-fluid">
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-md-12">
 						<div class="card">
 							<div class="header">
@@ -319,7 +197,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card" id="stackedBarDiv">
@@ -338,7 +216,7 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-md-12">
 						<div class="card">
 							<div class="header">
@@ -366,7 +244,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
@@ -383,131 +261,8 @@
 				</div>
 			</div>
 		</div>
-
-
-        <!-- <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Light Bootstrap Table Heading</h4>
-                                <p class="category">Created using Roboto Font Family</p>
-                            </div>
-                            <div class="content">
-
-                                <div class="typo-line">
-                                    <h1><p class="category">Header 1</p>Light Bootstrap Table Heading </h1>
-                                </div>
-
-                                    <div class="typo-line">
-                                    <h2><p class="category">Header 2</p>Light Bootstrap Table Heading</h2>
-                                </div>
-                                <div class="typo-line">
-                                    <h3><p class="category">Header 3</p>Light Bootstrap Table Heading</h3>
-                                </div>
-                                <div class="typo-line">
-                                    <h4><p class="category">Header 4</p>Light Bootstrap Table Heading</h4>
-                                </div>
-                                <div class="typo-line">
-                                    <h5><p class="category">Header 5</p>Light Bootstrap Table Heading</h5>
-                                </div>
-                                 <div class="typo-line">
-                                    <h6><p class="category">Header 6</p>Light Bootstrap Table Heading</h6>
-                                </div>
-                                <div class="typo-line">
-                                    <p><span class="category">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
-                                </div>
-                                <div class="typo-line">
-                                    <p class="category">Quote</p>
-                                    <blockquote>
-                                     <p>
-                                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
-                                     </p>
-                                     <small>
-                                     Steve Jobs, CEO Apple
-                                     </small>
-                                    </blockquote>
-                                </div>
-
-                                <div class="typo-line">
-                                    <p class="category">Muted Text</p>
-                                    <p class="text-muted">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
-                                    </p>
-                                </div>
-                                <div class="typo-line">
-
-                                     there are also "text-info", "text-success", "text-warning", "text-danger" clases for the text
-
-                                    <p class="category">Coloured Text</p>
-                                    <p class="text-primary">
-                                        Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-info">
-                                        Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-success">
-                                        Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-warning">
-                                        Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-danger">
-                                        Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                </div>
-
-                                <div class="typo-line">
-                                    <h2><p class="category">Small Tag</p>Header with small subtitle <br><small>".small" is a tag for the headers</small> </h2>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div> -->
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <p class="copyright pull-right">
-                    &copy; 2016 <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                </p>
-            </div>
-        </footer>
-
-
     </div>
 </div>
-
-
 </body>
 
         <!--   Core JS Files   -->
@@ -740,36 +495,36 @@ zingchart.render({
 });
 }
 
-var radarTopics = ["Topic1", "Topic2", "Topic3", "Topic4", "Topic5", "Topic6", "Topic7", "Topic8", "Topic9", "Topic10", "Topic11", "Topic12", "Topic13", "Topic14"];
-var radarCurrentStudent = [65, 59, 90, 81, 56, 55, 40,65, 59, 90, 61, 56, 55, 40];
-var radarTopper = [88, 78, 90, 79, 96, 87, 100, 88, 70, 70, 99, 96, 77, 100];
-var radarData = {
-    labels: radarTopics,
-    datasets: [
-        {
-            label: "Current Student",
-            backgroundColor: "rgba(179,181,198,0.2)",
-            borderColor: "rgba(179,181,198,1)",
-            pointBackgroundColor: "rgba(179,181,198,1)",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(179,181,198,1)",
-            data: radarCurrentStudent
-        },
-        {
-            label: "Class Topper",
-            backgroundColor: "rgba(255,99,132,0.2)",
-            borderColor: "rgba(255,99,132,1)",
-            pointBackgroundColor: "rgba(255,99,132,1)",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(255,99,132,1)",
-            data: radarTopper
-        }
-    ]
-};
+// var radarTopics = ["Topic1", "Topic2", "Topic3", "Topic4", "Topic5", "Topic6", "Topic7", "Topic8", "Topic9", "Topic10", "Topic11", "Topic12", "Topic13", "Topic14"];
+// var radarCurrentStudent = [65, 59, 90, 81, 56, 55, 40,65, 59, 90, 61, 56, 55, 40];
+// var radarTopper = [88, 78, 90, 79, 96, 87, 100, 88, 70, 70, 99, 96, 77, 100];
+// var radarData = {
+//     labels: radarTopics,
+//     datasets: [
+//         {
+//             label: "Current Student",
+//             backgroundColor: "rgba(179,181,198,0.2)",
+//             borderColor: "rgba(179,181,198,1)",
+//             pointBackgroundColor: "rgba(179,181,198,1)",
+//             pointBorderColor: "#fff",
+//             pointHoverBackgroundColor: "#fff",
+//             pointHoverBorderColor: "rgba(179,181,198,1)",
+//             data: radarCurrentStudent
+//         },
+//         {
+//             label: "Class Topper",
+//             backgroundColor: "rgba(255,99,132,0.2)",
+//             borderColor: "rgba(255,99,132,1)",
+//             pointBackgroundColor: "rgba(255,99,132,1)",
+//             pointBorderColor: "#fff",
+//             pointHoverBackgroundColor: "#fff",
+//             pointHoverBorderColor: "rgba(255,99,132,1)",
+//             data: radarTopper
+//         }
+//     ]
+// };
 
-function drawRadarChart(){
+function drawRadarChart(radarData){
 	var ctx = document.getElementById("radarChart");
 	var myRadarChart = new Chart(ctx, {
     type: 'radar',
@@ -911,7 +666,7 @@ function drawD3(){
 
 }
 	$(document).ready(function(){
-		drawD3();
+		// drawD3();
 		 $('#stackedBar').height(504);
 		//  $('#stackedBarDiv').height(700);
 	// 	 var stackedBar1 = new D3StackedBar({
@@ -1136,11 +891,44 @@ bar_enter.append("text")
     svg.select(".legendLinear")
             .call(legend);
 
-			var sankeyDivWidth = $('#sankeyChartDiv').width();
-			$('sankeyChart').width(sankeyDivWidth);
-			drawSankey();
-			drawHeatMap();
-			drawRadarChart();
+			//var sankeyDivWidth = $('#sankeyChartDiv').width();
+			//$('sankeyChart').width(sankeyDivWidth);
+			//drawSankey();
+			//drawHeatMap();
+			//drawRadarChart();
+			$.ajax({url:"radarTopics", success: function(result){
+				console.log(result);
+				var radarTopper = result.radarTopper;
+				var radarCurrentStudent = result.radarCurrentStudent;
+				var radarTopics = result.radarTopics;
+				var radarData = {
+				    labels: radarTopics,
+				    datasets: [
+				        {
+				            label: "Current Student",
+				            backgroundColor: "rgba(179,181,198,0.2)",
+				            borderColor: "rgba(179,181,198,1)",
+				            pointBackgroundColor: "rgba(179,181,198,1)",
+				            pointBorderColor: "#fff",
+				            pointHoverBackgroundColor: "#fff",
+				            pointHoverBorderColor: "rgba(179,181,198,1)",
+				            data: radarCurrentStudent
+				        },
+				        {
+				            label: "Class Topper",
+				            backgroundColor: "rgba(255,99,132,0.2)",
+				            borderColor: "rgba(255,99,132,1)",
+				            pointBackgroundColor: "rgba(255,99,132,1)",
+				            pointBorderColor: "#fff",
+				            pointHoverBackgroundColor: "#fff",
+				            pointHoverBorderColor: "rgba(255,99,132,1)",
+				            data: radarTopper
+				        }
+				    ]
+				};
+				drawRadarChart(radarData);
+
+			}})
 		})
 </script>
 </html>

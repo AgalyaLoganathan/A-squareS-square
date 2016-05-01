@@ -61,7 +61,7 @@ var studentPerformanceSchema = new mongoDb.Schema({
   isCorrect: Boolean,
   weekId: Number
 });
-var StudentPerformance = mongoDb.model('StudentPerformance', studentPerformanceSchema);
+var StudentPerformance = mongoDb.model('studentperformances', studentPerformanceSchema);
 
 var studentInitialQuizSchema = new mongoDb.Schema({
   studentName: { type: String },
@@ -756,6 +756,10 @@ app.get('/radarTopics', function(req, res){
         res.json(response);
     });
   });
+});
+
+app.get('/logout', function(req, res){
+  res.render(login.ejs);
 });
 
 app.get('/heatmap', function(req, res){
