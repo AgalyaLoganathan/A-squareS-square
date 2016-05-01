@@ -126,22 +126,55 @@ var questionRecommendationSchema = new mongoDb.Schema({
 });
 var QuestionRecommendationSchema = mongoDb.model('questionRecommendation', questionRecommendationSchema);
 
-app.post('/updateRecommendations',  function(req, res){
+app.post('/updateUsefulReco',  function(req, res){
     var input = req.body;
-    _.each(input, function(reco){
-          QuestionRecommendationSchema.update(
-            {'recommendations.text' : reco.text},
+    console.log("hello");
+    //{ question_id: '9', reco_text: 'url1' }
+    console.log(input);
+    QuestionRecommendationSchema.update(
+            {'recommendations.text' : req.body.reco.text,
+              'questionId': req.body.question_id },
             { $set:
               {
-                'recommendations.isuseful': reco.isuseful
+                'recommendations.isuseful': true
                }
             }
-          );
-    });
+  );
 });
+
+app.post('/updateNotUsefulReco',  function(req, res){
+    var input = req.body;
+    console.log("hello");
+    //{ question_id: '9', reco_text: 'url1' }
+    console.log(input);
+    QuestionRecommendationSchema.update(
+            {'recommendations.text' : req.body.reco.text,
+              'questionId': req.body.question_id },
+            { $set:
+              {
+                'recommendations.isuseful': false
+               }
+            }
+  );
+});
+
+// app.post('/updateRecommendations',  function(req, res){
+//     var input = req.body;
+//     _.each(input, function(reco){
+//           QuestionRecommendationSchema.update(
+//             {'recommendations.text' : reco.text},
+//             { $set:
+//               {
+//                 'recommendations.isuseful': reco.isuseful
+//                }
+//             }
+//           );
+//     });
+// });
 
 
 var courseCode = "CSE 280 - Intro to JAVA Programming";
+var currentWeekId = 5;
 // test data population
 app.get('/populateTestData', function(req, res){
   /* new StudentCourse({
@@ -286,7 +319,9 @@ new StudentCourse({
 
 // current user
 var currentUser = {
-  'userName': 's1'
+  'userName': 's1',
+  'emailId': 's1@asu.edu',
+  'courseCode' : "CSE 280 - Intro to JAVA Programming"
 }
 app.get('/', function(req, res){
     res.render('login.ejs');
@@ -309,14 +344,14 @@ app.post("/login", function(req, res){
           var userDetails = {
             'userName' : currentUser["userName"]
           }
-          res.render('student_screens/dashboard.ejs', userDetails);
+          res.render('student_screens/dashboard.ejs', {'results' : userDetails});
         } else{
           res.render('instructor-home.ejs');
         }
     }
     else {
     //   res.render('login.ejs', {message:'Incorrect user name or password.'});
-    res.render('student_screens/dashboard.ejs');
+    res.render('student_screens/dashboard.ejs', {'results' : userDetails});
     }
   });
 });
@@ -426,7 +461,10 @@ app.post('/save_initial_quiz', function(req, res){
             isExpert: False
         }).save();
       }
-      res.sendStatus(200);
+      var userDetails = {
+            'userName' : currentUser["userName"]
+          }
+      res.render('student_screens/dashboard.ejs', {'results' : userDetails});
     }
   });
  });
@@ -453,12 +491,12 @@ app.get('/typography.ejs', function(req,res){
     res.render('student_screens/typography.ejs');
 });
 
-app.get('/table.ejs', function(req,res){
-    res.render('student_screens/table.ejs');
-});
+// app.get('/table', function(req,res){
+//     res.render('student_screens/table.ejs');
+// });
 
-app.get('/profile.ejs', function(req,res){
-    res.render('student_screens/user.ejs');
+app.get('/profile', function(req,res){
+    res.render('student_screens/user.ejs', currentUser);
 });
 
 app.get('/student_profile', function(req, res){
@@ -478,37 +516,102 @@ app.get('/study_group.ejs', function(req, res){
     res.render("student_screens/study_group.ejs");
 });
 
+// app.get('/dashboard.ejs', function(req, res){
+//     var userDetails = {
+//       'userName' : currentUser["userName"]
+//     }
+//     res.render("student_screens/dashboard.ejs", userDetails);
+// });
+
+
 app.get('/dashboard.ejs', function(req, res){
     var userDetails = {
       'userName' : currentUser["userName"]
     }
-    res.render("student_screens/dashboard.ejs", userDetails);
-});
-
-
-app.get('/get_today_question', function(req, res){
-  Questions.find({
-    'questionId' : currentQuestionId,
-    'weekId' : currentWeekId
-  });
+    var input = [{
+    "week_number": 2,
+    "question_id": 9,
+    "topic" : "balh",
+    "subtopic" : "balh",
+    "question_title": "Question 9",
+    "question_text": "A process can be",
+    "today": true,
+    "question_options":[
+        "Single threaded",
+        "Multi threaded",
+    "both single and multithreaded",
+    "none of the above"
+    ],
+    "reading_materials" : [
+     {"reco_text" : "url1"},
+     {"reco_text" : "url2"},
+    ]
+    // },{
+    // "week_number": 2,
+    // "question_id": 10,
+    // "topic" : "balh",
+    // "subtopic" : "ba",
+    // "today": false,
+    // "question_title": "Question 10",
+    // "question_text": "A process can be",
+    // "question_options":[
+    //   "Single threaded",
+    //   "Multi threaded",
+    // "both single and multithreaded",
+    // "none of the above"
+    // ],
+    // "reading_materials" : [
+    // "url1",
+    // "url2"
+    // ]
+    }];
+    var results = { 'userDetails': userDetails,
+      'input': input}
+    res.render('student_screens/dashboard.ejs', { results } );
+  // Questions.find({
+  //   'weekId' : currentWeekId
+  // }, function(err, results){
+  //     res.json(results);
+  // });
 });
 
 app.post('/update_student_performance', function(req, res){
   console.log("Entered");
   var question = req.body;
+  var isCorrect = false;
+  var studentScore = 0;
   console.log(question);
-  /*new StudentPerformance({
-    questionId : question['questionId'],
-    questionText: question['questionText'],
-    options: question['options'],
-    correctAnswer: question['correctAnswer'],
-    points: question['point'],
-    difficultylevel: question['difficultylevel'],
-    topic: question['topic'],
-    subTopic: question['subTopic'],
-    InstructorUrl: question['InstructorUrl'],
-    weekId: question['weekId']
-  }).save(); */
+  // Questions.findOne({
+  //   'questionText': req.body.question_text
+  // }, function(err, question){
+    var question = {
+      'correctAnswer': req.body.options,
+      'points': 2,
+      'questionId': 5,
+      'topic': 'blah',
+      'subTopic': 'blah'
+    };
+    if(question['correctAnswer'] == req.body.options) {
+        isCorrect = true;
+        studentScore = question['points'];
+    }
+    new StudentPerformance({
+      studentName: currentUser['userName'],
+      studentEmail: currentUser['emailId'],
+      courseCode: courseCode,
+      studentScore: studentScore,
+      strengthCategory: "Strong",
+      questionId: question['questionId'],
+      submittedAnswer: req.body.options,
+      topic: question['topic'],
+      subTopic: question['subTopic'],
+      isCorrect: isCorrect,
+      weekId: currentWeekId
+    }).save(function(err, res){
+      console.log("saved");
+      res.end();
+    });
+  // });
 });
 
 app.get('/get_weekly_performance', function(req, res){
@@ -521,7 +624,7 @@ app.get('/get_weekly_performance', function(req, res){
   })
 });
 
-app.get('/leaderboard', function(req, res){
+app.get('/table', function(req, res){
   // var currentUserName = currentUser['userName'];
 
   var currentUserName = 's1';
@@ -655,9 +758,9 @@ app.get('/test3', function(req, res){
   res.sendFile(__dirname+'/views/by-topic.html');
 });
 
-app.post('/dashboard', function(req, res){
-    res.render('dashboard.ejs', {'name': req.body.name});
-});
+// app.post('/dashboard', function(req, res){
+//     res.render('dashboard.ejs', {'name': req.body.name});
+// });
 
 /* test e-mail
 app.post('/testing', function(req, res){

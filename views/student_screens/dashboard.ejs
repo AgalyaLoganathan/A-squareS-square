@@ -29,7 +29,7 @@
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+
     <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<style>
 	/*#986DDA*/
@@ -55,77 +55,10 @@
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="img/sidebar-5.jpg">
 
-    <!--
-
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
-
-    -->
-
-	<!-- <div class="sidebar-wrapper">
-		<div class="logo">
-			<a href="http://www.creative-tim.com" class="simple-text">
-				Creative Tim
-			</a>
-		</div>
-
-		<ul class="nav">
-			<li>
-				<a href="dashboard.html">
-					<i class="pe-7s-graph"></i>
-					<p>Dashboard</p>
-				</a>
-			</li>
-			<li>
-				<a href="user.html">
-					<i class="pe-7s-user"></i>
-					<p>User Profile</p>
-				</a>
-			</li>
-			<li>
-				<a href="table.html">
-					<i class="pe-7s-note2"></i>
-					<p>Table List</p>
-				</a>
-			</li>
-			<li class="active">
-				<a href="typography.html">
-					<i class="pe-7s-news-paper"></i>
-					<p>Typography</p>
-				</a>
-			</li>
-			<li>
-				<a href="icons.html">
-					<i class="pe-7s-science"></i>
-					<p>Icons</p>
-				</a>
-			</li>
-			<li>
-				<a href="maps.html">
-					<i class="pe-7s-map-marker"></i>
-					<p>Maps</p>
-				</a>
-			</li>
-			<li>
-				<a href="notifications.html">
-					<i class="pe-7s-bell"></i>
-					<p>Notifications</p>
-				</a>
-			</li>
-			<li class="active-pro">
-				<a href="upgrade.html">
-					<i class="pe-7s-rocket"></i>
-					<p>Upgrade to PRO</p>
-				</a>
-			</li>
-		</ul>
-	</div>
-</div> -->
-
 <div class="sidebar-wrapper">
 	<div class="logo">
 		<a href=# class="simple-text">
-			Hello!  <%=userName %>
+			Hello!  <%= results.userDetails %>
 		</a>
 	</div>
 
@@ -137,7 +70,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="profile.ejs">
+			<a href="profile">
 				<i class="pe-7s-user"></i>
 				<p>User Profile</p>
 			</a>
@@ -154,24 +87,6 @@
 				<p>Visualizations</p>
 			</a>
 		</li>
-		<!-- <li>
-			<a href="icons.html">
-				<i class="pe-7s-science"></i>
-				<p>Icons</p>
-			</a>
-		</li>
-		<li>
-			<a href="maps.html">
-				<i class="pe-7s-map-marker"></i>
-				<p>Maps</p>
-			</a>
-		</li>
-		<li>
-			<a href="notifications.html">
-				<i class="pe-7s-bell"></i>
-				<p>Notifications</p>
-			</a>
-		</li> -->
 		<li>
 			<a href="study_group.ejs">
 				<i class="pe-7s-rocket"></i>
@@ -273,9 +188,6 @@
                                         <i class="fa fa-circle text-warning"></i> Unsubscribe
                                     </div>
                                     <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -288,37 +200,48 @@
 							    <div class="row">
 							        <div class="col-md-offset-2 col-md-8">
 							            <div id="quizSection" class="carousel-inner">
-							                <!-- <div class="item active">
-							                    <div class="carousel-content">
-							                        <div class="page-header">
-							                            <div class="panel panel-default">
-							                                <div class="panel-head">
-							                                <h3 style="text-align: center;"> CSE 209: Introduction to Java </h3>
-							                                </div>
-							                                <div class="panel-body">
-							                                    <div>
-							                                    <div style="text-align: left; font-size: 20px"><B>Topic: Arrays</B></div>
-							                                    <div style="text-align: right; font-size: 18px">Question: 1/5</div>
-							                                    </div>
-							                                </div>
-							                                <div class="panel-body">
-							                                    <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
-							                                    <form class="student_course_quiz_question">
-							                                      <div class="form-group">
-							                                        <p class="question_block"><%= "This is the text to be answered. I pasted some random text to make it big. Individual form controls automatically receive some global styling.  There are further alternative methods of providing a label for assistive technologies, such as the aria-label, aria-labelledby or title attribute. If none of these is present, screen readers may resort to using the placeholder attribute, if present, but note that use of placeholder as a replacement for other labelling methods is not advised." %></p>
-							                                      </div>
-							                                      <% for(var i = 0; i < 3; i++) { %>
-							                                        <div class="checkbox">
-							                                        <label>
-							                                          <input type="checkbox"> <%= "options" %>
-							                                        </label>
-							                                      </div>
-							                                      <% } %>
-							                                      <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
-							                                    </form>
-							                                    </div>
-															</div> <! /panel body -->
-							            	</div>
+
+    <% for(var i=0;i < results.input.length ;i++) { %>
+        <% if(results.input[i].today) { %>
+            <div class = "item active" id="questions" style="height: 430px;">
+        <% } else { %>
+            <div class = "item " id="questions" style="height: 430px;">
+        <% } %>
+        <% var temp = results.input[i] %>
+        <div class="carousel-content" style="height: 430px;">
+        <div class="panel-head">
+        <h3 style="text-align: center;">  <%= temp.topic %> </h3>
+        </div>
+        <div class="panel-body">
+            <div>
+            <div style="text-align: left; font-size: 10px"><B> <%= temp.subtopic %> </B></div>
+            <div style="text-align: right; font-size: 18px"> <%= temp.question_title %> </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
+            <form id="student_course_quiz_question" method="POST" action="/update_student_performance">
+              <div class="form-group">
+                <p class="question_block"> <%= temp.question_text %>  </p>
+                <input type="text" name="question_text" value="<%= temp.question_text %>" style="display: none;">
+              </div>
+               <% for(var j=0;  j < temp.question_options.length; j++) { %>
+                <div class="radio">
+                <label>
+                  <input type="radio" name="options" value="<%= temp.question_options[j] %>"> <%= temp.question_options[j] %>
+                </label>
+                </div>
+                <% } %>
+              <button type="submit" class="btn btn-primary student_quiz_submission" style="text-align: center;">Submit</button>
+            </form>
+            </div>
+              </div>
+             </div>
+            </div>
+             <% } %>
+
+
+							            </div>
 							        </div>
 							    </div>
 							    <!-- Controls --> <a class="left carousel-control" href="#carousel-example" data-slide="prev">
@@ -328,43 +251,11 @@
 							    <span class="glyphicon glyphicon-chevron-right"></span>
 							  </a>
 							</div>
-							<!-- <div class="header">
-								<h4 class="title"> Take a Quiz Now!</h4>
-								<p class="category"> Some text</p>
-							</div>
-							<div class="content">
-								<p class="title"> Your content here</p>
-								<img class="image img-responsive "src="img/quiz.jpg" alt="Quiz Text"/> -->
+
 							</div>
 						</div>
 					</div>
 				</div>
-
-                    <!-- <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-
 
                 <div class="row">
                     <div class="col-md-6">
@@ -388,16 +279,6 @@
 										</tbody>
 									</table>
 								</div>
-                                <div class="footer">
-                                    <!-- <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                    </div>
-                                    <hr> -->
-                                    <div class="stats">
-                                        <i class="fa fa-check"></i> Data information certified
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -406,118 +287,34 @@
                         <div class="card ">
                             <div class="header">
                                 <h4 class="title">Additional Reading materials</h4>
-                                <p class="category">Text here</p>
                             </div>
                             <div class="content">
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
+                                        <% for(var k =0; k < results.input[0].reading_materials.length; k++) { %>
                                             <tr>
-                                                <!-- <td>
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" value="" data-toggle="checkbox">
-                                                    </label>
-                                                </td> -->
-                                                <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                                <td><%=results.input[0].reading_materials[k].reco_text %></td>
                                                 <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
+                                                    <form action="/updateUsefulReco" method="post">
+                                                   <input type="text" name="question_id" value="<%= results.input[0].question_id %>" style="display: none;">
+                                                    <input type="text" name="reco_text" value="<%=results.input[0].reading_materials[k].reco_text %>" style="display: none;">
+                                                    <button type="submit" rel="tooltip" title="Useful" class="btn btn-info btn-simple btn-xs">
                                                         <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                    </form>
+                                                    <form action="/updateNotUsefulReco" method="post">
+                                                    <input type="text" name="question_id" value="<%= results.input[0].question_id %>" style="display: none;">
+                                                    <input type="text" name="reco_text" value="<%=results.input[0].reading_materials[k].reco_text %>" style="display: none;">
+                                                    <button type="submit" rel="tooltip" title="Not useful" class="btn btn-danger btn-simple btn-xs">
                                                         <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
+                                                    </form>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <!-- <td>
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" value="" data-toggle="checkbox" checked="">
-                                                    </label>
-                                                </td> -->
-                                                <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<!-- <td>
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" value="" data-toggle="checkbox" checked="">
-                                                    </label>
-                                                </td> -->
-                                                <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- <td>
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" value="" data-toggle="checkbox">
-                                                    </label>
-                                                </td> -->
-                                                <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- <td>
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" value="" data-toggle="checkbox">
-                                                    </label>
-                                                </td> -->
-                                                <td>Read "Following makes Medium better"</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- <td>
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" value="" data-toggle="checkbox">
-                                                    </label>
-                                                </td> -->
-                                                <td>Unfollow 5 enemies from twitter</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-up"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="glyphicon glyphicon-thumbs-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            <% } %>
                                         </tbody>
                                     </table>
-                                </div>
-
-                                <div class="footer">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -546,9 +343,6 @@
 
     <!--  Notifications Plugin    -->
     <script src="bootstrap/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="bootstrap/js/light-bootstrap-dashboard.js"></script>
@@ -706,7 +500,7 @@ $(document).ready(function(){
 			//  $("#questions").height(height);
 			//  $(".carousel-content").height(height);
 			//  console.log($('#questions').height() + "  and " + $('.carousel-content').height());
-			populateHTML();
+			// populateHTML();
 			populateLeaderboard();
         	// demo.initChartist();
 			$('a.hover-link').mouseenter(function() {
