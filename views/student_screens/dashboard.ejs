@@ -233,6 +233,7 @@
             <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
             <form id="student_course_quiz_question" method="POST" action="/update_student_performance">
               <div class="form-group">
+                <% console.log(temp) %>
                 <p class="question_block"> <%= temp.questionsText %>  </p>
                 <input type="text" name="question_text" value="<%= temp.questionsText %>" style="display: none;">
               </div>

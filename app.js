@@ -77,15 +77,14 @@ var StudentInitialQuiz = mongoDb.model('StudentInitialQuiz', studentInitialQuizS
 
 var QuizQuestions = new mongoDb.Schema({
   questionId: Number,
-  questionText: {type: String},
-  options: [{type: String}],
-  correctAnswer: { type: String },
-  point: Number,
+  questionsText: { type: String },
+  options: { type: Array },
+  correctAnswer: Number,
+  points: Number,
   difficultylevel: { type: String },
   topic: { type: String },
   subTopic: { type: String },
-  isCorrect: Boolean,
-  courseCode: { type: String },
+  InstructorUrl : { type: String },
   weekId: Number
 });
 
@@ -179,6 +178,36 @@ app.post("/login", function(req, res){
             'userDetails': currentUser,
             'input': []
           }
+    var currentWeekId ;
+    var questionId;
+    var userDetails = currentUser;
+    var today = new Date("2016/04/28");
+    Calendar.findOne({
+      'startDate' : { $lte : today},
+      'endDate': {$gte: today}
+    }, function(err, entry){
+      var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      questionId = diffDays + (entry['weekId'] -1) *5;
+      currentWeekId = entry['weekId'];
+        QuizQuestion.find({
+        'weekId' : currentWeekId,
+        'questionId': questionId
+        }, function(err, result){
+          result['reading_materials'] = [];
+          QuestionRecommendation.find({
+            'questionId' : result['questionId'],
+            'weekId': result['weekId']}, function(err, reco){
+                result['reading_materials'] = reco['reco'];
+                var finalResult = [];
+                finalResult.push(result);
+                var results = { 'userDetails': userDetails,
+                'input': result}
+                // console.log(results);
+                res.render('student_screens/dashboard.ejs', { results } );
+            });
+        });
+    });
           res.render('student_screens/dashboard.ejs', {'results' : results});
 
         } else{
@@ -291,16 +320,45 @@ app.post('/save_initial_quiz', function(req, res){
             isExpert: False
         }).save();
       }
-      var results  = {
-            'userDetails': currentUser,
-            'input': []
-      }
-      res.render('student_screens/dashboard.ejs', {'results' : results});
-    }
-  });
- });
-
-})  ;
+    var currentWeekId ;
+    var questionId;
+    var userDetails = currentUser;
+    var today = new Date("2016/04/28");
+    Calendar.findOne({
+      'startDate' : { $lte : today},
+      'endDate': {$gte: today}
+    }, function(err, entry){
+      var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      questionId = diffDays + (entry['weekId'] -1) *5;
+      currentWeekId = entry['weekId'];
+        QuizQuestion.find({
+        'weekId' : currentWeekId,
+        'questionId': questionId
+        }, function(err, result){
+          result['reading_materials'] = [];
+          QuestionRecommendation.find({
+            'questionId' : result['questionId'],
+            'weekId': result['weekId']}, function(err, reco){
+                result['reading_materials'] = reco['reco'];
+                var finalResult = [];
+                finalResult.push(result);
+                var results = { 'userDetails': userDetails,
+                'input': result}
+                // console.log(results);
+                res.render('student_screens/dashboard.ejs', { results } );
+            });
+        });
+    });
+    //   var results  = {
+    //         'userDetails': currentUser,
+    //         'input': []
+    //   }
+    //   res.render('student_screens/dashboard.ejs', {'results' : results});
+    // }
+  } });
+});
+});
 
 /* student screen */
 
@@ -344,29 +402,22 @@ app.get('/study_group.ejs', function(req, res){
 
 
 app.get('/dashboard.ejs', function(req, res){
-    console.log("Entered");
     var currentWeekId ;
     var questionId;
     var userDetails = currentUser;
-    var today = new Date("2016/04/27");
-    console.log(today);
+    var today = new Date("2016/04/28");
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
     }, function(err, entry){
-      console.log("Date Diff");
       var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       questionId = diffDays + (entry['weekId'] -1) *5;
       currentWeekId = entry['weekId'];
-      console.log(questionId);
-      console.log(currentWeekId);
         QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
-          console.log("Options");
-          console.log((result[0]['options']));
           result['reading_materials'] = [];
           QuestionRecommendation.find({
             'questionId' : result['questionId'],
@@ -389,16 +440,9 @@ app.post('/update_student_performance', function(req, res){
   var isCorrect = false;
   var studentScore = 0;
   console.log(question);
-  // Questions.findOne({
-  //   'questionText': req.body.question_text
-  // }, function(err, question){
-    var question = {
-      'correctAnswer': req.body.options,
-      'points': 2,
-      'questionId': 5,
-      'topic': 'blah',
-      'subTopic': 'blah'
-    };
+  Questions.findOne({
+    'questionsText': req.body.question_text
+  }, function(err, question){
     if(question['correctAnswer'] == req.body.options) {
         isCorrect = true;
         studentScore = question['points'];
