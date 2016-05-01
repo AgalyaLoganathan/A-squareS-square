@@ -902,7 +902,7 @@ bar_enter.append("text")
 			// drawStackedBar();
 			$.ajax({url: "dataset", success: function(result){
 				console.log(result);
-				drawStackedBar(result.dataset)
+				drawStackedBar(result)
 			}});
 			$.ajax({url:"radarTopics", success: function(result){
 				console.log(result);

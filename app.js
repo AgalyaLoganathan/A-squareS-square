@@ -677,6 +677,7 @@ app.get('/radarTopics', function(req, res){
         var students= [];
         students.push(topper);
         students.push(currentUser['userName']);
+        console.log("Students" + students);
         StudentPerformance.aggregate([
         { $match: {
         'courseCode': courseCode,
@@ -707,6 +708,8 @@ app.get('/radarTopics', function(req, res){
           if(r['_id']['studentName'] == topper){
               radarTopper.push(r['studentTotalScore']);
           } else {
+              console.log("student Name" + r['_id']['studentName']);
+              console.log("studentToatlScore" + r['_id']['studentTotalScore']);
               radarCurrentStudent.push(r['studentTotalScore']);
           }
         });
@@ -715,7 +718,7 @@ app.get('/radarTopics', function(req, res){
         // console.log(radarTopics);
         var response = {
           'radarTopper': radarTopper,
-          'radarTopics': radarTopics,
+          'radarTopics': _.uniq(radarTopics),
           'radarCurrentStudent': radarCurrentStudent
         }
         console.log(response);
