@@ -29,7 +29,8 @@ var userSchema = new mongoDb.Schema({
   userName: { type: String },
   emailId: { type: String },
   role : { type: String },
-  password : { type: String }
+  password : { type: String },
+  courseCode : {type: String}
 });
 var User = mongoDb.model('User', userSchema);
 
@@ -183,7 +184,7 @@ app.post("/login", function(req, res){
     }
     if(user) {
         currentUser = user;
-        if(user['role'] == 'student') {
+        if(user['role'] == 'Student') {
 
           var results  = {
             'userDetails': currentUser,
@@ -331,6 +332,7 @@ app.get('/typography.ejs', function(req,res){
 // });
 
 app.get('/profile', function(req,res){
+    console.log(currentUser);
     res.render('student_screens/user.ejs', currentUser);
 });
 

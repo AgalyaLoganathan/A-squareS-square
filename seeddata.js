@@ -9,26 +9,27 @@ db.createCollection("users",{
   userName: { type: String },
   emailId: { type: String },
   role : { type: String },
-  password : { type: String }
+  password : { type: String },
+  courseCode : {type: String}
 })
 
 // Populate user Collection
-db.users.insert( {userName:"S1",emailId:"S1@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S2",emailId:"S2@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S3",emailId:"S3@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S4",emailId:"S4@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S5",emailId:"S5@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S6",emailId:"S6@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S7",emailId:"S7@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S8",emailId:"S8@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S9",emailId:"S9@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S10",emailId:"S10@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S11",emailId:"S11@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S12",emailId:"S12@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S13",emailId:"S13@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S14",emailId:"S14@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"S15",emailId:"S15@asu.edu",role:"Student",password:"123"} )
-db.users.insert( {userName:"I1",emailId:"I1@asu.edu",role:"Instructor",password:"123"} )
+db.users.insert( {userName:"S1",emailId:"S1@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S2",emailId:"S2@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S3",emailId:"S3@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S4",emailId:"S4@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S5",emailId:"S5@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S6",emailId:"S6@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S7",emailId:"S7@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S8",emailId:"S8@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S9",emailId:"S9@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S10",emailId:"S10@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S11",emailId:"S11@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S12",emailId:"S12@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S13",emailId:"S13@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S14",emailId:"S14@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"S15",emailId:"S15@asu.edu",role:"Student",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
+db.users.insert( {userName:"I1",emailId:"I1@asu.edu",role:"Instructor",password:"123",courseCode:"CSE 280 - Intro to JAVA Programming"} )
 
 db.calendars.drop()
 db.createCollection("calendars",{
