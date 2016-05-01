@@ -1,4 +1,6 @@
-use quiz_of_the_day1
+use quiz_of_the_day
+db.dropDatabase()
+use quiz_of_the_day
 
 db.users.drop()
 
@@ -59,21 +61,21 @@ db.createCollections("studentinitialstrengthquizzes",{
   isExpert: Boolean
 })
 
-db.studentinitialstrengthquizzes.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:true})
-db.studentinitialstrengthquizzes.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
-db.studentinitialstrengthquizzes.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpect:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:true})
+db.studentinitialstrengthquizzes.insert({studentName:"S2",studentEmail:"S2@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S3",studentEmail:"S3@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S4",studentEmail:"S4@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S5",studentEmail:"S5@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S6",studentEmail:"S6@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S7",studentEmail:"S7@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S8",studentEmail:"S8@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S9",studentEmail:"S9@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S10",studentEmail:"S10@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S11",studentEmail:"S11@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S12",studentEmail:"S12@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
+db.studentinitialstrengthquizzes.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",isExpert:false})
 
 db.courses.drop()
 
@@ -170,7 +172,7 @@ db.createCollection("quizquestions",{
   weekId: Number
 })
 
- 
+
 
 // Populate questions Table
 
@@ -186,7 +188,7 @@ db.quizquestions.insert({questionId:4,questionsText:"Which type of literal is wr
 db.quizquestions.insert({questionId:5,questionsText:"When a data type must contain decimal numbers, assign the type",options:  ["Integer","Character","Double","Boolean"],correctAnswer:3,points: 1,difficultylevel:"easy",topic:"Introduction to programming and Expressions",subTopic:"Variables",InstructorUrl:"",weekId:1})
 
 
-// Week 2 
+// Week 2
 
 db.quizquestions.insert({questionId:6,questionsText:"Which of these class relies upon its subclasses for complete implementation of its methods?",options:  ["Object Class","abstract class","Arraylist Class","None of the above"],correctAnswer:2,points: 1,difficultylevel:"easy",topic:"Classes,Objects and Design",subTopic:"Objects",InstructorUrl:"",weekId:2})
 
@@ -259,7 +261,7 @@ db.studentperformances.insert({studentName:"S14",studentEmail:"S14@asu.edu",cour
 
 db.studentperformances.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:1,topic:"Introduction to programming and Expressions",subTopic:"Java Platform",submittedAnswer:3,isCorrect:true,weekId:1})
 
-// Question 2 data 
+// Question 2 data
 
 db.studentperformances.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Strong",questionId:2,topic:"Introduction to programming and Expressions",subTopic:"OOPs Concepts",submittedAnswer:2,isCorrect:true,weekId:1})
 
@@ -420,7 +422,7 @@ db.studentperformances.insert({studentName:"S14",studentEmail:"S14@asu.edu",cour
 db.studentperformances.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:1,strengthCategory:"Weak",questionId:6,topic:"Classes,Objects and Design",subTopic:"Objects",submittedAnswer:3,isCorrect:true,weekId:2})
 
 
-// Question 7 
+// Question 7
 
 db.studentperformances.insert({studentName:"S1",studentEmail:"S1@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:0,strengthCategory:"Strong",questionId:7,topic:"Classes,Objects and Design",subTopic:"Classes",submittedAnswer:3,isCorrect:false,weekId:2})
 
@@ -550,7 +552,7 @@ db.studentperformances.insert({studentName:"S14",studentEmail:"S14@asu.edu",cour
 db.studentperformances.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",studentScore:2,strengthCategory:"Weak",questionId:10,topic:"Classes,Objects and Design",subTopic:"Constructors",submittedAnswer:2,isCorrect:true,weekId:2})
 
 
-// Initial Quiz 
+// Initial Quiz
 
 
 db.studentinitialquizzes.drop()
@@ -1043,4 +1045,3 @@ topic:"Exceptions",subTopic:"Throw Catch",isCorrect:true})
 
 db.studentinitialquizzes.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming",questionId:10,
 topic:"Threads",subTopic:"Threads",isCorrect:true})
-
