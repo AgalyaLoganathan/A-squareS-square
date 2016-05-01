@@ -793,7 +793,169 @@ var mailOptions = {
 }); */
 
 
+/* visualizations endpoint */
+app.get('/dataset', function(req, res){
+    var results = StudentPerformance.aggregate([
+       { $match: {
+        'courseCode': courseCode,
+        'studentName': currentUser['userName']
+       }},
+       { $group: { _id : {
+                  'subTopic' : '$subTopic',
+                  'weekId': '$weekId'
+                          },
+                  studentTotalScore:
+                   { $sum: '$studentScore'}
+                }
+      }
+    ]).exec(function ( e, d ) {
+      //{label:"week2", "a":5, "b":30, "c": 50, "d":15},
+        var dataset = [];
+        console.log("Output ");
+        results = d;
+        var weekIds = [];
+        _.each(results, function(r){
+          weekIds.push(r['_id']['weekId']);
+        });
+        weeIds = _.uniq(weekIds);
+        var groupedResult = _.groupBy(results, function(r){
+            return r['_id']['weekId'];
+        });
 
+        _.each(weekIds, function(weekId){
+          var temp = {'label' : "week"+weekId};
+          var subTopics = groupedResult[weekId];
+          _.each(subTopics, function(s){
+            temp[s['_id']['subTopic']] = s['studentTotalScore'];
+          })
+          dataset.push(temp);
+        })
+
+        // res.render('student_screens/table.ejs', {'results': results});
+        console.log(dataset);
+        res.json(dataset);
+    });
+});
+
+app.get('/radarTopics', function(req, res){
+  StudentPerformance.aggregate([
+       { $match: {
+        'courseCode': courseCode
+       }},
+       { $group: { _id : '$studentName',
+                  studentTotalScore:
+                   { $sum: '$studentScore'}
+                }
+      },
+      {
+        $sort: {
+         studentTotalScore : -1
+        }
+      }
+    ]).exec(function ( e, d ) {
+        results = d;
+        var topper = results[0]['_id'];
+        var students= [];
+        students.push(topper);
+        students.push(currentUser['userName']);
+        StudentPerformance.aggregate([
+        { $match: {
+        'courseCode': courseCode,
+        'studentName' : { $in: students}
+        }},
+       { $group: { _id : {
+                  'topic' : '$topic',
+                  'studentName': '$studentName'
+                  },
+                  studentTotalScore:
+                   { $sum: '$studentScore'}
+                }
+      },
+      {
+        $sort: {
+         studentTotalScore : -1
+        }
+      }
+    ]).exec(function ( e, result) {
+      var radarTopper = [];
+      var radarCurrentStudent = [];
+      var radarTopics = [];
+      //[ { _id: { topic: 'blah', studentName: 's1' },
+    // studentTotalScore: 6 } ]
+        console.log("Output ");
+        _.each(result, function(r){
+          radarTopics.push(r['_id']['topic']);
+          if(r['_id']['studentName'] == topper){
+              radarTopper.push(r['studentTotalScore']);
+          } else {
+              radarCurrentStudent.push(r['studentTotalScore']);
+          }
+        });
+        console.log(radarTopper);
+        console.log(radarCurrentStudent);
+        console.log(radarTopics);
+        var response = {
+          'radarTopper': radarTopper,
+          'radarTopics': radarTopics,
+          'radarCurrentStudent': radarCurrentStudent
+        }
+        res.json(response);
+    });
+  });
+});
+
+app.get('/heatmap', function(req, res){
+   StudentPerformance.aggregate([
+       { $match: {
+        'courseCode': courseCode
+       }},
+       { $group: { _id : {
+            studentName: '$studentName',
+            topic: '$topic'},
+                  studentTotalScore:
+                   { $sum: '$studentScore'}
+                }
+      },
+      {
+        $sort: {
+         studentTotalScore : -1
+        }
+      }
+    ]).exec(function ( e, d ) {
+    //   [ { _id: { studentName: 's1', topic: 'blah' },
+    // studentTotalScore: 6 } ]
+        var finalResult = [];
+        var studentNames = [];
+        var topics = [];
+        _.each(d, function(entry){
+            studentNames.push(entry['_id']['studentName']);
+            topics.push(entry['_id']['topic']);
+        })
+        topics = _.uniq(topics);
+        studentNames = _.uniq(studentNames);
+        _.each(studentNames, function(s){
+          var temp = { "text" : s};
+          var scores = [];
+          _.each(topics, function(topic){
+              var scoreOfStud = _.find(d, function(e) {
+                 return e['_id']['studentName'] == s &&
+                  e['_id']['topic'] == topic;
+              });
+              if(scoreOfStud == undefined){
+                scores.push(0);
+              }else{
+                scores.push(scoreOfStud['studentTotalScore']);
+              }
+          });
+          temp["values"] = scores;
+          finalResult.push(temp);
+        });
+        res.json({
+          "heatMapY": finalResult,
+          "heatMapX": topics
+        })
+    });
+});
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
