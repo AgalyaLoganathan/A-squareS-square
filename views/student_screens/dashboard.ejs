@@ -58,7 +58,7 @@
 <div class="sidebar-wrapper">
 	<div class="logo">
 		<a href=# class="simple-text">
-			Hello!  <%= results.userDetails %>
+			Hello!  <%= results.userDetails.userName %>
 		</a>
 	</div>
 
@@ -201,6 +201,17 @@
 							        <div class="col-md-offset-2 col-md-8">
 							            <div id="quizSection" class="carousel-inner">
 
+    <% if (results.input.length == 0) { %>
+         <div class = "item active" id="questions" style="height: 430px;">
+         <div class="carousel-content" style="height: 430px;">
+        <div class="panel-head">
+        </div>
+        <div class="panel-body">
+             No Questions To Display
+        </div>
+        </div>
+        </div>
+    <% } else { %>
     <% for(var i=0;i < results.input.length ;i++) { %>
         <% if(results.input[i].today) { %>
             <div class = "item active" id="questions" style="height: 430px;">
@@ -239,6 +250,7 @@
              </div>
             </div>
              <% } %>
+                 <% } %>
 
 
 							            </div>
@@ -292,7 +304,15 @@
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
-                                        <% for(var k =0; k < results.input[0].reading_materials.length; k++) { %>
+                                            <% if(results.input.length == 0) { %>
+                                            <tr>
+                                                <td>  No Recommendations Available
+                                                </td>
+                                            </tr>
+                                            <% } else { %>
+
+
+                                            <% for(var k =0; k < results.input[0].reading_materials.length; k++) { %>
                                             <tr>
                                                 <td><%=results.input[0].reading_materials[k].reco_text %></td>
                                                 <td class="td-actions text-right">
@@ -312,6 +332,7 @@
                                                     </form>
                                                 </td>
                                             </tr>
+                                            <% } %>
                                             <% } %>
                                         </tbody>
                                     </table>

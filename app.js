@@ -129,7 +129,6 @@ var QuestionRecommendationSchema = mongoDb.model('questionRecommendation', quest
 app.post('/updateUsefulReco',  function(req, res){
     var input = req.body;
     console.log("hello");
-    //{ question_id: '9', reco_text: 'url1' }
     console.log(input);
     QuestionRecommendationSchema.update(
             {'recommendations.text' : req.body.reco.text,
@@ -158,21 +157,6 @@ app.post('/updateNotUsefulReco',  function(req, res){
   );
 });
 
-// app.post('/updateRecommendations',  function(req, res){
-//     var input = req.body;
-//     _.each(input, function(reco){
-//           QuestionRecommendationSchema.update(
-//             {'recommendations.text' : reco.text},
-//             { $set:
-//               {
-//                 'recommendations.isuseful': reco.isuseful
-//                }
-//             }
-//           );
-//     });
-// });
-
-
 var courseCode = "CSE 280 - Intro to JAVA Programming";
 var currentWeekId = 5;
 
@@ -200,17 +184,19 @@ app.post("/login", function(req, res){
     if(user) {
         currentUser = user;
         if(user['role'] == 'student') {
-          var userDetails = {
-            'userName' : currentUser["userName"]
+
+          var results  = {
+            'userDetails': currentUser,
+            'input': []
           }
-          res.render('student_screens/dashboard.ejs', {'results' : userDetails});
+          res.render('student_screens/dashboard.ejs', {'results' : results});
+
         } else{
           res.render('instructor-home.ejs');
         }
     }
     else {
-    //   res.render('login.ejs', {message:'Incorrect user name or password.'});
-    res.render('student_screens/dashboard.ejs', {'results' : userDetails});
+    res.render('login.ejs', {message:'Incorrect user name or password.'});
     }
   });
 });
@@ -315,10 +301,11 @@ app.post('/save_initial_quiz', function(req, res){
             isExpert: False
         }).save();
       }
-      var userDetails = {
-            'userName' : currentUser["userName"]
-          }
-      res.render('student_screens/dashboard.ejs', {'results' : userDetails});
+      var results  = {
+            'userDetails': currentUser,
+            'input': []
+      }
+      res.render('student_screens/dashboard.ejs', {'results' : results});
     }
   });
  });
@@ -326,12 +313,6 @@ app.post('/save_initial_quiz', function(req, res){
 })  ;
 
 /* student screen */
-app.get('/student_home', function(req, res){
-    var userDetails = {
-            'userName' : currentUser["userName"]
-          }
-    res.render('student_screens/dashboard.ejs', userDetails);
-});
 
 app.get('/student_course', function(req, res){
     res.render('student_screens/student_course.ejs');
@@ -459,9 +440,13 @@ app.post('/update_student_performance', function(req, res){
       subTopic: question['subTopic'],
       isCorrect: isCorrect,
       weekId: currentWeekId
-    }).save(function(err, res){
+    }).save(function(err, results){
       console.log("saved");
-      res.end();
+      var results  = {
+            'userDetails': currentUser,
+            'input': []
+      }
+      res.render('student_screens/dashboard.ejs', {'results' : results});
     });
   // });
 });
@@ -477,27 +462,6 @@ app.get('/get_weekly_performance', function(req, res){
 });
 
 app.get('/table', function(req, res){
-  // var currentUserName = currentUser['userName'];
-
-  var currentUserName = 's1';
-  // StudentCourse.findOne({'studentName': currentUserName}, function(err, user){
-  //   console.log("Found user");
-  //   var courseCode = user['courseCode'];
-  //   console.log("course code " + courseCode);
-  //   var results = StudentPerformance.group({
-  //   "key": {
-  //       "studentName": true
-  //   },
-  //   "initial": {
-  //       "sumstudentScore": 0
-  //   },
-  //   "reduce": function(obj, prev) {
-  //       prev.sumstudentScore = prev.sumstudentScore + obj.studentScore - 0;
-  //   },
-  //   "cond": {
-  //       "courseCode": courseCode
-  //   }
-  // });
       var results = StudentPerformance.aggregate([
        { $match: {
         'courseCode': courseCode,
@@ -518,10 +482,8 @@ app.get('/table', function(req, res){
         results = d;
         console.log(results);
         res.render('student_screens/table.ejs', {'results': results});
-        // res.json(results);
     });
 });
-
 
 app.get('/study_groups_test', function(req, res){
 var currentWeekId = 5;
@@ -582,20 +544,6 @@ StudentPerformance.find({
       }});
       });
 
-function processTutorResults(flag){
-
-   console.log("Tutors are " + tutors);
-        if(tutors && tutors.length > 0) {
-            console.log("Finally " + tutors);
-            return tutors;
-        // }else{
-        //   console.log("No output");
-        //   // res.render("student_screens/study_groups.ejs",
-        //   //   {'message': 'We dont have any tutors to help you'}
-        //   //   );
-        }
-    flag
-}
 
 function getTutorStudents(topic){
   var relatedTopics = [topic];
@@ -613,26 +561,6 @@ app.post('/instructor-home', function(req, res){
 app.get('/instructor-home', function(req, res){
     res.render('instructor-home.ejs');
 });
-
-app.get('/add-quiz', function(req, res){
-  res.render('add-quiz.ejs');
-});
-
-app.get('/test', function(req, res){
-  res.render('stacked-chart.ejs');
-});
-
-app.get('/test2', function(req, res){
-  res.render('stud-performance-by-topic.ejs');
-});
-
-app.get('/test3', function(req, res){
-  res.sendFile(__dirname+'/views/by-topic.html');
-});
-
-// app.post('/dashboard', function(req, res){
-//     res.render('dashboard.ejs', {'name': req.body.name});
-// });
 
 /* test e-mail
 app.post('/testing', function(req, res){
