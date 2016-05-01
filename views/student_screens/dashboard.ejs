@@ -76,7 +76,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="table">
+			<a href="table.ejs">
 				<i class="pe-7s-note2"></i>
 				<p>Leaderboard</p>
 			</a>
@@ -213,33 +213,33 @@
         </div>
     <% } else { %>
     <% for(var i=0;i < results.input.length ;i++) { %>
-        <% if(results.input[i].today) { %>
+        <!-- <% if(results.input[i].today) { %> -->
             <div class = "item active" id="questions" style="height: 430px;">
-        <% } else { %>
-            <div class = "item " id="questions" style="height: 430px;">
-        <% } %>
+        <!-- <% } else { %> -->
+            <!-- <div class = "item " id="questions" style="height: 430px;"> -->
+        <!-- <% } %> -->
         <% var temp = results.input[i] %>
         <div class="carousel-content" style="height: 430px;">
         <div class="panel-head">
-        <h3 style="text-align: center;">  <%= temp.topic %> </h3>
+        <h3 style="text-align: center;"> <%= "Question " + temp.questionId %>  </h3>
         </div>
         <div class="panel-body">
             <div>
-            <div style="text-align: left; font-size: 10px"><B> <%= temp.subtopic %> </B></div>
-            <div style="text-align: right; font-size: 18px"> <%= temp.question_title %> </div>
+            <div style="text-align: left; font-size: 10px"><B> <%= temp.subTopic %> </B></div>
+            <div style="text-align: right; font-size: 18px"> <%= temp.topic %> </div>
             </div>
         </div>
         <div class="panel-body">
             <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
             <form id="student_course_quiz_question" method="POST" action="/update_student_performance">
               <div class="form-group">
-                <p class="question_block"> <%= temp.question_text %>  </p>
-                <input type="text" name="question_text" value="<%= temp.question_text %>" style="display: none;">
+                <p class="question_block"> <%= temp.questionsText %>  </p>
+                <input type="text" name="question_text" value="<%= temp.questionsText %>" style="display: none;">
               </div>
-               <% for(var j=0;  j < temp.question_options.length; j++) { %>
+               <% for(var j=0;  j < temp.options.length; j++) { %>
                 <div class="radio">
                 <label>
-                  <input type="radio" name="options" value="<%= temp.question_options[j] %>"> <%= temp.question_options[j] %>
+                  <input type="radio" name="options" value="<%= temp.options[j] %>"> <%= temp.options[j] %>
                 </label>
                 </div>
                 <% } %>
@@ -304,7 +304,10 @@
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
-                                            <% if(results.input.length == 0) { %>
+                                            <% console.log(results) %>
+                                            <% if(results.input.length == 0 ||
+                                            results.input.reading_materials == undefined ||
+                                             results.input.reading_materials.length == 0 ) { %>
                                             <tr>
                                                 <td>  No Recommendations Available
                                                 </td>
@@ -442,7 +445,7 @@ function populateHTML(){
 		'      </div> ' +
 		'        <div class="checkbox"> ' +
 		'        <label> ' +
-		'          <input type="checkbox"> ' + temp.question_options[0] +
+		'          <input type="checkbox"> ' + temp.options[0] +
 		'        </label> ' +
 		'      </div> ' +
 

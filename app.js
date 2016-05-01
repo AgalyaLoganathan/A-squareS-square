@@ -78,12 +78,7 @@ var StudentInitialQuiz = mongoDb.model('StudentInitialQuiz', studentInitialQuizS
 var QuizQuestions = new mongoDb.Schema({
   questionId: Number,
   questionText: {type: String},
-  options: [{
-            option1: { type: String },
-            option2: { type: String },
-            option3: { type: String },
-            option4: { type: String }
-        }],
+  options: [{type: String}],
   correctAnswer: { type: String },
   point: Number,
   difficultylevel: { type: String },
@@ -94,19 +89,17 @@ var QuizQuestions = new mongoDb.Schema({
   weekId: Number
 });
 
-var QuizQuestions = mongoDb.model('QuizQuestions', QuizQuestions);
+var QuizQuestion = mongoDb.model('QuizQuestion', QuizQuestions);
 
-var Recommendations = new mongoDb.Schema({
-questionId: Number,
-recommendations: [{
-            recommendationId: Number,
-            recommendationText: { type: String },
-            is_useful: Boolean
-        }]
-
+var QuestionRecommendationSchema = new mongoDb.Schema({
+  weekId: Number,
+  questionId: Number,
+  topic: { type: String },
+  subTopic: { type: String },
+  reco: { type : Array}
 });
 
-var Recommendations = mongoDb.model('Recommendations', Recommendations);
+var QuestionRecommendation = mongoDb.model('QuestionRecommendation', QuestionRecommendationSchema);
 
 var studentInitialQuizStrengthSchema = new mongoDb.Schema({
   studentName: { type: String },
@@ -116,29 +109,25 @@ var studentInitialQuizStrengthSchema = new mongoDb.Schema({
 });
 var StudentInitialStrengthQuiz = mongoDb.model('StudentInitialStrengthQuiz', studentInitialQuizStrengthSchema);
 
-var questionRecommendationSchema = new mongoDb.Schema({
-  questionId: Number,
-  recommendations : {type: Array}
-  /* {
-      text: "ac",
-      isuseful: true/false
-    } */
-
+var CalendarsSchema = new mongoDb.Schema({
+  weekId: Number,
+  startDate : { type: Date},
+  endDate : { type: Date }
 });
-var QuestionRecommendationSchema = mongoDb.model('questionRecommendation', questionRecommendationSchema);
+var Calendar = mongoDb.model('Calendar', CalendarsSchema);
 
 app.post('/updateUsefulReco',  function(req, res){
     var input = req.body;
     console.log("hello");
     console.log(input);
-    QuestionRecommendationSchema.update(
-            {'recommendations.text' : req.body.reco.text,
+    QuestionRecommendation.update(
+        {'reco.recotext' : req.body.reco.text,
               'questionId': req.body.question_id },
             { $set:
               {
-                'recommendations.isuseful': true
+                'reco.is_useful': true
                }
-            }
+        }
   );
 });
 
@@ -147,14 +136,14 @@ app.post('/updateNotUsefulReco',  function(req, res){
     console.log("hello");
     //{ question_id: '9', reco_text: 'url1' }
     console.log(input);
-    QuestionRecommendationSchema.update(
-            {'recommendations.text' : req.body.reco.text,
-              'questionId': req.body.question_id },
+    QuestionRecommendation.update(
+        {'reco.recotext' : req.body.reco.text,
+          'questionId': req.body.question_id },
             { $set:
               {
-                'recommendations.isuseful': false
+                'reco.is_useful': false
                }
-            }
+        }
   );
 });
 
@@ -355,59 +344,43 @@ app.get('/study_group.ejs', function(req, res){
 
 
 app.get('/dashboard.ejs', function(req, res){
-    var userDetails = {
-      'userName' : currentUser["userName"]
-    }
-    var input = [{
-    "week_number": 2,
-    "question_id": 9,
-    "topic" : "balh",
-    "subtopic" : "balh",
-    "question_title": "Question 9",
-    "question_text": "A process can be",
-    "today": true,
-    "question_options":[
-        "Single threaded",
-        "Multi threaded",
-    "both single and multithreaded",
-    "none of the above"
-    ],
-    "reading_materials" : [
-     {"reco_text" : "url1"},
-     {"reco_text" : "url2"},
-    ]
-    // },{
-    // "week_number": 2,
-    // "question_id": 10,
-    // "topic" : "balh",
-    // "subtopic" : "ba",
-    // "today": false,
-    // "question_title": "Question 10",
-    // "question_text": "A process can be",
-    // "question_options":[
-    //   "Single threaded",
-    //   "Multi threaded",
-    // "both single and multithreaded",
-    // "none of the above"
-    // ],
-    // "reading_materials" : [
-    // "url1",
-    // "url2"
-    // ]
-    }];
-    var results = { 'userDetails': userDetails,
-      'input': input}
-    res.render('student_screens/dashboard.ejs', { results } );
-  // Questions.find({
-  //   'weekId' : currentWeekId
-  //   'questionId': questionId,
-  //   }, function(err, result){
-  //     Recommendations.find({
-  //       'questionId' : result[questionId],
-  //       'weekId': result[weekId]}, function(err, reco){
-  //           result['reading_materials'] = reco['reco'];
-  //       });
-  // });
+    console.log("Entered");
+    var currentWeekId ;
+    var questionId;
+    var userDetails = currentUser;
+    var today = new Date("2016/04/27");
+    console.log(today);
+    Calendar.findOne({
+      'startDate' : { $lte : today},
+      'endDate': {$gte: today}
+    }, function(err, entry){
+      console.log("Date Diff");
+      var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      questionId = diffDays + (entry['weekId'] -1) *5;
+      currentWeekId = entry['weekId'];
+      console.log(questionId);
+      console.log(currentWeekId);
+        QuizQuestion.find({
+        'weekId' : currentWeekId,
+        'questionId': questionId
+        }, function(err, result){
+          console.log("Options");
+          console.log((result[0]['options']));
+          result['reading_materials'] = [];
+          QuestionRecommendation.find({
+            'questionId' : result['questionId'],
+            'weekId': result['weekId']}, function(err, reco){
+                result['reading_materials'] = reco['reco'];
+                var finalResult = [];
+                finalResult.push(result);
+                var results = { 'userDetails': userDetails,
+                'input': result}
+                // console.log(results);
+                res.render('student_screens/dashboard.ejs', { results } );
+            });
+        });
+    });
 });
 
 app.post('/update_student_performance', function(req, res){

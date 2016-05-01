@@ -1,0 +1,52 @@
+Searching 2368 files for "table.ejs"
+
+/Users/agalya/Documents/education/spring_16/adp_web/quiz/app.js:
+  456  });
+  457
+  458: app.get('/table', function(req,res){
+  459:     res.render('student_screens/table.ejs');
+  460  });
+  461
+  ...
+  565          results = d;
+  566          console.log(results);
+  567:         res.render('student_screens/table.ejs', {'results': results});
+  568          // res.json(results);
+  569      });
+
+/Users/agalya/Documents/education/spring_16/adp_web/quiz/views/student_screens/dashboard.ejs:
+  144  		</li>
+  145  		<li>
+  146: 			<a href="table">
+  147  				<i class="pe-7s-note2"></i>
+  148  				<p>Leaderboard</p>
+
+/Users/agalya/Documents/education/spring_16/adp_web/quiz/views/student_screens/study_group.ejs:
+   60  			</li>
+   61  			<li>
+   62: 				<a href="table">
+   63  					<i class="pe-7s-note2"></i>
+   64  					<p>Leaderboard</p>
+
+/Users/agalya/Documents/education/spring_16/adp_web/quiz/views/student_screens/table.ejs:
+   65  			</li>
+   66  			<li class="active">
+   67: 				<a href="table">
+   68  					<i class="pe-7s-note2"></i>
+   69  					<p>Leaderboard</p>
+
+/Users/agalya/Documents/education/spring_16/adp_web/quiz/views/student_screens/typography.ejs:
+  194  			</li>
+  195  			<li>
+  196: 				<a href="table">
+  197  					<i class="pe-7s-note2"></i>
+  198  					<p>Leaderboard</p>
+
+/Users/agalya/Documents/education/spring_16/adp_web/quiz/views/student_screens/user.ejs:
+   60  			</li>
+   61  			<li>
+   62: 				<a href="table">
+   63  					<i class="pe-7s-note2"></i>
+   64  					<p>Leaderboard</p>
+
+8 matches across 6 files

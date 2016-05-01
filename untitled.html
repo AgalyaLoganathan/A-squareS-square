@@ -1,0 +1,33 @@
+<div class = "item active" id="questions" style="height: 430px;">
+    <% for(i=0;i< q.length ;i++){ %>
+        <% var temp = q[i] %>
+        <div class="carousel-content" style="height: 430px;">
+        <div class="panel-head">
+        <h3 style="text-align: center;">  <%= temp.topic %> </h3>
+        </div>
+        <div class="panel-body">
+            <div>
+            <div style="text-align: left; font-size: 20px"><B> <%= temp.subtopic %> </B></div>
+            <div style="text-align: right; font-size: 18px"> <%= temp.question_title %> </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
+            <form id="student_course_quiz_question" method="POST" action="/update_student_performance">
+              <div class="form-group">
+                <p class="question_block"> <%= temp.question_text %>  </p>
+              </div>
+               <% for(var j=0;  j < temp.question_options; j++) { %>
+                <div class="checkbox">
+                <label>
+                  <input type="checkbox"> <%= temp.question_options[i] %>
+                </label>
+                </div>
+                %>
+              <button type="submit" class="btn btn-primary student_quiz_submission" style="text-align: center;">Submit</button>
+            </form>
+            </div>
+              </div>
+             </div>
+         </div>
+        </div></div>

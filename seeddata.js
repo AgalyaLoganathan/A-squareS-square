@@ -38,9 +38,9 @@ db.createCollection("calendars",{
   endDate : { type: Date }
 })
 
-db.calendars.insert({weekId:1,startDate: new Date('04-18-2016'),endDate: new Date('04-24-2016')})
-db.calendars.insert({weekId:2,startDate: new Date('04-25-2016'),endDate: new Date('05-01-2016')})
-db.calendars.insert({weekId:3,startDate: new Date('05-02-2016'),endDate: new Date('05-08-2016')})
+db.calendars.insert({weekId:1,startDate: new Date('04-18-2016'),endDate: new Date('04-22-2016')})
+db.calendars.insert({weekId:2,startDate: new Date('04-25-2016'),endDate: new Date('04-29-2016')})
+db.calendars.insert({weekId:3,startDate: new Date('05-02-2016'),endDate: new Date('05-06-2016')})
 
 
 db.questionrecommendations.drop()
@@ -164,7 +164,7 @@ db.quizquestions.drop()
 db.createCollection("quizquestions",{
   questionId: Number,
   questionText: {type: String},
-  options: { type : Array},
+  options: [{type: String}],
   correctAnswer: Number,
   points: Number,
   difficultylevel: { type: String },
