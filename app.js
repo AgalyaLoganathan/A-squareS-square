@@ -175,147 +175,6 @@ app.post('/updateNotUsefulReco',  function(req, res){
 
 var courseCode = "CSE 280 - Intro to JAVA Programming";
 var currentWeekId = 5;
-// test data population
-app.get('/populateTestData', function(req, res){
-  /* new StudentCourse({
-    studentName: "s1",
-    studentEmail: "s1@asu.edu",
-    courseCode: "CSE 280 - Intro to JAVA Programming"
-  }).save(); */
-
-  /*new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 's1',
-    'studentEmail': 's1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 1,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Strong',
-    'questionId': 100,
-    'submittedAnswer': 'yes',
-    'isCorrect': true,
-    'weekId': 1
-  }).save();
-
-new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 's1',
-    'studentEmail': 's1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 1,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Strong',
-    'questionId': 101,
-    'submittedAnswer': 'yes',
-    'isCorrect': true,
-    'weekId': 1
-  }).save();
-
-new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 's1',
-    'studentEmail': 's1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 1,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Strong',
-    'questionId': 102,
-    'submittedAnswer': 'yes',
-    'isCorrect': true,
-    'weekId': 2
-  }).save();
-
-new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 's1',
-    'studentEmail': 's1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 1,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Strong',
-    'questionId': 103,
-    'submittedAnswer': 'yes',
-    'isCorrect': true,
-    'weekId': 2
-  }).save();
-
-  new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 'alogana1',
-    'studentEmail': 'alogana1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 1,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Strong',
-    'questionId': 100,
-    'submittedAnswer': 'yes',
-    'isCorrect': true,
-    'weekId': 1
-  }).save();
-
-new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 'alogana1',
-    'studentEmail': 'alogana1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 1,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Weak',
-    'questionId': 101,
-    'submittedAnswer': 'yes',
-    'isCorrect': false,
-    'weekId': 1
-  }).save();
-
-new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 'alogana1',
-    'studentEmail': 'alogana1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 0,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Weak',
-    'questionId': 102,
-    'submittedAnswer': 'yes',
-    'isCorrect': false,
-    'weekId': 2
-  }).save();
-
-new StudentPerformance({
-    'courseCode': 'CSE 280 - Intro to JAVA Programming',
-    'studentName': 'alogana1',
-    'studentEmail': 'alogana1@asu.edu',
-    'totalScore': 10,
-    'studentScore': 0,
-    'topic': 'Arrays',
-    'subTopic': 'Definition',
-    'strengthCategory': 'Weak',
-    'questionId': 103,
-    'submittedAnswer': 'yes',
-    'isCorrect': false,
-    'weekId': 2
-  }).save(); */
-
-new StudentCourse({
-  'studentName': 's1',
-  'studentEmail': 's1@asu.edu',
-  courseCode: 'CSE 280 - Intro to JAVA Programming'
-}).save();
-
-new StudentCourse({
-  'studentName': 'alogana1',
-  'studentEmail': 'alogana1@asu.edu',
-  courseCode: 'CSE 280 - Intro to JAVA Programming'
-}).save();
-});
-
 
 // current user
 var currentUser = {
@@ -414,12 +273,7 @@ app.get('/testing', function(req, res){
 
 app.get('/instructor-performance', function(req, res){
     res.render('instructor-performance.ejs');
-    // res.render('student-performance.ejs');
 });
-
-// app.get('/leaderboard', function(req, res){
-//     res.render('leaderboard.ejs');
-// });
 
 /* save initial quiz */
 app.post('/save_initial_quiz', function(req, res){
@@ -516,13 +370,6 @@ app.get('/study_group.ejs', function(req, res){
     res.render("student_screens/study_group.ejs");
 });
 
-// app.get('/dashboard.ejs', function(req, res){
-//     var userDetails = {
-//       'userName' : currentUser["userName"]
-//     }
-//     res.render("student_screens/dashboard.ejs", userDetails);
-// });
-
 
 app.get('/dashboard.ejs', function(req, res){
     var userDetails = {
@@ -565,13 +412,18 @@ app.get('/dashboard.ejs', function(req, res){
     // "url2"
     // ]
     }];
-    var results = { 'userDetails': userDetails,
-      'input': input}
-    res.render('student_screens/dashboard.ejs', { results } );
+  //   var results = { 'userDetails': userDetails,
+  //     'input': input}
+  //   res.render('student_screens/dashboard.ejs', { results } );
   // Questions.find({
   //   'weekId' : currentWeekId
-  // }, function(err, results){
-  //     res.json(results);
+  //   'questionId': questionId,
+  //   }, function(err, result){
+  //     Recommendations.find({
+  //       'questionId' : result[questionId],
+  //       'weekId': result[weekId]}, function(err, reco){
+  //           result['reading_materials'] = reco['reco'];
+  //       });
   // });
 });
 
