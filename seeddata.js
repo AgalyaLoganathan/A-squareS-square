@@ -1,4 +1,4 @@
-use quiz_of_the_day_test
+use quiz_of_the_day
 
 db.user.drop()
 
@@ -27,6 +27,26 @@ db.user.insert( {userName:"S13",emailId:"S13@asu.edu",role:"Student",password:"1
 db.user.insert( {userName:"S14",emailId:"S14@asu.edu",role:"Student",password:"123"} )
 db.user.insert( {userName:"S15",emailId:"S15@asu.edu",role:"Student",password:"123"} )
 db.user.insert( {userName:"I1",emailId:"I1@asu.edu",role:"Instructor",password:"123"} )
+
+db.calendar.drop()
+db.createCollection("calendar",{
+  weekId: Number,
+  startDate : { type: Date},
+  endDate : { type: Date }
+})
+
+db.calendar.insert({weekId:1,startDate: new Date('04-18-2016'),endDate: new Date('04-24-2016')})
+db.calendar.insert({weekId:2,startDate: new Date('04-25-2016'),endDate: new Date('05-01-2016')})
+db.calendar.insert({weekId:3,startDate: new Date('05-02-2016'),endDate: new Date('05-08-2016')})
+
+
+db.createCollection("lucenereco",{
+  weekId: Number,
+  topic: { type: String },
+  subTopic: { type: String },
+  reco: { type : Array}
+})
+
 
 db.course.drop()
 
