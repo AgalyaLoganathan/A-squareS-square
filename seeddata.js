@@ -47,6 +47,8 @@ db.createCollection("lucenereco",{
   reco: { type : Array}
 })
 
+db.lucenereco.insert({weekId:1,topic:"Polymorphism",subTopic:"Constructors",reco:[{recotext:"reco1",is_useful:1}, {recotext:"reco2",is_useful:1} ]})
+
 
 db.course.drop()
 
