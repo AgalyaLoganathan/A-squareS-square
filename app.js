@@ -150,11 +150,11 @@ var courseCode = "CSE 280 - Intro to JAVA Programming";
 var currentWeekId = 5;
 
 // current user
-var currentUser = {
-  'userName': 's1',
-  'emailId': 's1@asu.edu',
-  'courseCode' : "CSE 280 - Intro to JAVA Programming"
-}
+// var currentUser = {
+//   'userName': 's1',
+//   'emailId': 's1@asu.edu',
+//   'courseCode' : "CSE 280 - Intro to JAVA Programming"
+// }
 app.get('/', function(req, res){
     res.render('login.ejs');
 });
@@ -630,7 +630,8 @@ app.get('/dataset', function(req, res){
     ]).exec(function ( e, d ) {
       //{label:"week2", "a":5, "b":30, "c": 50, "d":15},
         var dataset = [];
-        console.log("Output Dataset");
+        var visitedWeekIds = [];
+        var subTopicsTotal = [];
         results = d;
         var weekIds = [];
         _.each(results, function(r){
@@ -642,12 +643,36 @@ app.get('/dataset', function(req, res){
         });
 
         _.each(weekIds, function(weekId){
-          var temp = {'label' : "week"+weekId};
-          var subTopics = groupedResult[weekId];
-          _.each(subTopics, function(s){
-            temp[s['_id']['subTopic']] = s['studentTotalScore'];
+            // console.log(groupedResult[weekId]);
+            // console.log("next");
+            //var subTopicsTotal = _.union(subTopicsTotal,groupedResult[weekId]);
+            _.each(groupedResult[weekId], function(subTopic){
+                // console.log(subTopic['_id']['subTopic']);
+                var subTopicToAdd = subTopic['_id']['subTopic'];
+                var subTopicsTotalContains = _.contains(subTopicsTotal, subTopicToAdd);
+                // console.log(subTopicToAdd);
+                //console.log(subTopicsTotalContains);
+                if (subTopicsTotalContains == false){
+                    subTopicsTotal.push(subTopic['_id']['subTopic']);
+                }
+            });
+        });
+
+        _.each(weekIds, function(weekId){
+              var temp = {'label' : "week"+weekId};
+              var subTopics = groupedResult[weekId];
+              _.each(subTopicsTotal, function(subTopicName){
+                  temp[subTopicName] = 0;
+              })
+              _.each(subTopics, function(s){
+                    temp[s['_id']['subTopic']] = s['studentTotalScore'];
+                    console.log(s);
           })
-          dataset.push(temp);
+          var found = _.contains(visitedWeekIds, weekId);
+          if(!found){
+              dataset.push(temp);
+              visitedWeekIds.push(weekId);
+          }
         })
 
         // res.render('student_screens/table.ejs', {'results': results});
@@ -677,7 +702,6 @@ app.get('/radarTopics', function(req, res){
         var students= [];
         students.push(topper);
         students.push(currentUser['userName']);
-        console.log("Students" + students);
         StudentPerformance.aggregate([
         { $match: {
         'courseCode': courseCode,
@@ -708,8 +732,6 @@ app.get('/radarTopics', function(req, res){
           if(r['_id']['studentName'] == topper){
               radarTopper.push(r['studentTotalScore']);
           } else {
-              console.log("student Name" + r['_id']['studentName']);
-              console.log("studentToatlScore" + r['_id']['studentTotalScore']);
               radarCurrentStudent.push(r['studentTotalScore']);
           }
         });
@@ -721,7 +743,6 @@ app.get('/radarTopics', function(req, res){
           'radarTopics': _.uniq(radarTopics),
           'radarCurrentStudent': radarCurrentStudent
         }
-        console.log(response);
         res.json(response);
     });
   });
