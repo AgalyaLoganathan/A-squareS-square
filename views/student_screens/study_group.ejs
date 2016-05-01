@@ -196,44 +196,21 @@
     <!--  Notifications Plugin    -->
     <script src="bootstrap/js/bootstrap-notify.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="bootstrap/js/light-bootstrap-dashboard.js"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<!-- <script src="assets/js/demo.js"></script> -->
     <script>
-    var input = [
-        {
-            "name" : "name1",
-            "nickName" : "nickName1",
-            "topicList" : ["Arrays","Collections","DS"],
-            "topicProficiency" : [10,30,60],
-            "picPath" : "picPath",
-            "BGpicPath" : "BGpicPath"
-        },
-        {
-            "name" : "name2",
-            "nickName" : "nickName2",
-            "topicList" : ["Arrays","Collections","DS"],
-            "topicProficiency" : [70,40,20],
-            "picPath" : "picPath",
-            "BGpicPath" : "BGpicPath"
-        },
-        {
-            "name" : "name3",
-            "nickName" : "nickName3",
-            "topicList" : ["Arrays","Collections","DS"],
-            "topicProficiency" : [50,100,80],
-            "picPath" : "picPath",
-            "BGpicPath" : "BGpicPath"
-        }
-    ];
-    var shades = ["#FF0000","#FF1A1A", "#FF3434", "#E50000", "#CB0000", "#B10000", "#970000", "#7D0000", "#630000", "#490000"];
-    var tutorsTemplate = [];
     function populateTutors(){
+        var input = [];
+        $.get("/study_groups_test", function(){
+        console.log("called methods");
+        }).done(function(data){
+        console.log(data);
+        input = data;
+        var shades = ["#FF0000","#FF1A1A", "#FF3434", "#E50000", "#CB0000", "#B10000", "#970000", "#7D0000", "#630000", "#490000"];
+        var tutorsTemplate = [];
         for(i=0;i<9;i++){
             j = i % 3;
             temp = input[j];
@@ -242,7 +219,7 @@
             console.log(topicsList);
             for(k=0;k<topicsList.length; k++){
                 proficiency = temp.topicProficiency[k];
-                shade = (proficiency / 10) % 10;
+                shade = Math.round((proficiency / 10) % 10);
                 topics = topics + "<p style='font-weight:900; font-size:120%; color:" + shades[shade] + ";'>"  + temp.topicList[k] + "</p>"
             }
             template = '<div class="col-md-4">' +
@@ -266,9 +243,12 @@
             '        <hr> ' +
             '    </div>' +
             '</div>';
+            console.lo
             tutorsTemplate.push(template);
+            $("#tutors").html(tutorsTemplate);
         }
-        $("#tutors").html(tutorsTemplate);
+
+    });
     }
 
         $(document).ready(function(){

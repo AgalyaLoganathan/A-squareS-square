@@ -524,12 +524,11 @@ app.get('/table', function(req, res){
 
 
 app.get('/study_groups_test', function(req, res){
-var currentWeekId = 2;
+var currentWeekId = 5;
 var countOfCorrectAnswers = 0;
 var totalQuestions = 0;
- User.findOne({'userName': 's1'}, function(err, user){
-    StudentPerformance.find({
-    'studentName': user['userName'],
+StudentPerformance.find({
+    'studentName': currentUser['userName'],
     'weekId': currentWeekId,
     }, function(err, performances){
       _.each(performances, function(performance){
@@ -540,29 +539,60 @@ var totalQuestions = 0;
         });
        if(countOfCorrectAnswers/2 < totalQuestions){
       // do a Study Group Recommendation for that week
-        var flag = false;
-        getTutorStudents(performances[0]['topic'], processTutorResults(flag));
-        }
-       else {
-            res.render("student_screens/study_groups.ejs",
-            {'message': 'You dont need any study groups'}
-            );
-      // Display you dont have any study group recommendations for this week
-       }
-  });
-});
-});
+          var tutors = [];
+          var results= [];
+          var topic = performances[0]['topic'];
+          var relatedTopics = [topic];
+          console.log("Related topics" + relatedTopics);
+          StudentPerformance.find({
+          'strengthCategory': 'Strong',
+          'topic': {$all: relatedTopics}
+          }, function(err, sperformances){
+          _.each(sperformances, function(sperformance){
+            if(sperformance['studentName'] == currentUser['userName']) {
+            tutors.push(sperformance['studentName']);
+            var relatedTopicScores = [];
+            _.each(relatedTopics, function(rTopic){
+              relatedTopicScores.push(Math.floor((Math.random() * 100) + 1));
+            });
+            var temp = {
+              'name': sperformance['studentName'],
+              'nickName': sperformance['studentEmail'],
+              "picPath" : "picPath",
+              "BGpicPath" : "BGpicPath",
+              "topicList": relatedTopics,
+              "topicProficiency" : relatedTopicScores
+            };
+            results.push(temp);
+            }
+          });
+            var response = [];
+            tutors =  _.unique(tutors);
 
+            _.each(tutors, function(t){
+                var found = _.find(results, function(r){
+                  return r['name'] == t;
+                });
+                if(found != undefined) {
+                    response.push(found);
+                }
+            });
+            res.json(response);
+          });
+      }});
+      });
 
 function processTutorResults(flag){
+
    console.log("Tutors are " + tutors);
         if(tutors && tutors.length > 0) {
             console.log("Finally " + tutors);
-            res.json(tutors);
-        }else{
-          res.render("student_screens/study_groups.ejs",
-            {'message': 'We dont have any tutors to help you'}
-            );
+            return tutors;
+        // }else{
+        //   console.log("No output");
+        //   // res.render("student_screens/study_groups.ejs",
+        //   //   {'message': 'We dont have any tutors to help you'}
+        //   //   );
         }
     flag
 }
@@ -572,19 +602,7 @@ function getTutorStudents(topic){
   var tutors= [];
   relatedTopics.push(topic);
   console.log("Related topics " + relatedTopics);
-   StudentPerformance.find({
-    'strengthCategory': 'Strong',
-    'topic': {$all: relatedTopics}
-    }, function(err, performances){
-      _.each(performances, function(performance){
-        if(performance['studentName'] != currentUser['userName']) {
-          console.log("Pushed " + performance['studentName']);
-          tutors.push(performance['studentName']);
-        }
-      });
-    console.log("Returning " + _.unique(tutors));
-    return _.unique(tutors);
-    });
+
 }
 
 /* end of student screen */
