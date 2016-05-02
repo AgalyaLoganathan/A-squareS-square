@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Examples for bootstrap-slider plugin">
+    <meta name="author" content="">
+
+    <title>Slider for Bootstrap Examples Page</title>
+
+    <!-- core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/slider.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style type='text/css'>
+      /* Space out content a bit */
+    body {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    h1 small {
+      font-size: 51%;
+    }
+
+    .slider-example {
+      padding: 10px 0;
+      margin: 35px 0;
+    }
+
+    #destroyEx5Slider, #ex6CurrentSliderValLabel, #ex7-enabled {
+      margin-left: 45px;
+    }
+
+    #ex6SliderVal {
+      color: green;
+    }
+
+    #slider12a .slider-track-high, #slider12c .slider-track-high {
+      background: green;
+    }
+
+    #slider12b .slider-track-low, #slider12c .slider-track-low {
+      background: red;
+    }
+
+    #slider12c .slider-selection {
+      background: yellow;
+    }
+
+  </style>
+  <style type='text/css'>
+    #ex1Slider .slider-selection {
+        background: #BABABA;
+      }
+  </style>
+
+<body>
+<div class="container">
+
+      <!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+      <div class="masthead">
+        <h3 class="text-muted">Project name</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href="instructor-home" action='post'>My Home</a></li>
+            <li><a href="#">Classes</a></li>
+            <li><a href="add-quiz">Make Quiz</a></li>
+            <li><a href="leaderboard">View LeaderBoard</a></li>
+            <li><a href="instructor-performance">Performance Charts</a></li>
+          </ul>
+        </nav>
+      </div>
+
+<form method="POST" id="form1" action="/testing">
+  <br><br><br>
+<div class="form-group">
+  <label for="comment">ENTER THE QUESTION:</label>
+  <textarea class="form-control" rows="5" id="comment" name="user[question]"></textarea> 
+<br><br>
+ <div class="rows-xs-2">  
+  <label> OPTION 1: <input type="text" name="user[one]"></input> </label> <br>
+</div>
+<div class="rows-xs-2">
+  <label> OPTION 2: <input type="text" name="user[two]"> </label> <br>
+</div>
+<div class="rows-xs-2">
+  <label> OPTION 3: <input type="text" name="user[three]"> </label> <br>
+</div>
+<div class="rows-xs-2">
+  <label> OPTION 4: <input type="text" name="user[four]"> </label> 
+</div>
+<div class='slider-example'>
+<label> INSTRUCTOR RECOMMENDATION: <input type="text" name="Instructor_URL"> </label> <br><br>
+<label> ENTER TOPIC WEIGHTAGE </label> <br>
+<div class="rows-xs-2">
+    <select id="mySelect" onChange="populate();">
+      <option>Choose Topic</option>      
+      <option>Topic 1</option>      
+      <option>Topic 2</option>      
+    </select>
+    <select id="mySelect1">  
+      <option>Choose Sub-Topic</option>      
+    </select>
+<input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="14"/><br>
+<br><br>
+<center> <button type="submit" class="btn btn-info"> Send E-Mail </button> </center>
+</div> 
+</div>
+</form>
+</body>
+
+    <script type='text/javascript' src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type='text/javascript' src="bootstrap/js/bootstrap-slider.js"></script>
+    <script type='text/javascript'>
+      $(document).ready(function() {
+
+        $('#ex1').slider({
+              formatter: function(value) {
+                return 'Current value: ' + value;
+              }
+          });
+
+        $('#ex2').slider({
+              formatter: function(value) {
+                return 'Current value: ' + value;
+              }
+          });
+      });
+      function ReadData(cell,row){
+        var x = document.getElementById("mySelect");
+        var option = document.createElement("option");
+        var excel = new ActiveXObject("Excel.Application");
+        var excel_file = excel.Workbooks.Open("topicList.ods");
+        var excel_sheet = excel.Worksheets("Sheet1");
+        var data = excel_sheet.Cells(cell,row).Value;
+        option.text = data;
+        x.add(option, x[0]);
+      } 
+
+      function populate()
+      {
+        var select = document.getElementById("mySelect1");
+        for(var i = 0; i <= 10; ++i) {
+          var option = document.createElement('option');
+          option.text = option.value = i;
+          select.add(option, 0);
+        }
+      }
+
+    /*  FOR FETCHING FROM DATABASE
+    var input = [{"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"},
+    {"studentName" : "s2", "studentScore": 190, "studentEmail": "s2@asu.edu"},
+    {"studentName" : "s3", "studentScore": 80, "studentEmail": "s3@asu.edu"},
+    {"studentName" : "s4", "studentScore": 50, "studentEmail": "s4@asu.edu"}];
+    var leaderboardTemplate = [];
+    input.sort(function (a,b){
+      return parseFloat(b.studentScore) - parseFloat(a.studentScore)
+    });
+    function populateLeaderboard(){
+      for(i=0;i<10;i++){
+        k = i%2;
+        temp = input[k];
+        img_path = "img/faces/face-" + (i%7) + ".jpg";
+        template = '<tr>' +
+        '<td>' + (i+1) +
+        '</td>' +
+        '<td>' +
+        '<a href="#" class="hover-link" data-hover-image="' + img_path + '">' + temp.studentName + '</a> ' +
+        '</td>' +
+        '<td>' + temp.studentScore +
+        '</td>' +
+        '<td>' + temp.studentEmail +
+        '</td></tr>';
+        leaderboardTemplate.push(template);
+      }
+      $('#leaderboard').html(leaderboardTemplate.join("\n"));
+    }
+    $(document).ready(function(){
+      populateLeaderboard();
+      $('a.hover-link').mouseenter(function() {
+            $('img.hover-image').remove();
+            $(this).append('<img class="hover-image" src="' + $(this).attr('data-hover-image') + '"/>')
+        }).mouseleave(function() {
+            $('img.hover-image').remove();
+      });
+    }); */
+
+    </script>
+</html>  

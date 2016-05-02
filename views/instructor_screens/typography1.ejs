@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="img/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Light Bootstrap Dashboard by Creative Tim</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="bootstrap/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="bootstrap/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <!-- <link href="assets/css/demo.css" rel="stylesheet" /> -->
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
+	<link href="bootstrap/css/d3.stackedbar.css" rel="stylesheet"  />
+	<style>
+	   body {
+		 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		 margin: auto;
+		 position: relative;
+		 /*width: 960px;*/
+	   }
+
+	   text {
+		 font: 10px sans-serif;
+	   }
+
+	   .axis path,
+	   .axis line {
+		 fill: none;
+		 stroke: #000;
+		 shape-rendering: crispEdges;
+	   }
+
+	   form {
+		 position: absolute;
+		 right: 10px;
+		 top: 10px;
+	   }
+
+	   svg {
+        width: 100%;
+        height: 100%;
+        position: center;
+    }
+    text{
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .toolTip {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: absolute;
+        display: none;
+        width: auto;
+        height: auto;
+        background: none repeat scroll 0 0 white;
+        border: 0 none;
+        border-radius: 8px 8px 8px 8px;
+        box-shadow: -3px 3px 15px #888888;
+        color: black;
+        font: 12px sans-serif;
+        padding: 5px;
+        text-align: center;
+    }
+    .legend {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 60%;
+    }
+    text {
+        font: 10px sans-serif;
+    }
+    .axis text {
+        font: 10px sans-serif;
+    }
+    .axis path{
+        fill: none;
+        stroke: #000;
+    }
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    .x.axis path {
+        display: none;
+    }
+
+	   </style>
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" >
+	<div class="sidebar-wrapper">
+		<div class="logo">
+			<a href=# class="simple-text">
+                HELLO INSTRUCTOR!
+			</a>
+		</div>
+
+        <ul class="nav">
+            <li>
+                <a href="add-quiz">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>Send Questions</p>
+                </a>
+            </li>
+            <li>
+                <a href="typography1.ejs">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>Visualizations</p>
+                </a>
+            </li>
+        </ul>
+	</div>
+</div>
+
+
+    <div class="main-panel">
+                <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Visualizations</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                           <a href="profile">
+                               Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="logout" id="logout">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+		<div class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="header">
+								<h4 class="title">TOPICS CATEGORIZATION</h4>
+							</div>
+							<div class="content" id="sankeyChartDiv">
+								<div id="sankeyChart">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="header">
+								<h4 class="title">STUDENT PERFORMANCE HEATMAP</h4>
+							</div>
+							<div class="content" id="heatMapDiv">
+								<div id="heatMap">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+    </div>
+</div>
+
+
+</body>
+
+        <!--   Core JS Files   -->
+    <script src="bootstrap/js/jquery-1.12.3.min.js" type="text/javascript"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="bootstrap/js/bootstrap-checkbox-radio-switch.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="bootstrap/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="bootstrap/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="bootstrap/js/light-bootstrap-dashboard.js"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<!-- <script src="assets/js/demo.js"></script> -->
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+	<script src="js/d3.core.js"></script>
+	<script src="js/d3.stackedbar.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+		<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>
+
+<script>
+var sankeyData = [
+  [ 'Strong', 'X', 5 ],
+  [ 'Strong', 'Y', 7 ],
+  [ 'Strong', 'Z', 6 ],
+  [ 'Weak', 'X', 2 ],
+  [ 'Weak', 'Y', 9 ],
+  [ 'Weak', 'Z', 4 ],
+  [ 'Strong', 'A', 5 ],
+  [ 'Strong', 'B', 7 ],
+  [ 'Strong', 'C', 6 ],
+  [ 'Weak', 'A', 2 ],
+  [ 'Weak', 'B', 9 ],
+  [ 'Weak', 'C', 4 ],
+  [ 'Strong', 'D', 5 ],
+  [ 'Strong', 'E', 7 ],
+  [ 'Strong', 'F', 6 ],
+  [ 'Weak', 'D', 2 ],
+  [ 'Weak', 'E', 9 ],
+  [ 'Weak', 'F', 4 ],
+  [ 'Strong', 'G', 5 ],
+  [ 'Strong', 'H', 7 ],
+  [ 'Strong', 'I', 6 ],
+  [ 'Weak', 'G', 2 ],
+  [ 'Weak', 'H', 9 ],
+  [ 'Weak', 'I', 4 ]
+];
+function drawSankey(){
+            //console.log("drawSaneky entered");
+            var input = [];
+            $.get("/sankey", function(){
+                console.log("Entered sankey function");
+            }).done(function(data1){
+            console.log(sankeyData);
+            google.charts.load('current', {'packages':['sankey']});
+            google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'From');
+                data.addColumn('string', 'To');
+                data.addColumn('number', 'Weight');
+                data.addRows(data1.sankeyData);
+                // Sets chart options.
+                var options = {
+                  width: 1000,
+        		  height: 600
+                };
+
+                // Instantiates and draws our chart, passing in some options.
+                var chart = new google.visualization.Sankey(document.getElementById('sankeyChart'));
+                chart.draw(data, options);
+              }
+      })
+}
+
+var heatMapY = [
+    {
+        "values":[106,122,203,245,261,202,309,410,451,304,203,425,191,206,263,284,251,382,391,405,321,298,302,194],
+        "text":"StudentName1"},
+    {
+        "values":[175,205,283,304,291,258,311,406,125,206,307,254,281,352,395,461,201,302,153,94,101,201,143,124],
+        "text":"StudentName2"},
+    {
+        "values":[101,108,93,84,71,122,253,194,201,92,143,104,221,242,263,304,178,222,243,184,101,92,83,64],
+        "text":"StudentName3"},
+    {
+        "values":[301,402,433,294,406,382,325,407,198,208,298,498,401,452,397,485,508,594,493,454,321,382,403,204],
+        "text":"StudentName4"},
+    {
+        "values":[211,208,175,406,199,207,253,264,301,295,303,284,107,182,193,204,171,250,93,94,106,142,153,204],
+        "text":"StudentName5"},
+    {
+        "values":[201,245,153,174,201,172,309,402,401,392,303,244,254,292,103,144,201,192,175,254,311,252,193,144],
+        "text":"StudentName6"}
+]
+	var heatMapX = [
+		"Topic 1","Topic 2 AM","Topic 3 AM","Topic 4 AM","Topic 5 AM","Topic 6 AM","Topic 7 AM","Topic 8 AM","Topic 9 AM","Topic 10 AM","Topic 11 AM","Topic 12 PM","Topic 1 PM","Topic 2 PM","Topic 2 PM","Topic 4 PM","Topic 5 PM","Topic 6 PM","Topic 7 PM","Topic 8 PM","Topic 9 PM","Topic 10 PM","Topic 11 PM","Topic 12 AM"
+	]
+function drawHeatMap(){
+    console.log("heatMap entered");
+    $.get("/heatmap", function(){
+    console.log("called methods");
+    }).done(function(data){
+                console.log(data.heatMapX);
+                console.log(data.heatMapY);
+            	zingchart.THEME='classic';
+                var myConfig = {
+                "type": "piano",
+                "background-color": "#325598 #10203a",
+                "fill-type": "radial",
+                "plotarea": {
+                    "margin": "30px 30px 85px 105px",
+                    "background-color": "none"
+                },
+                "scale-x": {
+                    "values": data.heatMapX,
+                    "text-align": "right",
+                    "items-overlap": true,
+                    "max-labels": 999,
+                    "line-color": "#000",
+                    "line-width": "2px",
+                    "alpha": 0.5,
+                    "guide": {
+                        "visible": false
+                    },
+                    "label": {
+                        "text": "Topics Covered",
+                        "padding-top": "15px",
+                        "font-family": "arial",
+                        "font-size": "12px",
+                        "font-color": "#fff",
+                        "bold": true
+                    },
+                    "item": {
+                        "font-angle": -90,
+                        "padding-top": "5px",
+                        "font-color": "#93abc9",
+                        "font-family": "arial",
+                        "font-size": "10px",
+                        "rules": [
+                            {
+                                "rule": "%i %2 != 0",
+                                "visible": false
+                            }
+                        ]
+                    },
+                    "tick": {
+                        "visible": false
+                    }
+                },
+                "scale-y": {
+                    "values": data.heatMapY.text,
+                    "line-color": "#000",
+                    "line-width": "2px",
+                    "alpha": 0.5,
+                    "guide": {
+                        "visible": false
+                    },
+                    "label": {
+                        "text": "Students",
+                        "padding-right": "20px",
+                        "font-family": "arial",
+                        "font-size": "12px",
+                        "font-color": "#fff",
+                        "bold": true
+                    },
+                    "tick": {
+                        "line-color": "#000",
+                        "alpha": 0.5
+                    },
+                    "item": {
+                        "padding-right": "5px",
+                        "font-color": "#93abc9",
+                        "font-family": "arial",
+                        "font-size": "10px",
+                        "text-align": "right"
+                    }
+                },
+                "plot": {
+                    "value-box": {
+                        "visible": false
+                    },
+                    "aspect": "brightness",
+                    "rules": [
+                        {
+                            "rule": "%v < 200",
+                            "background-color": "#7000ac"
+                        },
+                        {
+                            "rule": "%v >= 200 && %v < 375",
+                            "background-color": "#00FF00"
+                        },
+                        {
+                            "rule": "%v >= 375",
+                            "background-color": "#d9dde8"
+                        }
+                    ]
+                },
+                "tooltip": {
+                    "shadow": 0,
+                    "text": "Score in %k:<br><b>%v</b>",
+                    "font-color": "#fff",
+                    "font-family": "Arial",
+                    "font-size": "10px",
+                    "font-weight": "normal",
+                    "padding": "5px 10px",
+                    "border-radius": "8px",
+                    "border-width": "0px",
+                    "border-color": "none"
+                },
+                "series": data.heatMapY
+                    
+                };
+
+                zingchart.render({
+                	id : 'heatMap',
+                	data : myConfig,
+                	height: 600,
+                	width: 1000
+                });
+        })
+}
+
+var radarTopics = ["Topic1", "Topic2", "Topic3", "Topic4", "Topic5", "Topic6", "Topic7", "Topic8", "Topic9", "Topic10", "Topic11", "Topic12", "Topic13", "Topic14"];
+var radarCurrentStudent = [65, 59, 90, 81, 56, 55, 40,65, 59, 90, 61, 56, 55, 40];
+var radarTopper = [88, 78, 90, 79, 96, 87, 100, 88, 70, 70, 99, 96, 77, 100];
+var radarData = {
+    labels: radarTopics,
+    datasets: [
+        {
+            label: "Current Student",
+            backgroundColor: "rgba(179,181,198,0.2)",
+            borderColor: "rgba(179,181,198,1)",
+            pointBackgroundColor: "rgba(179,181,198,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: radarCurrentStudent
+        },
+        {
+            label: "Class Topper",
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            pointBackgroundColor: "rgba(255,99,132,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(255,99,132,1)",
+            data: radarTopper
+        }
+    ]
+};
+
+function drawRadarChart(){
+	var ctx = document.getElementById("radarChart");
+	var myRadarChart = new Chart(ctx, {
+    type: 'radar',
+    data: radarData,
+    // options: radarOptions
+});
+}
+
+	$(document).ready(function(){    
+
+			var sankeyDivWidth = $('#sankeyChartDiv').width();
+			$('sankeyChart').width(sankeyDivWidth);
+            drawHeatMap();
+			drawSankey();
+			//drawHeatMap();
+			//drawRadarChart();
+	})
+</script>
+</html>

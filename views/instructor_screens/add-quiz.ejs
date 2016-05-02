@@ -1,0 +1,304 @@
+<!-- Need to execute a command after a for loop in function populateQuizs-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="img/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title> Instructor Screen </title>
+
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap/css/animate.min.css" rel="stylesheet"/>
+    <link href="bootstrap/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="bootstrap/css/slider.css" rel="stylesheet">
+    <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
+  <style>
+  /*#986DDA*/
+      .item{
+    background-color:#fff;
+    display:block;
+    }
+
+    .carousel-caption{
+    color:#000;
+    position:static;
+    }
+
+    img.hover-image{
+      position:absolute;
+      }
+    .slider-example {
+      padding: 10px 0;
+      margin: 35px 0;
+    }
+
+    #destroyEx5Slider, #ex6CurrentSliderValLabel, #ex7-enabled {
+      margin-left: 45px;
+    }
+
+    #ex6SliderVal {
+      color: green;
+    }
+
+    #slider12a .slider-track-high, #slider12c .slider-track-high {
+      background: green;
+    }
+
+    #slider12b .slider-track-low, #slider12c .slider-track-low {
+      background: red;
+    }
+
+    #slider12c .slider-selection {
+      background: yellow;
+    }
+    #ex1Slider .slider-selection {
+        background: #BABABA;
+      }
+
+
+  </style>
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="img/sidebar-5.jpg">
+<div class="sidebar-wrapper">
+  <div class="logo">
+    <a href=# class="simple-text">    
+          HELLO INSTRUCTOR!
+    </a>
+  </div>
+
+  <ul class="nav">
+    <li>
+      <a href="add-quiz">
+        <i class="pe-7s-news-paper"></i>
+        <p>Send Questions</p>
+      </a>
+    </li>
+    <li>
+      <a href="typography1.ejs">
+        <i class="pe-7s-news-paper"></i>
+        <p>Visualizations</p>
+      </a>
+    </li>
+    <!-- <li>
+      <a href="icons.html">
+        <i class="pe-7s-science"></i>
+        <p>Icons</p>
+      </a>
+    </li>
+    <li>
+      <a href="maps.html">
+        <i class="pe-7s-map-marker"></i>
+        <p>Maps</p>
+      </a>
+    </li>
+    <li>
+      <a href="notifications.html">
+        <i class="pe-7s-bell"></i>
+        <p>Notifications</p>
+      </a>
+    </li> -->
+  </ul>
+</div>
+</div>
+
+    <div class="main-panel">
+            <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">SEND EMAIL</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                           <a href="profile">
+                               Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="logout" id="logout">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">                    
+              <form method="POST" id="form1" action="/testing">
+                  <div class="form-group">
+                  <label for="comment">ENTER THE QUESTION:</label>
+                  <textarea class="form-control" rows="5" id="comment" name="user[question]"></textarea> 
+                  <br><br>
+                  <div class="rows-xs-2">  
+                  <label> OPTION 1: <input type="text" name="user[one]"></input> </label> <br>
+                  </div>
+                  <div class="rows-xs-2">
+                  <label> OPTION 2: <input type="text" name="user[two]"> </label> <br>
+                  </div>
+                  <div class="rows-xs-2">
+                  <label> OPTION 3: <input type="text" name="user[three]"> </label> <br>
+                  </div>
+                  <div class="rows-xs-2">
+                  <label> OPTION 4: <input type="text" name="user[four]"> </label> 
+                  </div>
+
+                  <br>
+                  <div class="rows-xs-2">
+                  <label> ANSWER: <input type="text" name="user[solution]"> </label> 
+                  </div>
+                  <div class='slider-example'>
+                  <label> INSTRUCTOR RECOMMENDATION: <input type="text" name="user[instLink]"> </label> <br><br>
+                  <label> ENTER TOPIC WEIGHTAGE </label> <br>
+                  <div class="rows-xs-2">
+                  <select id="mySelect" onChange="populate();" name="user[Topic]">
+                        <option> Pick Topic </option>
+                        <option> Introduction to programming and Expressions </option>
+                        <option> Classes,Objects and Designs </option>
+                        <option> Inheritance </option>
+                        <option> Exceptions </option>
+                        <option> Concurrent Programming </option>
+                  </select> 
+                  <select id="mySelect1" name="user[subTopic]" >  
+                        <option> Pick SubTopic </option>
+                        <option> Branching statements </option>
+                        <option> Conditional Statements </option>
+                        <option> Literals </option>
+                        <option> Expressions </option>
+                        <option> Java Platform </option>
+                        <option> Constructors </option>
+                        <option> Object life Cycle </option>
+                        <option> Scope </option>
+                        <option> Client Server Programming </option>
+                        <option> Basic Synchronization </option>    
+                        <option> Branching statements </option>
+                        <option> while loops </option>
+                        <option> Switch statements </option>
+                        <option> for loops </option>
+                  </select>
+                  <input id="ex1" name="user[Weightage]" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="14"/><br>
+                  <br><br>
+                  <center> <button type="submit" class="btn btn-info"> Send E-Mail </button> </center>
+                  </div> 
+                  </div>
+              </form>        
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/ejs.js"></script>
+<script type='text/javascript' src="bootstrap/js/bootstrap-slider.js"></script>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="bootstrap/js/jquery-1.10.2.js" type="text/javascript"></script>
+  <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="bootstrap/js/bootstrap-checkbox-radio-switch.js"></script>
+
+  <!--  Charts Plugin -->
+  <script src="bootstrap/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="bootstrap/js/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+  <script src="bootstrap/js/light-bootstrap-dashboard.js"></script>
+  <script type="text/javascript">
+  var input = [{
+    "week_number": 2,
+    "question_id": 9,
+    "topic" : "",
+    "subtopic" : "",
+    "question_title": "Question 9",
+    "question_text": "A process can be",
+    "question_options":[
+        "Single threaded",
+        "Multi threaded",
+    "both single and multithreaded",
+    "none of the above"
+],
+    "reading_materials" : [
+    "url1",
+    "url2"
+    ]
+},{
+"week_number": 2,
+"question_id": 10,
+"topic" : "",
+"subtopic" : "",
+"question_title": "Question 10",
+"question_text": "A process can be",
+"question_options":[
+  "Single threaded",
+  "Multi threaded",
+"both single and multithreaded",
+"none of the above"
+],
+"reading_materials" : [
+"url1",
+"url2"
+]
+}];
+      var questions_section = [];
+      var temp,i;
+      function getScript(url, callback) {
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = url;
+          document.getElementsByTagName('head')[0].appendChild(script);
+          script.onreadystatechange = callback;
+          script.onload = callback;
+      }    
+
+      $(document).ready(function() {
+        $('#ex1').slider({
+              formatter: function(value) {
+                return 'Current value: ' + value;
+              }
+          });
+
+        $('#ex2').slider({
+              formatter: function(value) {
+                return 'Current value: ' + value;
+              }
+          });
+      });
+
+      function populate()
+      {
+        var select = document.getElementById("mySelect1");
+        for(var i = 0; i <= 10; ++i) {
+          var option = document.createElement('option');
+          option.text = option.value = i;
+          select.add(option, 0);
+        }
+      }
+      
+</script>
+
+</html>

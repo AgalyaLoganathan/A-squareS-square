@@ -1,5 +1,6 @@
 var express = require('express')
     , http = require('http')
+    , request = require('request')
     , path = require('path')
     , fs = require('fs')
     , _ = require('underscore')
@@ -79,7 +80,7 @@ var QuizQuestions = new mongoDb.Schema({
   questionId: Number,
   questionsText: { type: String },
   options: { type: Array },
-  correctAnswer: Number,
+  correctAnswer: { type: String },
   points: Number,
   difficultylevel: { type: String },
   topic: { type: String },
@@ -135,7 +136,7 @@ app.post('/updateNotUsefulReco',  function(req, res){
     console.log("hello");
     //{ question_id: '9', reco_text: 'url1' }
     console.log(input);
-    QuestionRecommendation.update(
+    QuestionReQuestionRecommendationcommendation.update(
         {'reco.recotext' : req.body.reco.text,
           'questionId': req.body.question_id },
             { $set:
@@ -160,7 +161,7 @@ app.get('/', function(req, res){
 });
 
 app.post("/login", function(req, res){
-    console.log(req.body);
+    //console.log(req.body);
     var data = req.body;
     var userName = data['username'];
     var password = data['password'];
@@ -178,8 +179,8 @@ app.post("/login", function(req, res){
             'userDetails': currentUser,
             'input': []
           }
-    var currentWeekId ;
-    var questionId;
+    var currentWeekId = 2;
+    var questionId = 8;
     var userDetails = currentUser;
     var recommendations;
     var today = new Date("2016/04/28");
@@ -191,13 +192,22 @@ app.post("/login", function(req, res){
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       questionId = diffDays + (entry['weekId'] -1) *5;
       currentWeekId = entry['weekId'];
+      console.log("today is:");
+      console.log(today);
+      console.log("QUestion and week ID ares");
+      console.log(questionId);
+      console.log(currentWeekId);
         QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
+          //console.log("CHecking results");
+          //console.log(result);
+          //console.log("--CHecking results");
           result['reading_materials'] = [];
           QuestionRecommendation.find({
             'questionId' : result['questionId'],
+
             'weekId': result['weekId']}, function(err, reco){;
                 reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
                 recommendations = reco;
@@ -218,7 +228,8 @@ app.post("/login", function(req, res){
         });
     });
     } else{
-          res.render('instructor-home.ejs');
+          res.render('instructor_screens/dashboard1.ejs', {'results' : userDetails});
+          //res.render('instructor-home.ejs');
         }
     }
     else {
@@ -247,41 +258,25 @@ app.post("/register", function(req, res){
         if(data['role'] == 'student') {
           res.render('initial_quiz.ejs');
         } else{
-          res.render('instructor-home.ejs');
+          res.render('instructor_screens/dashboard1.ejs');
         }
       }
       });
     }
 });
 
+app.get('/dashboard1', function(req, res){
+  res.render('instructor_screens/dashboard1.ejs');
+});
+
+app.get('/add-quiz', function(req, res){
+  res.render('instructor_screens/add-quiz.ejs');
+});
+
 app.get('/initial_quiz', function(req, res){
   res.render('initial_quiz.ejs');
 });
 
-app.get('/testing', function(req, res){
-	var smtpTransport = nodemailer.createTransport("SMTP",{
-   service: "Gmail",
-   auth: {
-       user: "akshay.manikandan@gmail.com",
-       pass: "ENter account password"
-   }
-  });
-
-  smtpTransport.sendMail({
-   from: "akshay.manikandan@gmail.com", // sender address
-   to: "chronicnexus11@gmail.com", // comma separated list of receivers
-   subject: "Hello ✔", // Subject line
-   text: "Hello world ✔" // plaintext body
-  }, function(error, response){
-   if(error){
-       console.log(error);
-    }else{
-       console.log("Message sent: " + response.message);
-     }
-  });
-
-
-});
 
 app.get('/instructor-performance', function(req, res){
     res.render('instructor-performance.ejs');
@@ -394,6 +389,10 @@ app.get('/student_performance', function(req, res){
 
 app.get('/typography.ejs', function(req,res){
     res.render('student_screens/typography.ejs');
+});
+
+app.get('/typography1.ejs', function(req,res){
+    res.render('instructor_screens/typography1.ejs');
 });
 
 // app.get('/table', function(req,res){
@@ -637,6 +636,95 @@ StudentPerformance.find({
 
 
 /* end of student screen */
+
+//Loading Question Data
+//Loading Question Data
+app.get('/loading', function(req, res){
+  var url="https://docs.google.com/spreadsheets/d/1c1Mqds569xJsn9JVNOqexTtrKXm_4PRCmk2ibqJ-lz0/export?format=csv";
+  var outputData=" ";
+  var question="";
+  
+  request(url, function(error, response, body) {              
+    var allTextLines = "";
+    var outputData = "";
+    var questionName = "";
+    var qId="";
+    var correctAnswer="";
+    var wId=0;
+    var difficulty="";
+    var flag=0;
+    var topic = "";
+    var subTopic = "";
+    var allTextLines = body.split(/\r\n|\n/);
+    for(var j=0;j<allTextLines.length;j++){
+      outputData = allTextLines[j].split(",");      
+      for(var i=0;i<outputData.length;i++){            
+        if(outputData[i] == "*"){
+          questionName = outputData[i+1];
+          flag=1;        
+        }
+        questionName.trim();
+        console.log("Question asked is: --" + questionName + "--");
+      
+        QuizQuestion.findOne({'questionsText': questionName}, function(err, questionInfo){
+          qId = questionInfo['questionId'];
+          correctAnswer = questionInfo['correctAnswer'];
+          wId = questionInfo['weekId'];
+          difficulty = questionInfo['difficultylevel'];       
+          topic = questionInfo['topic'];
+          subTopic = questionInfo['subTopic'];       
+          console.log("QUesion Infor is:"+questionInfo);      
+        });        
+        if(flag == 1){
+          flag = 0;
+          break;
+        }
+        var studAnswer = parseInt(outputData[0]);        
+        console.log(studAnswer + "--");
+        var studEmail = outputData[1].trim();
+        console.log("Student Email is--"+studEmail + "--");
+        var result = false;
+        var score = 0;
+        User.findOne({'emailId': studEmail}, function(err, userInfo){          
+            console.log("The user info is:" + userInfo);
+            if(studAnswer == parseInt(correctAnswer)){
+              result = true;
+              score=1;
+            }
+            var performance = new StudentPerformance({
+            studentName: userInfo['userName'],
+            studentEmail: userInfo['emailId'],
+            courseCode: "CSE 280 - Intro to JAVA Programming",
+            totalScore: 25,
+            studentScore: score,
+            topic: topic,
+            subTopic: subTopic,
+            strengthCategory: difficulty,
+            questionId: qId,
+            submittedAnswer: studAnswer,
+            isCorrect: result,
+            weekId: 9
+            });
+            performance.save(function(err){
+              if(err){
+                console.log("Error in saving quiz");
+                
+              } else {
+                console.log("Data has been saved");
+              }
+            });  
+        });
+
+        break;
+
+     }//End of FOR reading within one line
+    }//End of FOR reading outputData
+  });  
+  
+});
+
+
+
 app.post('/instructor-home', function(req, res){
     res.render('instructor-home.ejs');
 });
@@ -645,35 +733,56 @@ app.get('/instructor-home', function(req, res){
     res.render('instructor-home.ejs');
 });
 
-/* test e-mail
+// test e-mail
 app.post('/testing', function(req, res){
-  //var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');
-  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');
+  //var question = req.body;
+  console.log('Entered email function');
+  console.log(req.body.user.instLink);
+  console.log(req.body.user.Topic);
+  console.log(req.body.user.subTopic);
+  console.log(req.body.user.Weightage);
+  console.log(req.body.user.solution);
+  var a = "";
+  a= req.body.user.solution;;
+  var weightage = parseInt(req.body.user.Weightage);
 
-var mailOptions = {
+  //Insert
+  var quesOptions = [];
+  quesOptions.push(req.body.user.one);
+  quesOptions.push(req.body.user.two);
+  quesOptions.push(req.body.user.three);
+  quesOptions.push(req.body.user.four);
+
+  QuizQuestion({
+    questionId: 12,
+    questionsText: req.body.user.question,
+    options: quesOptions,
+    correctAnswer: a,
+    points: req.body.user.Weightage,
+    difficultylevel: "Weak",
+    topic: req.body.user.Topic,
+    subTopic: req.body.user.subTopic,
+    InstructorUrl: req.body.user.instLink,
+    weekId: 4
+  }).save();
+  
+  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');  
+  var mailOptions = {
     from: 'javatutorial.learner@gmail.com', // sender address
-    to: 'chronicnexus11@gmail.com,svenka64@asu.edu', // list of receivers
-    subject: 'Question 1', // Subject line
-    html: "<html>"+req.body.user.question+" ?"+"<br> A: "+req.body.user.one+ "<br> B: "+req.body.user.two+"<br> C: "+req.body.user.three+"<br> D: "+req.body.user.four+"<br><br> <body> </body></html>"
-//    attachments: [{
-  //<meta http-equiv='refresh' content='5;url=http://www.sitepoint.com/'>
-//          filename: 'Select the correct answers that apply',
-//          path: 'https://docs.google.com/forms/d/14-n_s8g25d-vxfOP1PbGB3TGVx2SP5BDWJ7O5p_Yp8o/viewform?embedded=true/'
-//        filename: 'Conference Form - Google Forms',
- //       path: 'http://goo.gl/forms/zt2isOKw4i',
-//        cid: '12345@abcd.ee' //same cid value as in the html img src
- //   }]
+    to: 'chronicnexus11@gmail.com,srinath.v1991@gmail.com', // list of receivers
+    subject: 'CSE 591 : Quiz of the day', // Subject line    
+    html: "<body> <B> TODAY QUESTION OF THE DAY IS</B> <br><br>" + req.body.user.question+" ?"+"<br> 1: "+req.body.user.one+ "<br> 2: "+req.body.user.two+"<br> 3: "+req.body.user.three+"<br> 4: "+req.body.user.four+"<br><br>  <I>please reply with the answer</I></body>"   
   };
 
 // send mail with defined transport object
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
-        return console.log(error);
+        console.log(error);
     }
-    console.log('Message sent: ' + req.body.user.one + info.response);
+    console.log('Message sent: ' + info.response);
   });
-
-}); */
+  res.render('instructor_screens/dashboard1.ejs');
+});
 
 
 /* visualizations endpoint */
@@ -816,6 +925,37 @@ app.get('/logout', function(req, res){
   res.render('login.ejs');
 });
 
+//Geting Sankey Data
+app.get('/sankey', function(req, res){
+  StudentPerformance.aggregate([
+       { $match: {
+        'courseCode': courseCode
+       }},
+       { $group: { _id : {
+              strengthCategory: '$strengthCategory',
+              topic: '$subTopic'
+            },
+            count: { $sum: 1 }
+          }
+      }      
+    ]).exec(function ( e, d ) {
+        var finalResult = [];
+        var studentNames = [];
+        var topics = [];
+        _.each(d, function(entry){
+          var temp=[];          
+          temp.push(entry['_id']['strengthCategory'],entry['_id']['topic'],entry['count']);          
+          finalResult.push(temp);          
+        })
+        //console.log(finalResult);
+        res.json({
+          "sankeyData": finalResult
+        })
+        //res.render('instructor_screens/typography.ejs', { "heatMapY": finalReingsult, "heatMapX": topics});
+    });
+
+});
+
 app.get('/heatmap', function(req, res){
    StudentPerformance.aggregate([
        { $match: {
@@ -823,7 +963,7 @@ app.get('/heatmap', function(req, res){
        }},
        { $group: { _id : {
             studentName: '$studentName',
-            topic: '$topic'},
+            topic: '$subTopic'},
                   studentTotalScore:
                    { $sum: '$studentScore'}
                 }
@@ -861,7 +1001,11 @@ app.get('/heatmap', function(req, res){
           });
           temp["values"] = scores;
           finalResult.push(temp);
-        });
+        });        
+        console.log("FINAL RESULTS SENT ARE: ");
+        console.log(finalResult);
+        //console.log(topics);
+        
         res.json({
           "heatMapY": finalResult,
           "heatMapX": topics
