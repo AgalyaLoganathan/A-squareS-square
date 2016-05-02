@@ -503,7 +503,7 @@ app.get('/table', function(req, res){
 });
 
 app.get('/study_groups_test', function(req, res){
-var currentWeekId = 1;
+var currentWeekId = 2;
 var countOfCorrectAnswers = 0;
 var totalQuestions = 0;
 // currentUser['userName']
@@ -745,7 +745,7 @@ app.get('/radarTopics', function(req, res){
 });
 
 app.get('/logout', function(req, res){
-  res.render(login.ejs);
+  res.render('login.ejs');
 });
 
 app.get('/heatmap', function(req, res){

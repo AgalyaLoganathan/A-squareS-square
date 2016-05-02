@@ -64,7 +64,7 @@
 
 	<ul class="nav">
 		<li class="active">
-			<a href="/views/student_screens/dashboard.ejs">
+			<a href="dashboard.ejs">
 				<i class="pe-7s-graph"></i>
 				<p>Dashboard</p>
 			</a>
@@ -76,7 +76,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="table.ejs">
+			<a href="table">
 				<i class="pe-7s-note2"></i>
 				<p>Leaderboard</p>
 			</a>
@@ -200,58 +200,64 @@
 							    <div class="row">
 							        <div class="col-md-offset-2 col-md-8">
 							            <div id="quizSection" class="carousel-inner">
+										    <% if (results.input.length == 0) { %>
+										         <div class = "item active" id="questions" style="height: 430px;">
+										         <div class="carousel-content" style="height: 430px;">
+										        <div class="panel-head">
+										        </div>
+										        <div class="panel-body">
 
-    <% if (results.input.length == 0) { %>
-         <div class = "item active" id="questions" style="height: 430px;">
-         <div class="carousel-content" style="height: 430px;">
-        <div class="panel-head">
-        </div>
-        <div class="panel-body">
-             No Questions To Display
-        </div>
-        </div>
-        </div>
-    <% } else { %>
-    <% for(var i=0;i < results.input.length ;i++) { %>
-        <!-- <% if(results.input[i].today) { %> -->
-            <div class = "item active" id="questions" style="height: 430px;">
-        <!-- <% } else { %> -->
-            <!-- <div class = "item " id="questions" style="height: 430px;"> -->
-        <!-- <% } %> -->
-        <% var temp = results.input[i] %>
-        <div class="carousel-content" style="height: 430px;">
-        <div class="panel-head">
-        <h3 style="text-align: center;"> <%= "Question " + temp.questionId %>  </h3>
-        </div>
-        <div class="panel-body">
-            <div>
-            <div style="text-align: left; font-size: 10px"><B> <%= temp.subTopic %> </B></div>
-            <div style="text-align: right; font-size: 18px"> <%= temp.topic %> </div>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
-            <form id="student_course_quiz_question" method="POST" action="/update_student_performance">
-              <div class="form-group">
-                <% console.log(temp) %>
-                <p class="question_block"> <%= temp.questionsText %>  </p>
-                <input type="text" name="question_text" value="<%= temp.questionsText %>" style="display: none;">
-              </div>
-               <% for(var j=0;  j < temp.options.length; j++) { %>
-                <div class="radio">
-                <label>
-                  <input type="radio" name="options" value="<%= temp.options[j] %>"> <%= temp.options[j] %>
-                </label>
-                </div>
-                <% } %>
-              <button type="submit" class="btn btn-primary student_quiz_submission" style="text-align: center;">Submit</button>
-            </form>
-            </div>
-              </div>
-             </div>
-            </div>
-             <% } %>
-                 <% } %>
+										        </div>
+												<div class="panel-body">
+													<h4 style="text-align: center";>
+														Hoorah!! You have answered all your questions until now! :D
+													</h4>
+													<img src="img/task.jpg" alt="Success text" height="300" />
+												</div>
+										        </div>
+										        </div>
+										    <% } else { %>
+										    <% for(var i=0;i < results.input.length ;i++) { %>
+										        <!-- <% if(results.input[i].today) { %> -->
+										            <div class = "item active" id="questions" style="height: 430px;">
+										        <!-- <% } else { %> -->
+										            <!-- <div class = "item " id="questions" style="height: 430px;"> -->
+										        <!-- <% } %> -->
+										        <% var temp = results.input[i] %>
+										        <div class="carousel-content" style="height: 430px;">
+										        <div class="panel-head">
+										        <h3 style="text-align: center;"> <%= "Question " + temp.questionId %>  </h3>
+										        </div>
+										        <div class="panel-body">
+										            <div>
+										            <div style="text-align: left; font-size: 10px"><B> <%= temp.subTopic %> </B></div>
+										            <div style="text-align: right; font-size: 18px"> <%= temp.topic %> </div>
+										            </div>
+										        </div>
+										        <div class="panel-body">
+										            <div class="col-xs-12 col-sm-9 question_section" style="padding: 10px 10px 30px 30px">
+										            <form  onsubmit="event.preventDefault(); id="student_course_quiz_question" method="POST" action="/update_student_performance">
+										              <div class="form-group">
+										                <% console.log(temp) %>
+										                <p class="question_block"> <%= temp.questionsText %>  </p>
+										                <input type="text" name="question_text" value="<%= temp.questionsText %>" style="display: none;">
+										              </div>
+													  <%= console.log(temp.options) %>
+										               <% for(var j=0;  j < temp.options.length; j++) { %>
+										                <div>
+										                <label>
+										                  <input type="radio" name="options" value="<%= temp.options[j] %>"> <%= temp.options[j] %>
+										                </label>
+										                </div>
+										                <% } %>
+										              <button type="submit" id="submitBtn" class="btn btn-primary student_quiz_submission" style="text-align: center;">Submit</button>
+										            </form>
+										            </div>
+										              </div>
+										             </div>
+										            </div>
+										             <% } %>
+										                 <% } %>
 
 
 							            </div>
@@ -268,7 +274,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				<!-- </div> -->
 
                 <div class="row">
                     <div class="col-md-6">
@@ -518,7 +524,20 @@ function populateLeaderboard(){
 $('#student_course_quiz_question').submit(function(){
     $()
 })
+
 $(document).ready(function(){
+	$('#submitBtn').click(function(){
+		isChecked = $("input:radio[name='options']").is(":checked");
+		console.log(isChecked);
+		if(isChecked){
+			return true;
+		}
+		else{
+			alert("Select an option before you submit");
+			return false;
+		}
+	})
+
 			 var height = Math.max($(".card").height(), $("#quizSection").height());
 			 $("#preferences").height(height);
 			 $("#quizSection").height(height);

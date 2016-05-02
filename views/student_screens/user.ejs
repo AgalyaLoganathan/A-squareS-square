@@ -41,7 +41,7 @@
 	<div class="sidebar-wrapper">
 		<div class="logo">
 			<a href=# class="simple-text">
-				%Student Name%
+				<%= currentUser.userName%>
 			</a>
 		</div>
 
@@ -190,7 +190,7 @@
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input type="text" id="userName" class="form-control" placeholder="Username" value="<%= userName %>">
+                                                <input type="text" id="userName" class="form-control" placeholder="Username" value="<%= currentUser.userName %>">
                                             </div>
                                         </div>
 									</div>
@@ -198,13 +198,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" id="email" class="form-control" placeholder="Email" value=<%= userName %>>
+                                                <input type="email" id="email" class="form-control" placeholder="Email" value="<%= currentUser.emailId %>">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>Name</label>
-                                                <input type="text" id="name" class="form-control" placeholder="Company" value=<%= userName %>>
+                                                <input type="text" id="name" class="form-control" placeholder="Company" value="<%= currentUser.userName %>">
                                             </div>
                                         </div>
                                         <!-- <div class="col-md-6">
@@ -268,25 +268,25 @@
                             <div class="content">
                                 <div class="author">
                                      <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
+                                    <img class="avatar border-gray" src="img/faces/face-3.jpg" alt="..."/>
 
-                                      <h4 class="title" id="img_name"><br />
-                                         <small></small>
+                                      <h4 class="title" id="img_name">
+										  <%= currentUser.userName %></br>
+										   <small> <%= currentUser.userName %> </small>
                                       </h4>
                                     </a>
                                 </div>
-                              <!--   <p class="description text-center"> "Lamborghini Mercy <br>
-                                                    Your chick she so thirsty <br>
-                                                    I'm in that two seat Lambo"
-                                </p> -->
+                                <p class="description text-center">
+									<%= currentUser.emailId %>
+                                </p>
                             </div>
                             <hr>
-                          <!--   <div class="text-center">
+                            <div class="text-center">
                                 <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
                                 <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
                                 <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
 
-                            </div> -->
+                            </div>
                         </div>
                     </div>
 
@@ -322,15 +322,15 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<!-- <script src="assets/js/demo.js"></script> -->
 	<script>
-		var input = {"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"};
-		$(document).ready(function(){
-			$('#name').val(input.studentName);
-			$('#email').val(input.studentEmail);
-			$('#userName').val(input.studentName);
-			template = input.studentName + '</br> <small>'+ input.studentName + '</small>';
-			$('#img_name').html(template);
-
-		})
+		// var input = {"studentName" : "s1", "studentScore": 19, "studentEmail": "s1@asu.edu"};
+		// $(document).ready(function(){
+		// 	$('#name').val(input.studentName);
+		// 	$('#email').val(input.studentEmail);
+		// 	$('#userName').val(input.studentName);
+		// 	template = input.studentName + '</br> <small>'+ input.studentName + '</small>';
+		// 	$('#img_name').html(template);
+		//
+		// })
 
 	</script>
 
