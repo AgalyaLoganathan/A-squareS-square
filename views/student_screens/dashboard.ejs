@@ -176,7 +176,7 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">My Performance</h4>
-                                <p class="category">Some text</p>
+                                <p class="category"></p>
                             </div>
                             <div class="content">
                                 <div id="stackedBar" class="ct-chart ct-perfect-fourth">
@@ -311,8 +311,6 @@
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
-                                            <% console.log("Calling recommendeatio") %>
-                                            <% console.log(results) %>
                                             <% if( results.reco == undefined||
                                                 results.reco.length == 0  ) { %>
                                             <tr>
@@ -324,18 +322,18 @@
 
                                             <% for(var k =0; k < results.reco.length; k++) { %>
                                             <tr>
-                                                <td><%=results.reco[k].reco_text %></td>
+                                                <td><%=results.reco[k].recotext %></td>
                                                 <td class="td-actions text-right">
                                                     <form action="/updateUsefulReco" method="post">
-                                                   <input type="text" name="question_id" value="<%= results.input[0].question_id %>" style="display: none;">
-                                                    <input type="text" name="reco_text" value="<%=results.reco[k].reco_text %>" style="display: none;">
+                                                   <input type="text" name="question_id" value="<%= results.input[0].questionId %>" style="display: none;">
+                                                    <input type="text" name="recotext" value="<%=results.reco[k].recotext %>" style="display: none;">
                                                     <button type="submit" rel="tooltip" title="Useful" class="btn btn-info btn-simple btn-xs">
                                                         <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     </form>
                                                     <form action="/updateNotUsefulReco" method="post">
-                                                    <input type="text" name="question_id" value="<%= results.input[0].question_id %>" style="display: none;">
-                                                    <input type="text" name="reco_text" value="<%=results.reco[k].reco_text %>" style="display: none;">
+                                                    <input type="text" name="question_id" value="<%= results.input[0].questionId %>" style="display: none;">
+                                                    <input type="text" name="recotext" value="<%=results.reco[k].recotext %>" style="display: none;">
                                                     <button type="submit" rel="tooltip" title="Not useful" class="btn btn-danger btn-simple btn-xs">
                                                         <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>

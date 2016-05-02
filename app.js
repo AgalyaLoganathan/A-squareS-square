@@ -121,14 +121,54 @@ app.post('/updateUsefulReco',  function(req, res){
     console.log("hello");
     console.log(input);
     QuestionRecommendation.update(
-        {'reco.recotext' : req.body.reco.text,
-              'questionId': req.body.question_id },
+        {'reco.recotext' : input.recotext,
+              'questionId': input.question_id },
             { $set:
               {
                 'reco.is_useful': true
                }
         }
   );
+  var currentWeekId ;
+  var questionId;
+  var userDetails = currentUser;
+  var recommendations;
+  var today = new Date();
+  Calendar.findOne({
+    'startDate' : { $lte : today},
+    'endDate': {$gte: today}
+  }, function(err, entry){
+    var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    questionId = diffDays + (entry['weekId'] -1) *5;
+    currentWeekId = entry['weekId'];
+      QuizQuestion.find({
+      'weekId' : currentWeekId,
+      'questionId': questionId
+      }, function(err, result){
+        result['reading_materials'] = [];
+        QuestionRecommendation.find({
+          'questionId' : result['questionId'],
+          'weekId': result['weekId']}, function(err, reco){;
+              reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
+              recommendations = reco;
+              // _.each(reco, function(r){
+              //   result['reading_materials'].push(r['recotext']);
+              // });
+              // result['reading_materials']= reco;
+              // console.log("Found Reco " );
+              // console.log(result['reading_materials']);
+              var finalResult = [];
+              finalResult.push(result);
+              var results = { 'userDetails': userDetails,
+              'input': result, 'reco' : recommendations};
+               console.log(results);
+               console.log(results.reco.length);
+              res.render('student_screens/dashboard.ejs', { results } );
+          });
+      });
+  });
+
 });
 
 app.post('/updateNotUsefulReco',  function(req, res){
@@ -136,15 +176,55 @@ app.post('/updateNotUsefulReco',  function(req, res){
     console.log("hello");
     //{ question_id: '9', reco_text: 'url1' }
     console.log(input);
-    QuestionReQuestionRecommendationcommendation.update(
-        {'reco.recotext' : req.body.reco.text,
-          'questionId': req.body.question_id },
+    QuestionRecommendation.update(
+        {'reco.recotext' : input.recotext,
+          'questionId': input.question_id },
             { $set:
               {
                 'reco.is_useful': false
                }
         }
   );
+  var currentWeekId ;
+  var questionId;
+  var userDetails = currentUser;
+  var recommendations;
+  var today = new Date();
+  Calendar.findOne({
+    'startDate' : { $lte : today},
+    'endDate': {$gte: today}
+  }, function(err, entry){
+    var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    questionId = diffDays + (entry['weekId'] -1) *5;
+    currentWeekId = entry['weekId'];
+      QuizQuestion.find({
+      'weekId' : currentWeekId,
+      'questionId': questionId
+      }, function(err, result){
+        result['reading_materials'] = [];
+        QuestionRecommendation.find({
+          'questionId' : result['questionId'],
+          'weekId': result['weekId']}, function(err, reco){;
+              reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
+              recommendations = reco;
+              // _.each(reco, function(r){
+              //   result['reading_materials'].push(r['recotext']);
+              // });
+              // result['reading_materials']= reco;
+              // console.log("Found Reco " );
+              // console.log(result['reading_materials']);
+              var finalResult = [];
+              finalResult.push(result);
+              var results = { 'userDetails': userDetails,
+              'input': result, 'reco' : recommendations};
+               console.log(results);
+               console.log(results.reco.length);
+              res.render('student_screens/dashboard.ejs', { results } );
+          });
+      });
+  });
+
 });
 
 var courseCode = "CSE 280 - Intro to JAVA Programming";
@@ -183,7 +263,7 @@ app.post("/login", function(req, res){
     var questionId = 8;
     var userDetails = currentUser;
     var recommendations;
-    var today = new Date("2016/04/28");
+    var today = new Date();
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
@@ -325,7 +405,7 @@ app.post('/save_initial_quiz', function(req, res){
     var currentWeekId ;
     var questionId;
     var userDetails = currentUser;
-    var today = new Date("2016/04/28");
+    var today = new Date();
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
@@ -426,7 +506,7 @@ app.get('/dashboard.ejs', function(req, res){
     var currentWeekId ;
     var questionId;
     var userDetails = currentUser;
-    var today = new Date("2016/04/28");
+    var today = new Date();
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
@@ -643,8 +723,8 @@ app.get('/loading', function(req, res){
   var url="https://docs.google.com/spreadsheets/d/1c1Mqds569xJsn9JVNOqexTtrKXm_4PRCmk2ibqJ-lz0/export?format=csv";
   var outputData=" ";
   var question="";
-  
-  request(url, function(error, response, body) {              
+
+  request(url, function(error, response, body) {
     var allTextLines = "";
     var outputData = "";
     var questionName = "";
@@ -657,35 +737,35 @@ app.get('/loading', function(req, res){
     var subTopic = "";
     var allTextLines = body.split(/\r\n|\n/);
     for(var j=0;j<allTextLines.length;j++){
-      outputData = allTextLines[j].split(",");      
-      for(var i=0;i<outputData.length;i++){            
+      outputData = allTextLines[j].split(",");
+      for(var i=0;i<outputData.length;i++){
         if(outputData[i] == "*"){
           questionName = outputData[i+1];
-          flag=1;        
+          flag=1;
         }
         questionName.trim();
         console.log("Question asked is: --" + questionName + "--");
-      
+
         QuizQuestion.findOne({'questionsText': questionName}, function(err, questionInfo){
           qId = questionInfo['questionId'];
           correctAnswer = questionInfo['correctAnswer'];
           wId = questionInfo['weekId'];
-          difficulty = questionInfo['difficultylevel'];       
+          difficulty = questionInfo['difficultylevel'];
           topic = questionInfo['topic'];
-          subTopic = questionInfo['subTopic'];       
-          console.log("QUesion Infor is:"+questionInfo);      
-        });        
+          subTopic = questionInfo['subTopic'];
+          console.log("QUesion Infor is:"+questionInfo);
+        });
         if(flag == 1){
           flag = 0;
           break;
         }
-        var studAnswer = parseInt(outputData[0]);        
+        var studAnswer = parseInt(outputData[0]);
         console.log(studAnswer + "--");
         var studEmail = outputData[1].trim();
         console.log("Student Email is--"+studEmail + "--");
         var result = false;
         var score = 0;
-        User.findOne({'emailId': studEmail}, function(err, userInfo){          
+        User.findOne({'emailId': studEmail}, function(err, userInfo){
             console.log("The user info is:" + userInfo);
             if(studAnswer == parseInt(correctAnswer)){
               result = true;
@@ -708,19 +788,19 @@ app.get('/loading', function(req, res){
             performance.save(function(err){
               if(err){
                 console.log("Error in saving quiz");
-                
+
               } else {
                 console.log("Data has been saved");
               }
-            });  
+            });
         });
 
         break;
 
      }//End of FOR reading within one line
     }//End of FOR reading outputData
-  });  
-  
+  });
+
 });
 
 
@@ -765,13 +845,13 @@ app.post('/testing', function(req, res){
     InstructorUrl: req.body.user.instLink,
     weekId: 4
   }).save();
-  
-  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');  
+
+  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');
   var mailOptions = {
     from: 'javatutorial.learner@gmail.com', // sender address
     to: 'chronicnexus11@gmail.com,srinath.v1991@gmail.com', // list of receivers
-    subject: 'CSE 591 : Quiz of the day', // Subject line    
-    html: "<body> <B> TODAY QUESTION OF THE DAY IS</B> <br><br>" + req.body.user.question+" ?"+"<br> 1: "+req.body.user.one+ "<br> 2: "+req.body.user.two+"<br> 3: "+req.body.user.three+"<br> 4: "+req.body.user.four+"<br><br>  <I>please reply with the answer</I></body>"   
+    subject: 'CSE 591 : Quiz of the day', // Subject line
+    html: "<body> <B> TODAY QUESTION OF THE DAY IS</B> <br><br>" + req.body.user.question+" ?"+"<br> 1: "+req.body.user.one+ "<br> 2: "+req.body.user.two+"<br> 3: "+req.body.user.three+"<br> 4: "+req.body.user.four+"<br><br>  <I>please reply with the answer</I></body>"
   };
 
 // send mail with defined transport object
@@ -937,15 +1017,15 @@ app.get('/sankey', function(req, res){
             },
             count: { $sum: 1 }
           }
-      }      
+      }
     ]).exec(function ( e, d ) {
         var finalResult = [];
         var studentNames = [];
         var topics = [];
         _.each(d, function(entry){
-          var temp=[];          
-          temp.push(entry['_id']['strengthCategory'],entry['_id']['topic'],entry['count']);          
-          finalResult.push(temp);          
+          var temp=[];
+          temp.push(entry['_id']['strengthCategory'],entry['_id']['topic'],entry['count']);
+          finalResult.push(temp);
         })
         //console.log(finalResult);
         res.json({
@@ -1001,11 +1081,11 @@ app.get('/heatmap', function(req, res){
           });
           temp["values"] = scores;
           finalResult.push(temp);
-        });        
+        });
         console.log("FINAL RESULTS SENT ARE: ");
         console.log(finalResult);
         //console.log(topics);
-        
+
         res.json({
           "heatMapY": finalResult,
           "heatMapX": topics
