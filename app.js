@@ -203,7 +203,7 @@ app.post("/login", function(req, res){
                 finalResult.push(result);
                 var results = { 'userDetails': userDetails,
                 'input': result}
-                // console.log(results);
+                 console.log(results);
                 res.render('student_screens/dashboard.ejs', { results } );
             });
         });
@@ -503,9 +503,10 @@ app.get('/table', function(req, res){
 });
 
 app.get('/study_groups_test', function(req, res){
-var currentWeekId = 5;
+var currentWeekId = 1;
 var countOfCorrectAnswers = 0;
 var totalQuestions = 0;
+// currentUser['userName']
 StudentPerformance.find({
     'studentName': currentUser['userName'],
     'weekId': currentWeekId,
@@ -522,11 +523,12 @@ StudentPerformance.find({
           var results= [];
           var topic = performances[0]['topic'];
           var relatedTopics = [topic];
-          console.log("Related topics" + relatedTopics);
+          console.log("Related topics " + relatedTopics);
           StudentPerformance.find({
           'strengthCategory': 'Strong',
           'topic': {$all: relatedTopics}
           }, function(err, sperformances){
+              console.log(sperformances);
           _.each(sperformances, function(sperformance){
             if(sperformance['studentName'] == currentUser['userName']) {
             tutors.push(sperformance['studentName']);
@@ -534,11 +536,12 @@ StudentPerformance.find({
             _.each(relatedTopics, function(rTopic){
               relatedTopicScores.push(Math.floor((Math.random() * 100) + 1));
             });
+            picPath = "img/faces/face-" + ((countOfCorrectAnswers/2)%7) + ".jpg";
             var temp = {
               'name': sperformance['studentName'],
               'nickName': sperformance['studentEmail'],
-              "picPath" : "picPath",
-              "BGpicPath" : "BGpicPath",
+              "picPath" : picPath,
+              "BGpicPath" : "img/sidebar-3.jpg",
               "topicList": relatedTopics,
               "topicProficiency" : relatedTopicScores
             };
@@ -556,6 +559,8 @@ StudentPerformance.find({
                     response.push(found);
                 }
             });
+            console.log(response);
+            // res.render("student_screens/study_group.ejs", response);
             res.json(response);
           });
       }
@@ -799,6 +804,3 @@ app.get('/heatmap', function(req, res){
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
-
-
