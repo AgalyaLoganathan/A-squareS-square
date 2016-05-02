@@ -208,9 +208,7 @@ app.post("/login", function(req, res){
             });
         });
     });
-          res.render('student_screens/dashboard.ejs', {'results' : results});
-
-        } else{
+    } else{
           res.render('instructor-home.ejs');
         }
     }
@@ -440,7 +438,7 @@ app.post('/update_student_performance', function(req, res){
   var isCorrect = false;
   var studentScore = 0;
   console.log(question);
-  Questions.findOne({
+  QuizQuestion.findOne({
     'questionsText': req.body.question_text
   }, function(err, question){
     if(question['correctAnswer'] == req.body.options) {
