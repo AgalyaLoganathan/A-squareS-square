@@ -757,7 +757,7 @@ function drawStackedBar(dataset){
 			.attr("y", 9)
 			.attr("dy", ".71em")
 			.style("text-anchor", "end")
-			.text("Satisfaction %");
+			.text("Number of correct answers");
 	var bar = svg.selectAll(".label")
 			.data(dataset)
 			.enter().append("g")
@@ -791,7 +791,7 @@ bar_enter.append("text")
 				l = l-1
 				element = elements[l].__data__
 				value = element.y1 - element.y0
-				divTooltip.html((d.label)+"<br>"+element.name+"<br>"+value+"%");
+				divTooltip.html((d.label)+"<br>"+element.name+"<br>"+value);
 			});
 	bar.on("mouseout", function(d){
 				divTooltip.style("display", "none");

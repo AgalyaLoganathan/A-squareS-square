@@ -502,6 +502,31 @@ app.get('/table', function(req, res){
     });
 });
 
+app.get('/tableJSON', function(req, res){
+      var results = StudentPerformance.aggregate([
+       { $match: {
+        'courseCode': courseCode,
+        'studentScore': 1
+       }},
+       { $group: { _id : '$studentName',
+                  studentTotalScore:
+                   { $sum: '$studentScore'}
+                }
+      },
+      {
+        $sort: {
+         studentTotalScore : -1
+        }
+      }
+    ]).exec(function ( e, d ) {
+        console.log("Output ");
+        results = d;
+        console.log(results);
+        res.json(results);
+    });
+});
+
+
 app.get('/study_groups_test', function(req, res){
 var currentWeekId = 2;
 var countOfCorrectAnswers = 0;
