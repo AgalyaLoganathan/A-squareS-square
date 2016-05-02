@@ -467,7 +467,7 @@ app.post('/update_student_performance', function(req, res){
       }
       res.render('student_screens/dashboard.ejs', {'results' : results});
     });
-  // });
+  });
 });
 
 app.get('/get_weekly_performance', function(req, res){
@@ -560,17 +560,10 @@ StudentPerformance.find({
             });
             res.json(response);
           });
-      }});
-      });
+      }
+});
+});
 
-
-function getTutorStudents(topic){
-  var relatedTopics = [topic];
-  var tutors= [];
-  relatedTopics.push(topic);
-  console.log("Related topics " + relatedTopics);
-
-}
 
 /* end of student screen */
 app.post('/instructor-home', function(req, res){
@@ -808,3 +801,6 @@ app.get('/heatmap', function(req, res){
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+
