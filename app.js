@@ -181,6 +181,7 @@ app.post("/login", function(req, res){
     var currentWeekId ;
     var questionId;
     var userDetails = currentUser;
+    var recommendations;
     var today = new Date("2016/04/28");
     Calendar.findOne({
       'startDate' : { $lte : today},
@@ -197,13 +198,21 @@ app.post("/login", function(req, res){
           result['reading_materials'] = [];
           QuestionRecommendation.find({
             'questionId' : result['questionId'],
-            'weekId': result['weekId']}, function(err, reco){
-                result['reading_materials'] = reco['reco'];
+            'weekId': result['weekId']}, function(err, reco){;
+                reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
+                recommendations = reco;
+                // _.each(reco, function(r){
+                //   result['reading_materials'].push(r['recotext']);
+                // });
+                // result['reading_materials']= reco;
+                // console.log("Found Reco " );
+                // console.log(result['reading_materials']);
                 var finalResult = [];
                 finalResult.push(result);
                 var results = { 'userDetails': userDetails,
-                'input': result}
+                'input': result, 'reco' : recommendations};
                  console.log(results);
+                 console.log(results.reco.length);
                 res.render('student_screens/dashboard.ejs', { results } );
             });
         });
@@ -338,12 +347,27 @@ app.post('/save_initial_quiz', function(req, res){
           QuestionRecommendation.find({
             'questionId' : result['questionId'],
             'weekId': result['weekId']}, function(err, reco){
-                result['reading_materials'] = reco['reco'];
+                // result['reading_materials'] = reco['recotext'];
+                // var finalResult = [];
+                // finalResult.push(result);
+                // var results = { 'userDetails': userDetails,
+                // 'input': result}
+                // // console.log(results);
+                // res.render('student_screens/dashboard.ejs', { results } );
+                reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
+                recommendations = reco;
+                // _.each(reco, function(r){
+                //   result['reading_materials'].push(r['recotext']);
+                // });
+                // result['reading_materials']= reco;
+                // console.log("Found Reco " );
+                // console.log(result['reading_materials']);
                 var finalResult = [];
                 finalResult.push(result);
                 var results = { 'userDetails': userDetails,
-                'input': result}
-                // console.log(results);
+                'input': result, 'reco' : recommendations};
+                 console.log(results);
+                 console.log(results.reco.length);
                 res.render('student_screens/dashboard.ejs', { results } );
             });
         });
@@ -420,12 +444,29 @@ app.get('/dashboard.ejs', function(req, res){
           QuestionRecommendation.find({
             'questionId' : result['questionId'],
             'weekId': result['weekId']}, function(err, reco){
-                result['reading_materials'] = reco['reco'];
+                // console.log("Recommendation is ");
+                // console.log(reco);
+                // result['reading_materials'] = reco['recotext'];
+                // var finalResult = [];
+                // finalResult.push(result);
+                // var results = { 'userDetails': userDetails,
+                // 'input': result}
+                // // console.log(results);
+                // res.render('student_screens/dashboard.ejs', { results } );
+                reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
+                recommendations = reco;
+                // _.each(reco, function(r){
+                //   result['reading_materials'].push(r['recotext']);
+                // });
+                // result['reading_materials']= reco;
+                // console.log("Found Reco " );
+                // console.log(result['reading_materials']);
                 var finalResult = [];
                 finalResult.push(result);
                 var results = { 'userDetails': userDetails,
-                'input': result}
-                // console.log(results);
+                'input': result, 'reco' : recommendations};
+                 console.log(results);
+                 console.log(results.reco.length);
                 res.render('student_screens/dashboard.ejs', { results } );
             });
         });
@@ -461,7 +502,8 @@ app.post('/update_student_performance', function(req, res){
       console.log("saved");
       var results  = {
             'userDetails': currentUser,
-            'input': []
+            'input': [],
+            'reco': []
       }
       res.render('student_screens/dashboard.ejs', {'results' : results});
     });
@@ -498,6 +540,7 @@ app.get('/table', function(req, res){
         console.log("Output ");
         results = d;
         console.log(results);
+
         res.render('student_screens/table.ejs', {'results': results});
     });
 });

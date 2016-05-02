@@ -312,9 +312,8 @@
                                     <table class="table">
                                         <tbody>
                                             <% console.log(results) %>
-                                            <% if(results.input.length == 0 ||
-                                            results.input.reading_materials == undefined ||
-                                             results.input.reading_materials.length == 0 ) { %>
+                                            <% if( results.reco == undefined||
+                                                results.reco.length == 0  ) { %>
                                             <tr>
                                                 <td>  No Recommendations Available
                                                 </td>
@@ -322,20 +321,20 @@
                                             <% } else { %>
 
 
-                                            <% for(var k =0; k < results.input[0].reading_materials.length; k++) { %>
+                                            <% for(var k =0; k < results.reco.length; k++) { %>
                                             <tr>
-                                                <td><%=results.input[0].reading_materials[k].reco_text %></td>
+                                                <td><%=results.reco[k].reco_text %></td>
                                                 <td class="td-actions text-right">
                                                     <form action="/updateUsefulReco" method="post">
                                                    <input type="text" name="question_id" value="<%= results.input[0].question_id %>" style="display: none;">
-                                                    <input type="text" name="reco_text" value="<%=results.input[0].reading_materials[k].reco_text %>" style="display: none;">
+                                                    <input type="text" name="reco_text" value="<%=results.reco[k].reco_text %>" style="display: none;">
                                                     <button type="submit" rel="tooltip" title="Useful" class="btn btn-info btn-simple btn-xs">
                                                         <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     </form>
                                                     <form action="/updateNotUsefulReco" method="post">
                                                     <input type="text" name="question_id" value="<%= results.input[0].question_id %>" style="display: none;">
-                                                    <input type="text" name="reco_text" value="<%=results.input[0].reading_materials[k].reco_text %>" style="display: none;">
+                                                    <input type="text" name="reco_text" value="<%=results.reco[k].reco_text %>" style="display: none;">
                                                     <button type="submit" rel="tooltip" title="Not useful" class="btn btn-danger btn-simple btn-xs">
                                                         <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
