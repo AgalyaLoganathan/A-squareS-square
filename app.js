@@ -316,7 +316,7 @@ app.post('/save_initial_quiz', function(req, res){
             studentName: currentUser['userName'],
             studentEmail: currentUser['emailId'],
             courseCode: courseCode,
-            isExpert: True
+            isExpert: true
         }).save();
       }
       else{
@@ -324,7 +324,7 @@ app.post('/save_initial_quiz', function(req, res){
             studentName: currentUser['userName'],
             studentEmail: currentUser['emailId'],
             courseCode: courseCode,
-            isExpert: False
+            isExpert: false
         }).save();
       }
     var currentWeekId ;
