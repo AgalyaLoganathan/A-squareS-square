@@ -333,14 +333,14 @@
                                                     <form action="/updateUsefulReco" method="post">
                                                    <input type="text" name="question_id" value="<%= results.input[0].questionId %>" style="display: none;">
                                                     <input type="text" name="recotext" value="<%=results.reco[k].recotext %>" style="display: none;">
-                                                    <button type="submit" rel="tooltip" title="Useful" class="btn btn-info btn-simple btn-xs">
+                                                    <button type="submit" rel="tooltip" title="Useful" class="btn btn-info btn-simple btn-xs updateButton">
                                                         <i class="glyphicon glyphicon-thumbs-up"></i>
                                                     </button>
                                                     </form>
                                                     <form action="/updateNotUsefulReco" method="post">
                                                     <input type="text" name="question_id" value="<%= results.input[0].questionId %>" style="display: none;">
                                                     <input type="text" name="recotext" value="<%=results.reco[k].recotext %>" style="display: none;">
-                                                    <button type="submit" rel="tooltip" title="Not useful" class="btn btn-danger btn-simple btn-xs">
+                                                    <button type="submit" rel="tooltip" title="Not useful" class="btn btn-danger btn-simple btn-xs updateButton">
                                                         <i class="glyphicon glyphicon-thumbs-down"></i>
                                                     </button>
                                                     </form>
@@ -665,6 +665,11 @@ bar_enter.append("text")
 }
 
 $(document).ready(function(){
+
+	$(".updateButton").on("click", function(){
+		alert("Your response has been recorded. Thanks!")
+	})
+
 	$('#submitBtn').click(function(){
 		isChecked = $("input:radio[name='options']").is(":checked");
 		console.log(isChecked);
