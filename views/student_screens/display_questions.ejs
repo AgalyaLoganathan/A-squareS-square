@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="img/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Display Questions</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="bootstrap/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="bootstrap/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <!-- <link href="assets/css/demo.css" rel="stylesheet" /> -->
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
+	<style>
+	.spyScroll {
+	position: relative;
+}
+.affix {
+	top:0;
+	width: 100%;
+	z-index: 9999 !important;
+}
+.navbar {
+	margin-bottom: 0px;
+}
+
+.affix ~ .container-fluid {
+   position: relative;
+   top: 50px;
+}
+#section1 {padding-top:50px;height:400px;color: #000;}
+#section2 {padding-top:50px;height:400px;}
+#section3 {padding-top:50px;height:400px;}
+#section4 {padding-top:50px;height:400px;}
+#section5 {padding-top:50px;height:400px;}
+
+	img.hover-image{
+  		position:absolute;
+		}
+</style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="img/sidebar-5.jpg">
+
+    <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+
+
+	<div class="sidebar-wrapper">
+		<div class="logo">
+			<a href=# class="simple-text">
+				<%= currentUser.userName %>
+			</a>
+		</div>
+
+		<ul class="nav">
+			<li>
+				<a href="dashboard.ejs">
+					<i class="pe-7s-graph"></i>
+					<p>Dashboard</p>
+				</a>
+			</li>
+			<li>
+				<a href="profile">
+					<i class="pe-7s-user"></i>
+					<p>User Profile</p>
+				</a>
+			</li>
+			<li class="active">
+				<a href="table">
+					<i class="pe-7s-note2"></i>
+					<p>Leaderboard</p>
+				</a>
+			</li>
+			<li>
+				<a href="typography.ejs">
+					<i class="pe-7s-news-paper"></i>
+					<p>Visualizations</p>
+				</a>
+			</li>
+			 <li>
+				<a href="questions">
+					<i class="pe-7s-science"></i>
+					<p>Questions</p>
+				</a>
+			</li>
+			<!-- <li>
+				<a href="maps.html">
+					<i class="pe-7s-map-marker"></i>
+					<p>Maps</p>
+				</a>
+			</li>
+			<li>
+				<a href="notifications.html">
+					<i class="pe-7s-bell"></i>
+					<p>Notifications</p>
+				</a>
+			</li> -->
+			<li class="active-pro">
+				<a href="study_group.ejs">
+					<i class="pe-7s-rocket"></i>
+					<p>Study Groups</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+	</div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Current leaderboard</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <!-- <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+                            </a>
+                        </li>
+
+                        <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul> -->
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                           <a href="profile">
+                               Account
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="logout" id="logout">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h3 class="title" align="center">LEADER BOARD</h3>
+                                <h3 class="category">Gives the list of students ranked based on their performance</h3>
+                            </div>
+                            <div class="content">
+
+								<div>
+
+								<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								          <li class="nav navbar-brand dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Select Week <span class="caret"></span></a>
+								            <ul class="dropdown-menu">
+								              <li><a href="#section41">Week 1</a></li>
+								              <li><a href="#section42">Week 2</a></li>
+								            </ul>
+								          </li>
+								    <!-- </div>
+								    <div>
+								      <div class="collapse navbar-collapse" id="myNavbar"> -->
+								        <ul class="nav navbar-nav">
+								          <li><a href="#section1">Question 1</a></li>
+								          <li><a href="#section2">Question 2</a></li>
+								          <li><a href="#section3">Question 3</a></li>
+								          <li><a href="#section4">Question 4</a></li>
+								          <li><a href="#section5">Question 5</a></li>
+								        </ul>
+								      <!-- </div>
+								    </div> -->
+								  </div>
+								</nav>
+							<div class="questionContainer">
+								<!-- <div id="section1" class="container-fluid">
+									<h3> Question 1</h3>
+									<div>
+										<div style="text-align: left; font-size: 10px"><B> Subtopic </B></div>
+										<div style="text-align: right; font-size: 18px"> Topic </div>
+									</div>
+									<p class="question_block">
+									Sed rhoncus elementum quam, a pharetra massa laoreet vel. Integer tempor arcu vitae elit vulputate pretium. Etiam felis metus, lobortis ac neque non, suscipit placerat nulla.
+									</p>
+									<input type="text" name="question_text" value="Question text" style="display: none;"></br>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 1">Option 1
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 2">Option 2
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 3">Option 3
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 4">Option 4
+										</label>
+									</div>
+								</div>
+
+								<div id="section2" class="container-fluid">
+									<h3> Question 2</h3>
+									<div>
+										<div style="text-align: left; font-size: 10px"><B> Subtopic </B></div>
+										<div style="text-align: right; font-size: 18px"> Topic </div>
+									</div>
+									<p class="question_block">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat ornare augue quis tempor. Donec augue elit, aliquam id hendrerit eu, dictum et neque. Curabitur et sodales leo. Aenean vulputate convallis nisl et volutpat. Vivamus augue lectus, auctor vel sagittis vitae, luctus eu nulla. Cras vitae dignissim eros.
+									</p>
+									<input type="text" name="question_text" value="Question text" style="display: none;"></br>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 1">Option 1
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 2">Option 2
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 3">Option 3
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 4">Option 4
+										</label>
+									</div>
+								</div>
+									<div id="section3" class="container-fluid">
+									<h3> Question 3</h3>
+									<div>
+										<div style="text-align: left; font-size: 10px"><B> Subtopic </B></div>
+										<div style="text-align: right; font-size: 18px"> Topic </div>
+									</div>
+									<p class="question_block">
+									Aliquam molestie massa ac rhoncus faucibus. Vestibulum tempus quam quam, pharetra egestas dolor suscipit at. Donec non cursus quam. In auctor non odio vitae mollis. Suspendisse gravida lorem nibh. Nunc fermentum dapibus dui ut cursus.
+									</p>
+									<input type="text" name="question_text" value="Question text" style="display: none;"></br>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 1">Option 1
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 2">Option 2
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 3">Option 3
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 4">Option 4
+										</label>
+									</div>
+								</div>
+								<div id="section4" class="container-fluid">
+									<h3> Question 4</h3>
+									<div>
+										<div style="text-align: left; font-size: 10px"><B> Subtopic </B></div>
+										<div style="text-align: right; font-size: 18px"> Topic </div>
+									</div>
+									<p class="question_block">
+									Ut id diam in metus convallis tempus. Aliquam blandit ante a tortor vulputate mattis.
+									</p>
+									<input type="text" name="question_text" value="Question text" style="display: none;"></br>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 1">Option 1
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 2">Option 2
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 3">Option 3
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 4">Option 4
+										</label>
+									</div>
+								</div>
+								<div id="section5" class="container-fluid">
+									<h3> Question 5</h3>
+									<div>
+										<div style="text-align: left; font-size: 10px"><b> Subtopic </b></div>
+										<div style="text-align: right; font-size: 18px"> Topic </div>
+									</div>
+									<p class="question_block">
+									Nullam ac erat arcu. Donec rutrum, nibh vitae convallis mollis, velit ante tincidunt diam, sit amet hendrerit ligula tortor sed felis. In sem sem, luctus sed ipsum scelerisque, consectetur sagittis ipsum. Quisque feugiat, odio sit amet vulputate porttitor, lorem nulla auctor libero, vitae accumsan augue ipsum euismod lorem. Maecenas dolor leo, bibendum dictum ante non, dapibus accumsan leo. Vivamus dictum pretium ultricies.
+									</p>
+									<input type="text" name="question_text" value="Question text" style="display: none;"></br>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 1">Option 1
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 2">Option 2
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 3">Option 3
+										</label>
+									</div>
+									<div>
+										<label>
+										<input type="radio" name="options" value="Option 4">Option 4
+										</label>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						</div>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="bootstrap/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="bootstrap/js/bootstrap-checkbox-radio-switch.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="bootstrap/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="bootstrap/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="bootstrap/js/light-bootstrap-dashboard.js"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<!-- <script src="assets/js/demo.js"></script> -->
+	<script>
+		$(document).ready(function(){
+			$(".dropdown-menu").on("click","li", function(event){
+				var option = $(this).find('option:selected');
+				var optionString = option.context.innerHTML;
+				var index = optionString.indexOf("Week");
+				weekId = (optionString[index+5]);
+				// console.log(weekId);
+				$.ajax({url: "getQuestions", success: function(result){
+					// console.log(result);
+					var w = weekId + 1
+					var questionCollection = result[weekId];
+					var qnsCount = questionCollection.length;
+					questions_template = [];
+					for(i=0;i<qnsCount;i++){
+						temp = questionCollection[i];
+						optionsHTML = "";
+						template = "";
+						for(var j=0;  j < temp.options.length; j++) {
+						    optionsHTML = optionsHTML + '<div>' +
+						            '    <label>' +
+						            '    <input type="radio" style="color:green;" name="options" disabled value="' + temp.options[j] + '"> ' +  temp.options[j] +
+						            '    </label>' +
+						            '</div>';
+							}
+						template = '<div id="section'+ (i+1) + '" class="container-fluid">' +
+							'<h3> Question ' + (i+1) +  '</h3>' +
+							'<div> ' +
+							'    <div style="text-align: left; font-size: 10px"><b>' +  temp.subTopic + '</b></div>' +
+							'    <div style="text-align: right; font-size: 18px"> ' +  temp.topic + '</div>' +
+							'</div> ' +
+							'<p class="question_block">' +  temp.questionsText +  '</p>' +
+							'<input type="text" name="question_text" value="' + temp.questionsText + '" style="display: none;">'  +
+							optionsHTML + '</div>';
+						questions_template.push(template);
+						}
+						$(".questionContainer").html(questions_template.join("\n"));
+					}
+				});
+			})
+		})
+	</script>
+
+</html>
