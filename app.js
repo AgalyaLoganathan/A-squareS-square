@@ -138,8 +138,12 @@ app.post('/updateUsefulReco',  function(req, res){
     'startDate' : { $lte : today},
     'endDate': {$gte: today}
   }, function(err, entry){
+    var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
     var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if(isWeekend) {
+      diffDays = 5;
+    }
     questionId = diffDays + (entry['weekId'] -1) *5;
     currentWeekId = entry['weekId'];
       QuizQuestion.find({
@@ -323,47 +327,27 @@ app.get("/questions", function(req,res){
 });
 
 app.get("/getQuestions", function(req, res){
-    result = {1:
-        [{
-            "topic" :"TestTopic",
-            "subTopic" : "subTopic",
-            "questionsText" : "Text",
-            "options" : ["a","b","c","d"]
-        },
-        {
-            "topic" :"Test",
-            "subTopic" : "sTest",
-            "questionsText" : "Text",
-            "options" : ["a","b","c","d"]
-        },
-        {
-            "topic" :"Test",
-            "subTopic" : "sTest",
-            "questionsText" : "Text",
-            "options" : ["a","b","c","d"]
-        }],
-        2:
-            [{
-                "topic" :"2Test",
-                "subTopic" : "2sTest",
-                "questionsText" : "2Text",
-                "options" : ["a","b","c","d"]
-            },
-            {
-                "topic" :"2Test",
-                "subTopic" : "2sTest",
-                "questionsText" : "2Text",
-                "options" : ["a","b","c","d"]
-            },
-            {
-                "topic" :"2Test",
-                "subTopic" : "2sTest",
-                "questionsText" : "2Text",
-                "options" : ["a","b","c","d"]
-            }]
+ var today = new Date();
+  Calendar.findOne({
+    'startDate' : { $lte : today},
+    'endDate': {$gte: today}
+  }, function(err, entry){
+    var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
+    var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if(isWeekend) {
+      diffDays = 5;
     }
-    res.json(result);
-})
+    currentWeekId = entry['weekId'];
+      QuizQuestion.find({
+      'weekId' : { $lte : currentWeekId }
+      }, function(err, result){
+        var response = _.groupBy(result, 'weekId');
+        console.log(response);
+        res.json(response);
+      });
+  });
+});
 
 app.post("/register", function(req, res){
     console.log("new endpoint");
@@ -555,6 +539,7 @@ app.post('/update_student_performance', function(req, res){
   var question = req.body;
   var isCorrect = false;
   var studentScore = 0;
+  var strengthCategory = "Weak";
   console.log(question);
   QuizQuestion.findOne({
     'questionsText': req.body.question_text
@@ -562,13 +547,14 @@ app.post('/update_student_performance', function(req, res){
     if(question['correctAnswer'] == req.body.options) {
         isCorrect = true;
         studentScore = question['points'];
+        strengthCategory = "Strong";
     }
     new StudentPerformance({
       studentName: currentUser['userName'],
       studentEmail: currentUser['emailId'],
       courseCode: courseCode,
       studentScore: studentScore,
-      strengthCategory: "Strong",
+      strengthCategory: strengthCategory,
       questionId: question['questionId'],
       submittedAnswer: req.body.options,
       topic: question['topic'],
