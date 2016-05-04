@@ -289,7 +289,7 @@ $(document).on('click',".btnSubmit",function(){
 });
 function displayResults(answers){
     var results = new EJS({url:'/templates/initial_quiz_results.ejs'}).render(answers);
-    $('.results').html(results);
+    $('.initial_quiz_container').html(results);
 
 }
     </script>
