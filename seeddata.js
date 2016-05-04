@@ -147,6 +147,52 @@ db.studentcourses.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCod
 db.studentcourses.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
 db.studentcourses.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
 
+db.studentstrengths.drop()
+db.createCollection("studentstrengths",{
+  weekId: Number,
+  topic: String,
+  strengthCategory: String,
+  studentName: String
+});
+db.studentstrengths.insert({
+    "studentName": "S1",
+    "topic": "Classes,Objects and Design",
+    "strengthCategory": "Strong",
+    "weekId": 3
+});
+db.studentstrengths.insert({
+    "studentName": "S10",
+    "topic": "Classes,Objects and Design",
+    "strengthCategory": "Weak",
+    "weekId": 3
+});
+db.studentstrengths.insert({
+    "studentName": "S11",
+    "topic": "Classes,Objects and Design",
+    "strengthCategory": "Strong",
+    "weekId": 3
+});
+db.studentstrengths.insert({
+    "studentName": "S12",
+    "topic": "Classes,Objects and Design",
+    "strengthCategory": "Weak",
+    "weekId": 3
+});
+db.studentstrengths.insert({
+    "studentName": "S13",
+    "topic": "Classes,Objects and Design",
+    "strengthCategory": "Weak",
+    "weekId": 3
+});
+db.studentstrengths.insert({
+    "studentName": "S14",
+    "topic": "Classes,Objects and Design",
+    "strengthCategory": "Weak",
+    "weekId": 3
+});
+
+
+
 
 db.topics.drop()
 db.createCollection("topics",{

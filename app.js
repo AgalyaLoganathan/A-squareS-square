@@ -116,6 +116,20 @@ var CalendarsSchema = new mongoDb.Schema({
 });
 var Calendar = mongoDb.model('Calendar', CalendarsSchema);
 
+var StudentStrengthSchema = new mongoDb.Schema({
+  weekId: Number,
+  topic: String,
+  strengthCategory: String,
+  studentName: String
+});
+var StudentStrength = mongoDb.model('StudentStrength', StudentStrengthSchema);
+
+var RelatedTopicSchema = new mongoDb.Schema({
+  topic: { type: String },
+  relatedtopics: {type : Array}
+});
+var RelatedTopic = mongoDb.model('RelatedTopic', RelatedTopicSchema);
+
 app.post('/updateUsefulReco',  function(req, res){
     var input = req.body;
     QuestionRecommendation.update(
@@ -599,70 +613,59 @@ app.get('/tableJSON', function(req, res){
 
 
 app.get('/study_groups_test', function(req, res){
-var currentWeekId = 2;
-var countOfCorrectAnswers = 0;
-var totalQuestions = 0;
-// currentUser['userName']
-StudentPerformance.find({
-    'studentName': currentUser['userName'],
-    'weekId': currentWeekId,
-    }, function(err, performances){
-      _.each(performances, function(performance){
-        if(performance['isCorrect']) {
-          countOfCorrectAnswers+=1;
-        }
-        totalQuestions+=1;
-        });
-       if(countOfCorrectAnswers/2 < totalQuestions){
-      // do a Study Group Recommendation for that week
-          var tutors = [];
-          var results= [];
-          var topic = performances[0]['topic'];
-          var relatedTopics = [topic];
-          console.log("Related topics " + relatedTopics);
-          StudentPerformance.find({
-          'strengthCategory': 'Strong',
-          'topic': {$all: relatedTopics}
-          }, function(err, sperformances){
-              console.log(sperformances);
-          _.each(sperformances, function(sperformance){
-            if(sperformance['studentName'] == currentUser['userName']) {
-            tutors.push(sperformance['studentName']);
+    var today = new Date();
+    Calendar.findOne({
+      'startDate' : { $lte : today},
+      'endDate': {$gte: today}
+    }, function(err, entry){
+      currentWeekId = entry['weekId'];
+      StudentStrength.findOne({
+      'weekId': currentWeekId,
+      'studentName': currentUser['userName']
+      }, function(err, strength){
+      if(strength == undefined || strength['strengthCategory'] == 'Strong'){
+          res.json([]);
+      }else{
+    RelatedTopic.findOne({
+      topic: strength['topic']
+    }, function(err, relatedTopicObjects){
+      var topicsToConsider = [];
+      topicsToConsider.push(strength['topic']);
+      if(relatedTopicObjects != null) {
+             topicsToConsider.push(relatedTopicObjects['relatedtopics']);
+      }
+
+
+      StudentStrength.find({
+        'strengthCategory' : 'Strong',
+        'topic' : { $in : topicsToConsider},
+        'studentName' : { $nin: currentUser['userName']}
+      }, function(err, results){
+          var finalResponse = [];
+            _.each(results, function(tutor){
             var relatedTopicScores = [];
-            _.each(relatedTopics, function(rTopic){
+            _.each(topicsToConsider, function(rTopic){
               relatedTopicScores.push(Math.floor((Math.random() * 100) + 1));
             });
-            picPath = "img/faces/face-" + ((countOfCorrectAnswers/2)%7) + ".jpg";
+            picPath = "img/faces/face-" + ((10/2)%7) + ".jpg";
             var temp = {
-              'name': sperformance['studentName'],
-              'nickName': sperformance['studentEmail'],
+              'name': tutor['studentName'],
+              'nickName': 'No nickName',
               "picPath" : picPath,
               "BGpicPath" : "img/sidebar-3.jpg",
-              "topicList": relatedTopics,
+              "topicList": topicsToConsider,
               "topicProficiency" : relatedTopicScores
             };
-            results.push(temp);
-            }
-          });
-            var response = [];
-            tutors =  _.unique(tutors);
-
-            _.each(tutors, function(t){
-                var found = _.find(results, function(r){
-                  return r['name'] == t;
-                });
-                if(found != undefined) {
-                    response.push(found);
-                }
+            finalResponse.push(temp);
             });
-            console.log(response);
-            // res.render("student_screens/study_group.ejs", response);
-            res.json(response);
+            console.log(finalResponse);
+            res.json(finalResponse);
           });
-      }
+      });
+    }
+    });
+  });
 });
-});
-
 
 /* end of student screen */
 
