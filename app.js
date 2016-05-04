@@ -312,7 +312,7 @@ app.post("/login", function(req, res){
         });
     });
     } else{
-          res.render('instructor_screens/dashboard1.ejs', {'results' : userDetails});
+          res.render('instructor_screens/add-quiz.ejs', {'results' : userDetails});
           //res.render('instructor-home.ejs');
         }
     }
@@ -369,7 +369,7 @@ app.post("/register", function(req, res){
         if(data['role'] == 'student') {
           res.render('initial_quiz.ejs');
         } else{
-          res.render('instructor_screens/dashboard1.ejs');
+          res.render('instructor_screens/add-quiz.ejs');
         }
       }
       });
@@ -377,7 +377,7 @@ app.post("/register", function(req, res){
 });
 
 app.get('/dashboard1', function(req, res){
-  res.render('instructor_screens/dashboard1.ejs');
+  res.render('instructor_screens/add-quiz.ejs');
 });
 
 app.get('/add-quiz', function(req, res){
@@ -816,36 +816,54 @@ app.post('/testing', function(req, res){
   quesOptions.push(req.body.user.two);
   quesOptions.push(req.body.user.three);
   quesOptions.push(req.body.user.four);
+  var results = QuizQuestion.aggregate([    
+       { $group: { 
+          _id : {  },
+          maxQID: { $max: "$questionId" }
+          }
+        }
+    ]).exec(function ( e, d ) {
+            var newQID = 0;
+            var flag = 0;            
+            _.each(d, function(entry){
+                newQID = parseInt(entry['maxQID']) + 1;
+                if(flag!=1){
+                  QuizQuestion({
+                    questionId: newQID,
+                    questionsText: req.body.user.question,
+                    options: quesOptions,
+                    correctAnswer: a,
+                    points: req.body.user.Weightage,
+                    difficultylevel: "Weak",
+                    topic: req.body.user.Topic,
+                    subTopic: req.body.user.subTopic,
+                    InstructorUrl: req.body.user.instLink,
+                    weekId: 4
+                  }).save();
+                  
+                  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');  
+                  var mailOptions = {
+                    from: 'javatutorial.learner@gmail.com', // sender address
+                    to: 'chronicnexus11@gmail.com,javatutorial.student2@gmail.com,javatutorial.student@gmail.com', // list of receivers
+                    subject: 'CSE 591 : Quiz of the day', // Subject line    
+                    html: "<body> <B> TODAY QUESTION OF THE DAY IS</B> <br><br>" + req.body.user.question+" ?"+"<br> 1: "+req.body.user.one+ "<br> 2: "+req.body.user.two+"<br> 3: "+req.body.user.three+"<br> 4: "+req.body.user.four+"<br><br>  <I>please reply with the answer</I></body>"   
+                  };
 
-  QuizQuestion({
-    questionId: 12,
-    questionsText: req.body.user.question,
-    options: quesOptions,
-    correctAnswer: a,
-    points: req.body.user.Weightage,
-    difficultylevel: "Weak",
-    topic: req.body.user.Topic,
-    subTopic: req.body.user.subTopic,
-    InstructorUrl: req.body.user.instLink,
-    weekId: 4
-  }).save();
+                // send mail with defined transport object
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        console.log(error);
+                    }
+                    console.log('Message sent: ' + info.response);
+                  });
 
-  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');
-  var mailOptions = {
-    from: 'javatutorial.learner@gmail.com', // sender address
-    to: 'chronicnexus11@gmail.com,srinath.v1991@gmail.com', // list of receivers
-    subject: 'CSE 591 : Quiz of the day', // Subject line
-    html: "<body> <B> TODAY QUESTION OF THE DAY IS</B> <br><br>" + req.body.user.question+" ?"+"<br> 1: "+req.body.user.one+ "<br> 2: "+req.body.user.two+"<br> 3: "+req.body.user.three+"<br> 4: "+req.body.user.four+"<br><br>  <I>please reply with the answer</I></body>"
-  };
+                  flag = 1;
+                }
+                res.render('instructor_screens/add-quiz.ejs');                 
+              });
+              
+        });
 
-// send mail with defined transport object
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-  });
-  res.render('instructor_screens/dashboard1.ejs');
 });
 
 
