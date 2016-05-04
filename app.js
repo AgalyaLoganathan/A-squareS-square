@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // db connection
-mongoDb.connect('mongodb://localhost/quiz_of_the_day');
+mongoDb.connect('mongodb://admin:admin@ds013202.mlab.com:13202/quiz_of_the_day');
 var connection = mongoDb.connection;
 
 // db setup
@@ -781,15 +781,15 @@ app.post('/testing', function(req, res){
   quesOptions.push(req.body.user.two);
   quesOptions.push(req.body.user.three);
   quesOptions.push(req.body.user.four);
-  var results = QuizQuestion.aggregate([    
-       { $group: { 
+  var results = QuizQuestion.aggregate([
+       { $group: {
           _id : {  },
           maxQID: { $max: "$questionId" }
           }
         }
     ]).exec(function ( e, d ) {
             var newQID = 0;
-            var flag = 0;            
+            var flag = 0;
             _.each(d, function(entry){
                 newQID = parseInt(entry['maxQID']) + 1;
                 if(flag!=1){
@@ -805,13 +805,13 @@ app.post('/testing', function(req, res){
                     InstructorUrl: req.body.user.instLink,
                     weekId: 4
                   }).save();
-                  
-                  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');  
+
+                  var transporter = nodemailer.createTransport('smtps://javatutorial.learner%40gmail.com:1a3c2b4d@smtp.gmail.com');
                   var mailOptions = {
                     from: 'javatutorial.learner@gmail.com', // sender address
                     to: 'chronicnexus11@gmail.com,javatutorial.student2@gmail.com,javatutorial.student@gmail.com', // list of receivers
-                    subject: 'CSE 591 : Quiz of the day', // Subject line    
-                    html: "<body> <B> TODAY QUESTION OF THE DAY IS</B> <br><br>" + req.body.user.question+" ?"+"<br> 1: "+req.body.user.one+ "<br> 2: "+req.body.user.two+"<br> 3: "+req.body.user.three+"<br> 4: "+req.body.user.four+"<br><br>  <I>please reply with the answer</I></body>"   
+                    subject: 'CSE 591 : Quiz of the day', // Subject line
+                    html: "<body> <B> TODAY QUESTION OF THE DAY IS</B> <br><br>" + req.body.user.question+" ?"+"<br> 1: "+req.body.user.one+ "<br> 2: "+req.body.user.two+"<br> 3: "+req.body.user.three+"<br> 4: "+req.body.user.four+"<br><br>  <I>please reply with the answer</I></body>"
                   };
 
                 // send mail with defined transport object
@@ -824,9 +824,9 @@ app.post('/testing', function(req, res){
 
                   flag = 1;
                 }
-                res.render('instructor_screens/add-quiz.ejs');                 
+                res.render('instructor_screens/add-quiz.ejs');
               });
-              
+
         });
 
 });
