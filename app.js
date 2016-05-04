@@ -118,8 +118,6 @@ var Calendar = mongoDb.model('Calendar', CalendarsSchema);
 
 app.post('/updateUsefulReco',  function(req, res){
     var input = req.body;
-    console.log("hello");
-    console.log(input);
     QuestionRecommendation.update(
         {'reco.recotext' : input.recotext,
               'questionId': input.question_id },
@@ -150,24 +148,16 @@ app.post('/updateUsefulReco',  function(req, res){
       'weekId' : currentWeekId,
       'questionId': questionId
       }, function(err, result){
-        result['reading_materials'] = [];
         QuestionRecommendation.find({
-          'questionId' : result['questionId'],
-          'weekId': result['weekId']}, function(err, reco){;
-              reco = [ { "recotext" : "The if block executes only if the boolean expression associated with it is true. The structure of an if block is as follows:if (boolean expression1) {statement1 statement2...statement}", "is_useful" : true }, { "recotext" : "In Java, boolean logic has a useful property called short circuiting. This means that expressions will only be evaluated as far as necessary. In the expression (a && b), if a is false, then b will not be evaluated because the expression will be false no matter what.", "is_useful" : true }, { "recotext" : "Conditional expressions use the compound ?: operator. Syntax:boolean expression1 ? expression1 : expression2.This evaluates boolean expression1, and if it is true then the conditional expression has the value of expression1; otherwise the conditional expression has the value of expression2.", "is_useful" : true } ];
-              recommendations = reco;
-              // _.each(reco, function(r){
-              //   result['reading_materials'].push(r['recotext']);
-              // });
-              // result['reading_materials']= reco;
-              // console.log("Found Reco " );
-              // console.log(result['reading_materials']);
-              var finalResult = [];
-              finalResult.push(result);
-              var results = { 'userDetails': userDetails,
-              'input': result, 'reco' : recommendations};
-               console.log(results);
-               console.log(results.reco.length);
+            'questionId' : Number(questionId),
+            'weekId': Number(currentWeekId)  }, function(err, reco){
+                recos = [];
+                _.each(reco, function(r){
+                  recos.push(r['reco']);
+                });
+                recommendations = recos;
+                var results = { 'userDetails': userDetails,
+                'input': result, 'reco' : recommendations[0]};
               res.render('student_screens/dashboard.ejs', { results } );
           });
       });
@@ -176,13 +166,10 @@ app.post('/updateUsefulReco',  function(req, res){
 });
 
 app.post('/updateNotUsefulReco',  function(req, res){
-    var input = req.body;
-    console.log("hello");
-    //{ question_id: '9', reco_text: 'url1' }
-    console.log(input);
+      var input = req.body;
     QuestionRecommendation.update(
         {'reco.recotext' : input.recotext,
-          'questionId': input.question_id },
+              'questionId': input.question_id },
             { $set:
               {
                 'reco.is_useful': false
@@ -200,35 +187,30 @@ app.post('/updateNotUsefulReco',  function(req, res){
   }, function(err, entry){
     var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
+    if(isWeekend) {
+      diffDays = 5;
+    }
     questionId = diffDays + (entry['weekId'] -1) *5;
     currentWeekId = entry['weekId'];
       QuizQuestion.find({
       'weekId' : currentWeekId,
       'questionId': questionId
       }, function(err, result){
-        result['reading_materials'] = [];
         QuestionRecommendation.find({
-          'questionId' : result['questionId'],
-          'weekId': result['weekId']}, function(err, reco){;
-               reco = [ { "recotext" : "The if block executes only if the boolean expression associated with it is true. The structure of an if block is as follows:if (boolean expression1) {statement1 statement2...statement}", "is_useful" : true }, { "recotext" : "In Java, boolean logic has a useful property called short circuiting. This means that expressions will only be evaluated as far as necessary. In the expression (a && b), if a is false, then b will not be evaluated because the expression will be false no matter what.", "is_useful" : true }, { "recotext" : "Conditional expressions use the compound ?: operator. Syntax:boolean expression1 ? expression1 : expression2.This evaluates boolean expression1, and if it is true then the conditional expression has the value of expression1; otherwise the conditional expression has the value of expression2.", "is_useful" : true } ];
-              recommendations = reco;
-              // _.each(reco, function(r){
-              //   result['reading_materials'].push(r['recotext']);
-              // });
-              // result['reading_materials']= reco;
-              // console.log("Found Reco " );
-              // console.log(result['reading_materials']);
-              var finalResult = [];
-              finalResult.push(result);
-              var results = { 'userDetails': userDetails,
-              'input': result, 'reco' : recommendations};
-               console.log(results);
-               console.log(results.reco.length);
+            'questionId' : Number(questionId),
+            'weekId': Number(currentWeekId)  }, function(err, reco){
+                recos = [];
+                _.each(reco, function(r){
+                  recos.push(r['reco']);
+                });
+                recommendations = recos;
+                var results = { 'userDetails': userDetails,
+                'input': result, 'reco' : recommendations[0]};
               res.render('student_screens/dashboard.ejs', { results } );
           });
       });
   });
-
 });
 
 var courseCode = "CSE 280 - Intro to JAVA Programming";
@@ -263,8 +245,8 @@ app.post("/login", function(req, res){
             'userDetails': currentUser,
             'input': []
           }
-    var currentWeekId = 2;
-    var questionId = 8;
+    var currentWeekId;
+    var questionId;
     var userDetails = currentUser;
     var recommendations;
     var today = new Date();
@@ -276,37 +258,20 @@ app.post("/login", function(req, res){
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       questionId = diffDays + (entry['weekId'] -1) *5;
       currentWeekId = entry['weekId'];
-      console.log("today is:");
-      console.log(today);
-      console.log("QUestion and week ID ares");
-      console.log(questionId);
-      console.log(currentWeekId);
         QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
-          //console.log("CHecking results");
-          //console.log(result);
-          //console.log("--CHecking results");
-          result['reading_materials'] = [];
           QuestionRecommendation.find({
-            'questionId' : result['questionId'],
-
-            'weekId': result['weekId']}, function(err, reco){;
-                reco = [ { "recotext" : "The if block executes only if the boolean expression associated with it is true. The structure of an if block is as follows:if (boolean expression1) {statement1 statement2...statement}", "is_useful" : true }, { "recotext" : "In Java, boolean logic has a useful property called short circuiting. This means that expressions will only be evaluated as far as necessary. In the expression (a && b), if a is false, then b will not be evaluated because the expression will be false no matter what.", "is_useful" : true }, { "recotext" : "Conditional expressions use the compound ?: operator. Syntax:boolean expression1 ? expression1 : expression2.This evaluates boolean expression1, and if it is true then the conditional expression has the value of expression1; otherwise the conditional expression has the value of expression2.", "is_useful" : true } ];
-                recommendations = reco;
-                // _.each(reco, function(r){
-                //   result['reading_materials'].push(r['recotext']);
-                // });
-                // result['reading_materials']= reco;
-                // console.log("Found Reco " );
-                // console.log(result['reading_materials']);
-                var finalResult = [];
-                finalResult.push(result);
+            'questionId' : Number(questionId),
+            'weekId': Number(currentWeekId)  }, function(err, reco){
+                recos = [];
+                _.each(reco, function(r){
+                  recos.push(r['reco']);
+                });
+                recommendations = recos;
                 var results = { 'userDetails': userDetails,
-                'input': result, 'reco' : recommendations};
-                 console.log(results);
-                 console.log(results.reco.length);
+                'input': result, 'reco' : recommendations[0]};
                 res.render('student_screens/dashboard.ejs', { results } );
             });
         });
@@ -495,41 +460,41 @@ app.get('/dashboard.ejs', function(req, res){
     }, function(err, entry){
       var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
+    if(isWeekend) {
+      diffDays = 5;
+    }
       questionId = diffDays + (entry['weekId'] -1) *5;
       currentWeekId = entry['weekId'];
         QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
-          result['reading_materials'] = [];
-          QuestionRecommendation.find({
-            'questionId' : result['questionId'],
-            'weekId': result['weekId']}, function(err, reco){
-                // console.log("Recommendation is ");
-                // console.log(reco);
-                // result['reading_materials'] = reco['recotext'];
-                // var finalResult = [];
-                // finalResult.push(result);
-                // var results = { 'userDetails': userDetails,
-                // 'input': result}
-                // // console.log(results);
-                // res.render('student_screens/dashboard.ejs', { results } );
-                reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
-                recommendations = reco;
-                // _.each(reco, function(r){
-                //   result['reading_materials'].push(r['recotext']);
-                // });
-                // result['reading_materials']= reco;
-                // console.log("Found Reco " );
-                // console.log(result['reading_materials']);
-                var finalResult = [];
-                finalResult.push(result);
+          StudentPerformance.find({
+            'weekId' : currentWeekId,
+            'questionId': questionId,
+            'studentName': currentUser['userName']
+          }, function(err, studentResponse){
+            if(studentResponse != undefined){
+               var results = { 'userDetails': userDetails,
+                'input': [], 'reco' : []};
+                res.render('student_screens/dashboard.ejs', { results } );
+            } else {
+            QuestionRecommendation.find({
+            'questionId' : Number(questionId),
+            'weekId': Number(currentWeekId)  }, function(err, reco){
+                recos = [];
+                _.each(reco, function(r){
+                  recos.push(r['reco']);
+                });
+                recommendations = recos;
                 var results = { 'userDetails': userDetails,
-                'input': result, 'reco' : recommendations};
-                 console.log(results);
-                 console.log(results.reco.length);
+                'input': result, 'reco' : recommendations[0]};
                 res.render('student_screens/dashboard.ejs', { results } );
             });
+            }
+          })
+
         });
     });
 });
