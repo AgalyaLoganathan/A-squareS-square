@@ -41,6 +41,8 @@ db.createCollection("calendars",{
 db.calendars.insert({weekId:1,startDate: new Date('04-18-2016'),endDate: new Date('04-22-2016')})
 db.calendars.insert({weekId:2,startDate: new Date('04-25-2016'),endDate: new Date('04-29-2016')})
 db.calendars.insert({weekId:3,startDate: new Date('05-02-2016'),endDate: new Date('05-06-2016')})
+db.calendars.insert({weekId:3,startDate: new Date('05-09-2016'),endDate: new Date('05-13-2016')})
+
 
 
 db.questionrecommendations.drop()
@@ -74,16 +76,20 @@ db.questionrecommendations.insert({weekId:2,questionId:9,topic:"Classes,Objects 
 
 db.questionrecommendations.insert({weekId:2,questionId:10,topic:"Classes,Objects and Designs",subTopic:"Constructors",reco:[{recotext:"The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.",is_useful:true}, {recotext:"Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}",is_useful:true},{recotext:"The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.",is_useful:true} ]})
 
-db.questionrecommendations.insert({weekId:3,questionId:11,topic:"Classes,Objects and Designs",subTopic:"Objects",reco:[{recotext:"You can specify a restriction on the types of classes that may be used. For example, <? extends ClassName> only allows objects of class ClassName or a subclass. For example, to create a collection that may only contain Serializable objects, specify:",is_useful:false}, {recotext:"Unlike in many other object-oriented programming languages, Java performs automatic garbage collection — any unreferenced objects are automatically erased from memory — and prohibits the user from manually destroying objects.",is_useful:true},{recotext:"Static variables can be used as data sharing amongst objects of the same class. For example to implement a counter that stores the number of objects created at a given time can be defined as so:",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:3,questionId:11,topic:"Conditional Statements",subTopic:"Java Platform",reco:[{recotext:"This evaluates boolean expression1, and if it is true then the conditional expression has the value of expression1; otherwise the conditional expression has the value of expression2.",is_useful:true}, {recotext:"Conditional branching is attained with the help of the if...else and switch statements. A conditional branch occurs only if a certain condition expression evaluates to true.",is_useful:false},{recotext:"The switch conditional statement is basically a shorthand version of writing many if...else statements. The syntax for switch statements is as follows:",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:3,questionId:12,topic:"Conditional Statements",subTopic:"Java Platform",reco:[{recotext:"Conditional branching is attained with the help of the if...else and switch statements. A conditional branch occurs only if a certain condition expression evaluates to true.",is_useful:true}, {recotext:"This evaluates boolean expression1, and if it is true then the conditional expression has the value of expression1; otherwise the conditional expression has the value of expression",is_useful:false},{recotext:"Program flow can be affected using function/method calls, loops and iterations. Of various types of branching constructs, we can easily pick out two generic branching methods.",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:3,questionId:13,topic:"Conditional Statements",subTopic:"Java Platform",reco:[{recotext:"while loops are the simplest form of loop. The while loop repeats a block of code while the specified condition is true. Here is the structure of a while loop:",is_useful:true}, {recotext:"The for loop is like a template version of the while loop. The alternative code using a while loop would be as follows",is_useful:false},{recotext:"The do-while loop is functionally similar to the while loop, except the condition is evaluated AFTER the statement executes",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:3,questionId:14,topic:"Conditional Statements",subTopic:"Java Platform",reco:[{recotext:"This is part of the switch statement, to find if the value passed to the switch statement matches a value followed by case.",is_useful:true}, {recotext:"The switch conditional statement is basically a shorthand version of writing many if...else statements. The syntax for switch statements is as follows:",is_useful:false},{recotext:"The switch conditional statement is basically a shorthand version of writing many if...else statements. The switch block evaluates a char, byte, short, or int (or enum, starting in J2SE 5.0; or String, starting in J2SE 7.0), and, based on the value provided, jumps to a specific case within the switch block and executes code until the break command is encountered or the end of the block. If the switch value does not match any of the case values, execution will jump to the optional default case",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:3,questionId:15,topic:"Conditional Statements",subTopic:"Java Platform",reco:[{recotext:"The for loop is like a template version of the while loop. The alternative code using a while loop would be as follows",is_useful:true}, {recotext:"while loops are the simplest form of loop. The while loop repeats a block of code while the specified condition is true. Here is the structure of a while loop",is_useful:false},{recotext:"The do-while loop is functionally similar to the while loop, except the condition is evaluated AFTER the statement executes",is_useful:false} ]})
 
-db.questionrecommendations.insert({weekId:3,questionId:12,topic:"Classes,Objects and Designs",subTopic:"Classes",reco:[{recotext:"The classes Integer and String belongs to the package java.lang but they don't need to be imported as the java.lang package is implicitly imported in all classes.",is_useful:false}, {recotext:"If you have objects from different classes that do not have a common superclass, you can't call the same method in those classes, even if the two classes implement a method with the same signature.",is_useful:false},{recotext:"Some classes can't be inherited. Those classes are defined with the final keyword. For instance, the Integer class can't have subclasses. It is called a final class.",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:4,questionId:16,topic:"Inheritance",subTopic:"Inheritance",reco:[{recotext:"The inheritance is one of the most powerful mechanism of the Object Oriented Programming. It allows the reuse of the members of a class (called the superclass or the mother class) in another class (called subclass, child class or the derived class) that inherits from it. This way, classes can be built by successive inheritance",is_useful:true}, {recotext:"Java does not support full orthogonal multiple inheritance (i.e. Java does not allow you to create a subclass from two classes). Multiple inheritance in C++ has complicated rules to disambiguate fields and methods inherited from multiple superclasses and types that are inherited multiple times. By separating interface from implementation, interfaces offer much of the benefit of multiple inheritance with less complexity and ambiguity. The price of no multiple inheritance is some code redundancy; since interfaces only define the signature of a class but cannot contain any implementation, every class inheriting an interface must provide the implementation of the defined methods, unlike in pure multiple inheritance, where the implementation is also inherited. The major benefit of that is that all Java objects can have a common ancestor (a class called Object)",is_useful:false},{recotext:"In the Code listing 4.10, the class Car inherits from Vehicle, which means that the attributes speed and numberOfSeats are present in the class Car, whereas they are defined in the class Vehicle. Also, the constructor defined in the class Car allows to initialize those attributes. In Java, the inheritance mechanism allows to define a class hierarchy with all the classes. Without explicit inheritance, a class implicitly inherits from the Object class. This Object class is the root of the class hierarchy.",is_useful:false} ]})
 
-db.questionrecommendations.insert({weekId:3,questionId:13,topic:"Classes,Objects and Designs",subTopic:"Comparing Objects",reco:[{recotext:"Generic comparator. 1 Comparator<Animal> myAnimalComparator = new AnimalComparator();2 3 static int compareTwoDogs(Comparator<? super Dog> comp, Dog dog1, Dog dog2) {4   return comp.compare(dog1, dog2);5 }",is_useful:false}, {recotext:"Since Java 5.0, the Comparator interface is generic; that means when you implement it, you can specify what type of objects your comparator can compare.",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:4,questionId:17,topic:"Inheritance",subTopic:"Interfaces",reco:[{recotext:"It is also possible to let an enumeration implement interfaces other than java.lang.Comparable and java.io.Serializable, which are already implicitly implemented by each enumeration",is_useful:true}, {recotext:"Note that the instanceof operator can also be applied to interfaces. For example, if the example above was enhanced with the interface",is_useful:false},{recotext:"The interface methods and interfaces are always public. You do not need to specify the access modifier. It will default to public. For clarity it is considered a good practice to put the public keyword",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:4,questionId:18,topic:"Inheritance",subTopic:"Overloading",reco:[{recotext:"Code section 4.24: Bad method overloading. 1 public void logIt(String param, String err) { 2   ...3 }4 5 public void logIt(String err, String param) {6   ...7 }",is_useful:true}, {recotext:"",is_useful:false},{recotext:"Code section 4.22: Method overloading. 1 public void runAroundThe(Building block) { 2   ... 3 } 4  5 public void runAroundThe(Park park) { 6   ... 7 }",is_useful:false} ]})
 
-db.questionrecommendations.insert({weekId:3,questionId:14,topic:"Classes,Objects and Designs",subTopic:"Methods",reco:[{recotext:"When a name of a method is encountered in a flow, it stops execution in the current method and branches to the newly called method. After returning a value from the called method, execution picks up at the original method on the line below the method call.",is_useful:false}, {recotext:"A static method is a method that can be called without an object instance. It can be called on the class directly. For example, the valueOf(String) method of the Integer class is a static method:",is_useful:false} ]})
+db.questionrecommendations.insert({weekId:4,questionId:19,topic:"Inheritance",subTopic:"Scope",reco:[{recotext:"The scope of a class, a variable or a method is its visibility and its accessibility. The visibility or accessibility means that you can use the item from a given place.",is_useful:true}, {recotext:"You surely would have noticed by now, the words public, protected and private at the beginning of class's method declarations used in this book. These keywords are called the access modifiers in the Java language syntax, and they define the scope of a given item.",is_useful:false},{recotext:"The obj variable contains the object reference pointing to an object created from the MyObject class. The obj object reference is in scope inside the { }. After the } the object becomes garbage. Object references can be passed in to methods and can be returned from methods.",is_useful:false} ]})
 
-db.questionrecommendations.insert({weekId:3,questionId:15,topic:"Classes,Objects and Designs",subTopic:"Constructors",reco:[{recotext:"The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.",is_useful:true}, {recotext:"Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}",is_useful:true},{recotext:"The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.",is_useful:true} ]})
-
+db.questionrecommendations.insert({weekId:4,questionId:20,topic:"Inheritance",subTopic:"Object life Cycle",reco:[{recotext:"A negative integer means that the current object is before the parameter object in the natural ordering. Zero means that the current object and the parameter object are equal. A positive integer means that the current object is after the parameter object in the natural ordering",is_useful:true}, {recotext:"the thrown exception object is the same as the exception object specified by the catch-block. the thrown exception object is the subtype of the exception object specified by the catch-block.",is_useful:false} ]})
 
 
 db.studentinitialstrengthquizzes.drop()
@@ -147,52 +153,6 @@ db.studentcourses.insert({studentName:"S13",studentEmail:"S13@asu.edu",courseCod
 db.studentcourses.insert({studentName:"S14",studentEmail:"S14@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
 db.studentcourses.insert({studentName:"S15",studentEmail:"S15@asu.edu",courseCode:"CSE 280 - Intro to JAVA Programming"})
 
-db.studentstrengths.drop()
-db.createCollection("studentstrengths",{
-  weekId: Number,
-  topic: String,
-  strengthCategory: String,
-  studentName: String
-});
-db.studentstrengths.insert({
-    "studentName": "S1",
-    "topic": "Classes,Objects and Design",
-    "strengthCategory": "Strong",
-    "weekId": 3
-});
-db.studentstrengths.insert({
-    "studentName": "S10",
-    "topic": "Classes,Objects and Design",
-    "strengthCategory": "Weak",
-    "weekId": 3
-});
-db.studentstrengths.insert({
-    "studentName": "S11",
-    "topic": "Classes,Objects and Design",
-    "strengthCategory": "Strong",
-    "weekId": 3
-});
-db.studentstrengths.insert({
-    "studentName": "S12",
-    "topic": "Classes,Objects and Design",
-    "strengthCategory": "Weak",
-    "weekId": 3
-});
-db.studentstrengths.insert({
-    "studentName": "S13",
-    "topic": "Classes,Objects and Design",
-    "strengthCategory": "Weak",
-    "weekId": 3
-});
-db.studentstrengths.insert({
-    "studentName": "S14",
-    "topic": "Classes,Objects and Design",
-    "strengthCategory": "Weak",
-    "weekId": 3
-});
-
-
-
 
 db.topics.drop()
 db.createCollection("topics",{
@@ -235,6 +195,7 @@ db.relatedtopics.insert({topic:"Inheritance",relatedtopics:["Classes,Objects and
 
 db.relatedtopics.insert({topic:"Collections",relatedtopics:["Introduction to programming and Expressions"]})
 
+db.relatedtopics.insert({topic:"Conditional Statements",relatedtopics:["Classes,Objects and Designs","Collections"]})
 
 db.quizquestions.drop()
 //Create Quizquestions Collections
@@ -291,6 +252,17 @@ db.quizquestions.insert({questionId:14,questionsText:"Switch case checks for",op
 
 db.quizquestions.insert({questionId:15,questionsText:"Each pass through a loop is called a/an",options:  ["enumeration","iteration","culmination","pass through"],correctAnswer:"iteration",points: 1,difficultylevel:"easy",topic:"Conditional Statements",subTopic:"For loops",InstructorUrl:"",weekId:3})
 
+//Week 4
+
+db.quizquestions.insert({questionId:16,questionsText:"What type of inheritance does Java have? ",options:  ["single inheritance","double inheritance","multiple inheritance","class inheritance"],correctAnswer:"single inheritance",points: 1,difficultylevel:"easy",topic:"Inheritance",subTopic:"Inheritance",InstructorUrl:"",weekId:4})
+
+db.quizquestions.insert({questionId:17,questionsText:"Which of these keywords is used to define interfaces in Java?",options:  ["inheritance","extends","interface","super"],correctAnswer:"interface",points: 1,difficultylevel:"easy",topic:"Inheritance",subTopic:"Interfaces",InstructorUrl:"",weekId:4})
+
+db.quizquestions.insert({questionId:18,questionsText:"What is process of defining two or more methods within same class that have same name but different parameters declaration?",options:  ["method overloading","method overriding","imethod hiding","None of the mentioned"],correctAnswer:"method overloading",points: 1,difficultylevel:"easy",topic:"Inheritance",subTopic:"Interface",InstructorUrl:"",weekId:4})
+
+db.quizquestions.insert({questionId:19,questionsText:"Scope refers to",options:  ["Life of the object","initialization of object","garbage collection","super class"],correctAnswer:"Life of the object",points: 1,difficultylevel:"easy",topic:"Inheritance",subTopic:"Scope",InstructorUrl:"",weekId:4})
+
+db.quizquestions.insert({questionId:20,questionsText:"How many states are there in Object life cycle",options:  ["1","2","7","8"],correctAnswer:"7",points: 1,difficultylevel:"easy",topic:"Inheritance",subTopic:"Object life Cycle",InstructorUrl:"",weekId:4})
 
 db.studentperformances.drop()
 db.createCollection("studentperformances",{
