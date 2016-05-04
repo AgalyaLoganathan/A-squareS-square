@@ -318,6 +318,53 @@ app.post("/login", function(req, res){
   });
 });
 
+app.get("/questions", function(req,res){
+    res.render("student_screens/display_questions.ejs");
+});
+
+app.get("/getQuestions", function(req, res){
+    result = {1:
+        [{
+            "topic" :"TestTopic",
+            "subTopic" : "subTopic",
+            "questionsText" : "Text",
+            "options" : ["a","b","c","d"]
+        },
+        {
+            "topic" :"Test",
+            "subTopic" : "sTest",
+            "questionsText" : "Text",
+            "options" : ["a","b","c","d"]
+        },
+        {
+            "topic" :"Test",
+            "subTopic" : "sTest",
+            "questionsText" : "Text",
+            "options" : ["a","b","c","d"]
+        }],
+        2:
+            [{
+                "topic" :"2Test",
+                "subTopic" : "2sTest",
+                "questionsText" : "2Text",
+                "options" : ["a","b","c","d"]
+            },
+            {
+                "topic" :"2Test",
+                "subTopic" : "2sTest",
+                "questionsText" : "2Text",
+                "options" : ["a","b","c","d"]
+            },
+            {
+                "topic" :"2Test",
+                "subTopic" : "2sTest",
+                "questionsText" : "2Text",
+                "options" : ["a","b","c","d"]
+            }]
+    }
+    res.json(result);
+})
+
 app.post("/register", function(req, res){
     console.log("new endpoint");
     var data = req.body;
