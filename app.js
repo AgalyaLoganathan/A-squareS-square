@@ -398,11 +398,11 @@ app.post('/save_initial_quiz', function(req, res){
             isExpert: false
         }).save();
       }
-      console.log("Came here");
-      res.redirect(200, '/dashboard.ejs');
     }
 });
-}); });
+});
+          res.sendStatus(200);
+});
 
 /* student screen */
 
