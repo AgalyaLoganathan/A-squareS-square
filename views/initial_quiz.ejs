@@ -274,7 +274,7 @@ $(document).on('click',".btnSubmit",function(){
                     "subTopic": questions[i].subtopic,
                     "selectedAnswer" : selectedAnswer});
 
-    if(answers.length == 1){
+    if(answers.length == 10){
         var res = {'data': answers};
         console.log("You have answered all questions");
         $.ajax({

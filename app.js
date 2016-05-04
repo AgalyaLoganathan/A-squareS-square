@@ -387,7 +387,7 @@ app.post('/save_initial_quiz', function(req, res){
       res.render('initial_quiz.ejs');
     } else {
        if(count > 8) {
-        new studentInitialQuizStrengthSchema({
+        new StudentInitialStrengthQuiz({
             studentName: currentUser['userName'],
             studentEmail: currentUser['emailId'],
             courseCode: courseCode,
@@ -395,67 +395,18 @@ app.post('/save_initial_quiz', function(req, res){
         }).save();
       }
       else{
-        new studentInitialQuizStrengthSchema({
+        new StudentInitialStrengthQuiz({
             studentName: currentUser['userName'],
             studentEmail: currentUser['emailId'],
             courseCode: courseCode,
             isExpert: false
         }).save();
       }
-    var currentWeekId ;
-    var questionId;
-    var userDetails = currentUser;
-    var today = new Date();
-    Calendar.findOne({
-      'startDate' : { $lte : today},
-      'endDate': {$gte: today}
-    }, function(err, entry){
-      var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
-      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      questionId = diffDays + (entry['weekId'] -1) *5;
-      currentWeekId = entry['weekId'];
-        QuizQuestion.find({
-        'weekId' : currentWeekId,
-        'questionId': questionId
-        }, function(err, result){
-          result['reading_materials'] = [];
-          QuestionRecommendation.find({
-            'questionId' : result['questionId'],
-            'weekId': result['weekId']}, function(err, reco){
-                // result['reading_materials'] = reco['recotext'];
-                // var finalResult = [];
-                // finalResult.push(result);
-                // var results = { 'userDetails': userDetails,
-                // 'input': result}
-                // // console.log(results);
-                // res.render('student_screens/dashboard.ejs', { results } );
-                reco = [ { "recotext" : "The constructor is a special method called automatically when an object is created with the new keyword. Constructor does not have a return value and its name is the same as the class name. Each class must have a constructor. If we do not define one, the compiler will create a default so called empty constructor automatically.", "is_useful" : true }, { "recotext" : "Automatically created constructor. 1 public class MyClass {2   /**3   * MyClass Empty Constructor4   */5   public MyClass() {6   }}", "is_useful" : true }, { "recotext" : "The following constructor builds an array list that has the specified initial capacity. The capacity is the size of the underlying array that is used to store the elements.", "is_useful" : true } ];
-                recommendations = reco;
-                // _.each(reco, function(r){
-                //   result['reading_materials'].push(r['recotext']);
-                // });
-                // result['reading_materials']= reco;
-                // console.log("Found Reco " );
-                // console.log(result['reading_materials']);
-                var finalResult = [];
-                finalResult.push(result);
-                var results = { 'userDetails': userDetails,
-                'input': result, 'reco' : recommendations};
-                 console.log(results);
-                 console.log(results.reco.length);
-                res.render('student_screens/dashboard.ejs', { results } );
-            });
-        });
-    });
-    //   var results  = {
-    //         'userDetails': currentUser,
-    //         'input': []
-    //   }
-    //   res.render('student_screens/dashboard.ejs', {'results' : results});
-    // }
-  } });
+      console.log("Came here");
+      res.redirect(200, '/dashboard.ejs');
+    }
 });
-});
+}); });
 
 /* student screen */
 
