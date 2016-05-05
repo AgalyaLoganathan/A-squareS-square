@@ -158,11 +158,23 @@ app.post('/updateUsefulReco',  function(req, res){
     }
     questionId = diffDays + (entry['weekId'] -1) *5;
     currentWeekId = entry['weekId'];
-      QuizQuestion.find({
-      'weekId' : currentWeekId,
-      'questionId': questionId
-      }, function(err, result){
-        QuestionRecommendation.find({
+            QuizQuestion.find({
+        'weekId' : currentWeekId,
+        'questionId': questionId
+        }, function(err, result){
+          StudentPerformance.find({
+            'weekId' : currentWeekId,
+            'questionId': questionId,
+            'studentName': currentUser['userName']
+          }, function(err, studentResponse){
+            console.log("Student Response is ");
+            console.log(studentResponse);
+            if(studentResponse.length > 0){
+               var results = { 'userDetails': userDetails,
+                'input': [], 'reco' : []};
+                res.render('student_screens/dashboard.ejs', { results } );
+            } else {
+            QuestionRecommendation.find({
             'questionId' : Number(questionId),
             'weekId': Number(currentWeekId)  }, function(err, reco){
                 recos = [];
@@ -172,9 +184,12 @@ app.post('/updateUsefulReco',  function(req, res){
                 recommendations = recos;
                 var results = { 'userDetails': userDetails,
                 'input': result, 'reco' : recommendations[0]};
-              res.render('student_screens/dashboard.ejs', { results } );
+                res.render('student_screens/dashboard.ejs', { results } );
+            });
+            }
           });
-      });
+
+        });
   });
 
 });
@@ -207,11 +222,23 @@ app.post('/updateNotUsefulReco',  function(req, res){
     }
     questionId = diffDays + (entry['weekId'] -1) *5;
     currentWeekId = entry['weekId'];
-      QuizQuestion.find({
-      'weekId' : currentWeekId,
-      'questionId': questionId
-      }, function(err, result){
-        QuestionRecommendation.find({
+        QuizQuestion.find({
+        'weekId' : currentWeekId,
+        'questionId': questionId
+        }, function(err, result){
+          StudentPerformance.find({
+            'weekId' : currentWeekId,
+            'questionId': questionId,
+            'studentName': currentUser['userName']
+          }, function(err, studentResponse){
+            console.log("Student Response is ");
+            console.log(studentResponse);
+            if(studentResponse.length > 0){
+               var results = { 'userDetails': userDetails,
+                'input': [], 'reco' : []};
+                res.render('student_screens/dashboard.ejs', { results } );
+            } else {
+            QuestionRecommendation.find({
             'questionId' : Number(questionId),
             'weekId': Number(currentWeekId)  }, function(err, reco){
                 recos = [];
@@ -221,9 +248,12 @@ app.post('/updateNotUsefulReco',  function(req, res){
                 recommendations = recos;
                 var results = { 'userDetails': userDetails,
                 'input': result, 'reco' : recommendations[0]};
-              res.render('student_screens/dashboard.ejs', { results } );
+                res.render('student_screens/dashboard.ejs', { results } );
+            });
+            }
           });
-      });
+
+        });
   });
 });
 
@@ -272,11 +302,23 @@ app.post("/login", function(req, res){
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       questionId = diffDays + (entry['weekId'] -1) *5;
       currentWeekId = entry['weekId'];
-        QuizQuestion.find({
+      QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
-          QuestionRecommendation.find({
+          StudentPerformance.find({
+            'weekId' : currentWeekId,
+            'questionId': questionId,
+            'studentName': currentUser['userName']
+          }, function(err, studentResponse){
+            console.log("Student Response is ");
+            console.log(studentResponse);
+            if(studentResponse.length > 0){
+               var results = { 'userDetails': userDetails,
+                'input': [], 'reco' : []};
+                res.render('student_screens/dashboard.ejs', { results } );
+            } else {
+            QuestionRecommendation.find({
             'questionId' : Number(questionId),
             'weekId': Number(currentWeekId)  }, function(err, reco){
                 recos = [];
@@ -288,6 +330,9 @@ app.post("/login", function(req, res){
                 'input': result, 'reco' : recommendations[0]};
                 res.render('student_screens/dashboard.ejs', { results } );
             });
+            }
+          });
+
         });
     });
     } else{
@@ -489,7 +534,9 @@ app.get('/dashboard.ejs', function(req, res){
             'questionId': questionId,
             'studentName': currentUser['userName']
           }, function(err, studentResponse){
-            if(studentResponse != undefined){
+            console.log("Student Response is ");
+            console.log(studentResponse);
+            if(studentResponse.length > 0){
                var results = { 'userDetails': userDetails,
                 'input': [], 'reco' : []};
                 res.render('student_screens/dashboard.ejs', { results } );
@@ -507,7 +554,7 @@ app.get('/dashboard.ejs', function(req, res){
                 res.render('student_screens/dashboard.ejs', { results } );
             });
             }
-          })
+          });
 
         });
     });
