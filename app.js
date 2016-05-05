@@ -579,9 +579,7 @@ app.get('/table', function(req, res){
         }
       }
     ]).exec(function ( e, d ) {
-        console.log("Output ");
         results = d;
-        console.log(results);
 
         res.render('student_screens/table.ejs', {'results': results});
     });
@@ -604,9 +602,7 @@ app.get('/tableJSON', function(req, res){
         }
       }
     ]).exec(function ( e, d ) {
-        console.log("Output ");
         results = d;
-        console.log(results);
         res.json(results);
     });
 });
@@ -658,7 +654,6 @@ app.get('/study_groups_test', function(req, res){
             };
             finalResponse.push(temp);
             });
-            console.log(finalResponse);
             res.json(finalResponse);
           });
       });
@@ -696,7 +691,6 @@ app.get('/loading', function(req, res){
           flag=1;
         }
         questionName.trim();
-        console.log("Question asked is: --" + questionName + "--");
 
         QuizQuestion.findOne({'questionsText': questionName}, function(err, questionInfo){
           qId = questionInfo['questionId'];
@@ -705,20 +699,16 @@ app.get('/loading', function(req, res){
           difficulty = questionInfo['difficultylevel'];
           topic = questionInfo['topic'];
           subTopic = questionInfo['subTopic'];
-          console.log("QUesion Infor is:"+questionInfo);
         });
         if(flag == 1){
           flag = 0;
           break;
         }
         var studAnswer = parseInt(outputData[0]);
-        console.log(studAnswer + "--");
         var studEmail = outputData[1].trim();
-        console.log("Student Email is--"+studEmail + "--");
         var result = false;
         var score = 0;
         User.findOne({'emailId': studEmail}, function(err, userInfo){
-            console.log("The user info is:" + userInfo);
             if(studAnswer == parseInt(correctAnswer)){
               result = true;
               score=1;
@@ -768,12 +758,6 @@ app.get('/instructor-home', function(req, res){
 // test e-mail
 app.post('/testing', function(req, res){
   //var question = req.body;
-  console.log('Entered email function');
-  console.log(req.body.user.instLink);
-  console.log(req.body.user.Topic);
-  console.log(req.body.user.subTopic);
-  console.log(req.body.user.Weightage);
-  console.log(req.body.user.solution);
   var a = "";
   a= req.body.user.solution;;
   var weightage = parseInt(req.body.user.Weightage);
@@ -866,15 +850,9 @@ app.get('/dataset', function(req, res){
         });
 
         _.each(weekIds, function(weekId){
-            // console.log(groupedResult[weekId]);
-            // console.log("next");
-            //var subTopicsTotal = _.union(subTopicsTotal,groupedResult[weekId]);
             _.each(groupedResult[weekId], function(subTopic){
-                // console.log(subTopic['_id']['subTopic']);
                 var subTopicToAdd = subTopic['_id']['subTopic'];
                 var subTopicsTotalContains = _.contains(subTopicsTotal, subTopicToAdd);
-                // console.log(subTopicToAdd);
-                //console.log(subTopicsTotalContains);
                 if (subTopicsTotalContains == false){
                     subTopicsTotal.push(subTopic['_id']['subTopic']);
                 }
@@ -889,7 +867,7 @@ app.get('/dataset', function(req, res){
               })
               _.each(subTopics, function(s){
                     temp[s['_id']['subTopic']] = s['studentTotalScore'];
-                    console.log(s);
+
           })
           var found = _.contains(visitedWeekIds, weekId);
           if(!found){
@@ -899,7 +877,6 @@ app.get('/dataset', function(req, res){
         })
 
         // res.render('student_screens/table.ejs', {'results': results});
-        console.log(dataset);
         res.json(dataset);
     });
 });
@@ -949,7 +926,6 @@ app.get('/radarTopics', function(req, res){
       var radarTopics = [];
       //[ { _id: { topic: 'blah', studentName: 's1' },
     // studentTotalScore: 6 } ]
-        console.log("Output radar");
         _.each(result, function(r){
           radarTopics.push(r['_id']['topic']);
           if(r['_id']['studentName'] == topper){
@@ -1052,8 +1028,6 @@ app.get('/heatmap', function(req, res){
           temp["values"] = scores;
           finalResult.push(temp);
         });
-        console.log("FINAL RESULTS SENT ARE: ");
-        console.log(finalResult);
         //console.log(topics);
 
         res.json({
