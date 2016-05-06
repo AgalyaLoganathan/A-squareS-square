@@ -145,7 +145,7 @@ app.post('/updateUsefulReco',  function(req, res){
   var questionId;
   var userDetails = currentUser;
   var recommendations;
-  var today = new Date();
+  var today = new Date(2016/05/05);
   Calendar.findOne({
     'startDate' : { $lte : today},
     'endDate': {$gte: today}
@@ -209,7 +209,7 @@ app.post('/updateNotUsefulReco',  function(req, res){
   var questionId;
   var userDetails = currentUser;
   var recommendations;
-  var today = new Date();
+  var today = new Date(2016/05/05);
   Calendar.findOne({
     'startDate' : { $lte : today},
     'endDate': {$gte: today}
@@ -293,7 +293,8 @@ app.post("/login", function(req, res){
     var questionId;
     var userDetails = currentUser;
     var recommendations;
-    var today = new Date();
+    var today = new Date(2016/05/05);
+    console.log(today);
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
@@ -351,7 +352,7 @@ app.get("/questions", function(req,res){
 });
 
 app.get("/getQuestions", function(req, res){
- var today = new Date();
+  var today = new Date(2016/05/05);
   Calendar.findOne({
     'startDate' : { $lte : today},
     'endDate': {$gte: today}
@@ -512,7 +513,7 @@ app.get('/dashboard.ejs', function(req, res){
     var currentWeekId ;
     var questionId;
     var userDetails = currentUser;
-    var today = new Date();
+      var today = new Date(2016/05/05);
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
@@ -656,7 +657,7 @@ app.get('/tableJSON', function(req, res){
 
 
 app.get('/study_groups_test', function(req, res){
-    var today = new Date();
+    var today = new Date(2016/05/05);
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
