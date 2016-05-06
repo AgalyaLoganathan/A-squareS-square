@@ -41,7 +41,7 @@ db.createCollection("calendars",{
 db.calendars.insert({weekId:1,startDate: new Date('04-18-2016'),endDate: new Date('04-24-2016')})
 db.calendars.insert({weekId:2,startDate: new Date('04-25-2016'),endDate: new Date('05-01-2016')})
 db.calendars.insert({weekId:3,startDate: new Date('05-02-2016'),endDate: new Date('05-08-2016')})
-db.calendars.insert({weekId:3,startDate: new Date('05-09-2016'),endDate: new Date('05-15-2016')})
+db.calendars.insert({weekId:4,startDate: new Date('05-09-2016'),endDate: new Date('05-15-2016')})
 
 
 
