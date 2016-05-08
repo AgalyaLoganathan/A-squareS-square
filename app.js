@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // db connection
 // mongoDb.connect('mongodb://admin:admin@ds013202.mlab.com:13202/quiz_of_the_day');
 
-// mongoDb.connect('mongodb://admin:admin@ds013202.mlab.com:13202/quiz_of_the_day');
-mongoDb.connect('mongodb://localhost/quiz_of_the_day');
+mongoDb.connect('mongodb://admin:admin@ds013202.mlab.com:13202/quiz_of_the_day');
+// mongoDb.connect('mongodb://localhost/quiz_of_the_day');
 
 var connection = mongoDb.connection;
 
