@@ -358,6 +358,9 @@ app.get("/questions", function(req,res){
 
 app.get("/getQuestions", function(req, res){
   var today = new Date();
+  if(today.getDay() == 0) {
+    today.setDate(today.getDate() - 1);
+  }
   Calendar.findOne({
     'startDate' : { $lte : today},
     'endDate': {$gte: today}
@@ -665,6 +668,9 @@ app.get('/study_groups_test', function(req, res){
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
     }, function(err, entry){
+      if(entry == null || entry == []) {
+        res.json([]);
+      } else {
       currentWeekId = entry['weekId'];
       StudentStrength.findOne({
       'weekId': currentWeekId,
@@ -710,6 +716,7 @@ app.get('/study_groups_test', function(req, res){
       });
     }
     });
+  }
   });
 });
 
