@@ -22,7 +22,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // db connection
-mongoDb.connect('mongodb://admin:admin@ds013202.mlab.com:13202/quiz_of_the_day');
+// mongoDb.connect('mongodb://admin:admin@ds013202.mlab.com:13202/quiz_of_the_day');
+
+// mongoDb.connect('mongodb://admin:admin@ds013202.mlab.com:13202/quiz_of_the_day');
+mongoDb.connect('mongodb://localhost/quiz_of_the_day');
 
 var connection = mongoDb.connection;
 
@@ -142,24 +145,28 @@ app.post('/updateUsefulReco',  function(req, res){
                }
         }
   );
-  var currentWeekId ;
-  var questionId;
-  var userDetails = currentUser;
-  var recommendations;
-  var today = new Date();
-  Calendar.findOne({
-    'startDate' : { $lte : today},
-    'endDate': {$gte: today}
-  }, function(err, entry){
-    var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
-    var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if(isWeekend) {
-      diffDays = 5;
-    }
-    questionId = diffDays + (entry['weekId'] -1) *5;
-    currentWeekId = entry['weekId'];
-            QuizQuestion.find({
+    var currentWeekId;
+    var questionId;
+    var userDetails = currentUser;
+    var recommendations;
+    var today = new Date();
+    console.log(today);
+    Calendar.findOne({
+      'startDate' : { $lte : today},
+      'endDate': {$gte: today}
+    }, function(err, entry){
+      console.log(entry);
+      var results;
+      if(entry == null || today.getDay() == 0 || today.getDay() ==6) {
+         var results = { 'userDetails': currentUser,
+                'input': [], 'reco' : []};
+        res.render('student_screens/dashboard.ejs', { results } );
+      } else {
+      var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      questionId = diffDays + (entry['weekId'] -1) *5;
+      currentWeekId = entry['weekId'];
+      QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
@@ -168,31 +175,29 @@ app.post('/updateUsefulReco',  function(req, res){
             'questionId': questionId,
             'studentName': currentUser['userName']
           }, function(err, studentResponse){
-            console.log("Student Response is ");
-            console.log(studentResponse);
             if(studentResponse.length > 0){
-               var results = { 'userDetails': userDetails,
+               results = { 'userDetails': currentUser,
                 'input': [], 'reco' : []};
                 res.render('student_screens/dashboard.ejs', { results } );
             } else {
-            QuestionRecommendation.find({
-            'questionId' : Number(questionId),
-            'weekId': Number(currentWeekId)  }, function(err, reco){
+              QuestionRecommendation.find({
+              'questionId' : Number(questionId),
+              'weekId': Number(currentWeekId)  }, function(err, reco){
                 recos = [];
                 _.each(reco, function(r){
                   recos.push(r['reco']);
                 });
                 recommendations = recos;
-                var results = { 'userDetails': userDetails,
+                results = { 'userDetails': currentUser,
                 'input': result, 'reco' : recommendations[0]};
                 res.render('student_screens/dashboard.ejs', { results } );
-            });
+               });
+
             }
-          });
-
-        });
+            });
+            });
+           }
   });
-
 });
 
 app.post('/updateNotUsefulReco',  function(req, res){
@@ -206,24 +211,28 @@ app.post('/updateNotUsefulReco',  function(req, res){
                }
         }
   );
-  var currentWeekId ;
-  var questionId;
-  var userDetails = currentUser;
-  var recommendations;
-  var today = new Date();
-  Calendar.findOne({
-    'startDate' : { $lte : today},
-    'endDate': {$gte: today}
-  }, function(err, entry){
-    var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
-    if(isWeekend) {
-      diffDays = 5;
-    }
-    questionId = diffDays + (entry['weekId'] -1) *5;
-    currentWeekId = entry['weekId'];
-        QuizQuestion.find({
+    var currentWeekId;
+    var questionId;
+    var userDetails = currentUser;
+    var recommendations;
+    var today = new Date();
+    console.log(today);
+    Calendar.findOne({
+      'startDate' : { $lte : today},
+      'endDate': {$gte: today}
+    }, function(err, entry){
+      console.log(entry);
+      var results;
+      if(entry == null || today.getDay() == 0 || today.getDay() ==6) {
+         var results = { 'userDetails': currentUser,
+                'input': [], 'reco' : []};
+        res.render('student_screens/dashboard.ejs', { results } );
+      } else {
+      var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      questionId = diffDays + (entry['weekId'] -1) *5;
+      currentWeekId = entry['weekId'];
+      QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
@@ -232,41 +241,34 @@ app.post('/updateNotUsefulReco',  function(req, res){
             'questionId': questionId,
             'studentName': currentUser['userName']
           }, function(err, studentResponse){
-            console.log("Student Response is ");
-            console.log(studentResponse);
             if(studentResponse.length > 0){
-               var results = { 'userDetails': userDetails,
+               results = { 'userDetails': currentUser,
                 'input': [], 'reco' : []};
                 res.render('student_screens/dashboard.ejs', { results } );
             } else {
-            QuestionRecommendation.find({
-            'questionId' : Number(questionId),
-            'weekId': Number(currentWeekId)  }, function(err, reco){
+              QuestionRecommendation.find({
+              'questionId' : Number(questionId),
+              'weekId': Number(currentWeekId)  }, function(err, reco){
                 recos = [];
                 _.each(reco, function(r){
                   recos.push(r['reco']);
                 });
                 recommendations = recos;
-                var results = { 'userDetails': userDetails,
+                results = { 'userDetails': currentUser,
                 'input': result, 'reco' : recommendations[0]};
                 res.render('student_screens/dashboard.ejs', { results } );
-            });
-            }
-          });
+               });
 
-        });
+            }
+            });
+            });
+           }
   });
 });
 
 var courseCode = "CSE 280 - Intro to JAVA Programming";
 var currentWeekId = 5;
 
-// current user
-// var currentUser = {
-//   'userName': 's1',
-//   'emailId': 's1@asu.edu',
-//   'courseCode' : "CSE 280 - Intro to JAVA Programming"
-// }
 app.get('/', function(req, res){
     res.render('login.ejs');
 });
@@ -283,13 +285,8 @@ app.post("/login", function(req, res){
       res.render('login.ejs', {message:'Server error. Try again.'});
     }
     if(user) {
-        currentUser = user;
-        if(user['role'] == 'Student') {
-
-          var results  = {
-            'userDetails': currentUser,
-            'input': []
-          }
+    currentUser = user;
+    if(user['role'] == 'Student') {
     var currentWeekId;
     var questionId;
     var userDetails = currentUser;
@@ -300,6 +297,13 @@ app.post("/login", function(req, res){
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
     }, function(err, entry){
+      console.log(entry);
+      var results;
+      if(entry == null || today.getDay() == 0 || today.getDay() ==6) {
+         var results = { 'userDetails': currentUser,
+                'input': [], 'reco' : []};
+        res.render('student_screens/dashboard.ejs', { results } );
+      } else {
       var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       questionId = diffDays + (entry['weekId'] -1) *5;
@@ -313,37 +317,37 @@ app.post("/login", function(req, res){
             'questionId': questionId,
             'studentName': currentUser['userName']
           }, function(err, studentResponse){
-            console.log("Student Response is ");
-            console.log(studentResponse);
             if(studentResponse.length > 0){
-               var results = { 'userDetails': userDetails,
+               results = { 'userDetails': currentUser,
                 'input': [], 'reco' : []};
                 res.render('student_screens/dashboard.ejs', { results } );
             } else {
-            QuestionRecommendation.find({
-            'questionId' : Number(questionId),
-            'weekId': Number(currentWeekId)  }, function(err, reco){
+              QuestionRecommendation.find({
+              'questionId' : Number(questionId),
+              'weekId': Number(currentWeekId)  }, function(err, reco){
                 recos = [];
                 _.each(reco, function(r){
                   recos.push(r['reco']);
                 });
                 recommendations = recos;
-                var results = { 'userDetails': userDetails,
+                results = { 'userDetails': currentUser,
                 'input': result, 'reco' : recommendations[0]};
                 res.render('student_screens/dashboard.ejs', { results } );
-            });
-            }
-          });
+               });
 
-        });
-    });
-    } else{
+            }
+            });
+            });
+           }
+          });
+        }
+     else{
           res.render('instructor_screens/add-quiz.ejs', {'results' : userDetails});
           //res.render('instructor-home.ejs');
         }
     }
     else {
-    res.render('login.ejs', {message:'Incorrect user name or password.'});
+      res.render('login.ejs', {message:'Incorrect user name or password.'});
     }
   });
 });
@@ -358,12 +362,6 @@ app.get("/getQuestions", function(req, res){
     'startDate' : { $lte : today},
     'endDate': {$gte: today}
   }, function(err, entry){
-    var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
-    var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if(isWeekend) {
-      diffDays = 5;
-    }
     currentWeekId = entry['weekId'];
       QuizQuestion.find({
       'weekId' : { $lte : currentWeekId }
@@ -511,23 +509,28 @@ app.get('/study_group.ejs', function(req, res){
 
 
 app.get('/dashboard.ejs', function(req, res){
-    var currentWeekId ;
+    var currentWeekId;
     var questionId;
     var userDetails = currentUser;
-      var today = new Date();
+    var recommendations;
+    var today = new Date();
+    console.log(today);
     Calendar.findOne({
       'startDate' : { $lte : today},
       'endDate': {$gte: today}
     }, function(err, entry){
+      console.log(entry);
+      var results;
+      if(entry == null || today.getDay() == 0 || today.getDay() ==6) {
+         var results = { 'userDetails': currentUser,
+                'input': [], 'reco' : []};
+        res.render('student_screens/dashboard.ejs', { results } );
+      } else {
       var timeDiff = Math.abs(today.getTime() - entry['startDate'].getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      var isWeekend = ( today.getDay() == 0 || today.getDay() == 6);
-    if(isWeekend) {
-      diffDays = 5;
-    }
       questionId = diffDays + (entry['weekId'] -1) *5;
       currentWeekId = entry['weekId'];
-        QuizQuestion.find({
+      QuizQuestion.find({
         'weekId' : currentWeekId,
         'questionId': questionId
         }, function(err, result){
@@ -536,30 +539,29 @@ app.get('/dashboard.ejs', function(req, res){
             'questionId': questionId,
             'studentName': currentUser['userName']
           }, function(err, studentResponse){
-            console.log("Student Response is ");
-            console.log(studentResponse);
             if(studentResponse.length > 0){
-               var results = { 'userDetails': userDetails,
+               results = { 'userDetails': currentUser,
                 'input': [], 'reco' : []};
                 res.render('student_screens/dashboard.ejs', { results } );
             } else {
-            QuestionRecommendation.find({
-            'questionId' : Number(questionId),
-            'weekId': Number(currentWeekId)  }, function(err, reco){
+              QuestionRecommendation.find({
+              'questionId' : Number(questionId),
+              'weekId': Number(currentWeekId)  }, function(err, reco){
                 recos = [];
                 _.each(reco, function(r){
                   recos.push(r['reco']);
                 });
                 recommendations = recos;
-                var results = { 'userDetails': userDetails,
+                results = { 'userDetails': currentUser,
                 'input': result, 'reco' : recommendations[0]};
                 res.render('student_screens/dashboard.ejs', { results } );
-            });
-            }
-          });
+               });
 
-        });
-    });
+            }
+            });
+            });
+           }
+  });
 });
 
 app.post('/update_student_performance', function(req, res){
