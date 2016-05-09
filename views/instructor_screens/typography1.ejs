@@ -128,6 +128,12 @@
                     <p>Visualizations</p>
                 </a>
             </li>
+			<li>
+			   <a href="questions1">
+				   <i class="pe-7s-science"></i>
+				   <p>Questions</p>
+			   </a>
+		   </li>
         </ul>
 	</div>
 </div>
@@ -429,7 +435,7 @@ function drawHeatMap(){
                     "border-color": "none"
                 },
                 "series": data.heatMapY
-                    
+
                 };
 
                 zingchart.render({
@@ -479,7 +485,7 @@ function drawRadarChart(){
 });
 }
 
-	$(document).ready(function(){    
+	$(document).ready(function(){
 
 			var sankeyDivWidth = $('#sankeyChartDiv').width();
 			$('sankeyChart').width(sankeyDivWidth);

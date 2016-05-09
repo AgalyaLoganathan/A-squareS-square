@@ -356,6 +356,10 @@ app.get("/questions", function(req,res){
     res.render("student_screens/display_questions.ejs");
 });
 
+app.get("/questions1", function(req,res){
+    res.render("instructor_screens/display_questions1.ejs");
+});
+
 app.get("/getQuestions", function(req, res){
   var today = new Date();
   if(today.getDay() == 0) {

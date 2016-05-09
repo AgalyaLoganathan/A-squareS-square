@@ -71,7 +71,7 @@
     <div class="sidebar" data-color="purple" data-image="img/sidebar-5.jpg">
 <div class="sidebar-wrapper">
   <div class="logo">
-    <a href=# class="simple-text">    
+    <a href=# class="simple-text">
           HELLO INSTRUCTOR!
     </a>
   </div>
@@ -89,6 +89,13 @@
         <p>Visualizations</p>
       </a>
     </li>
+    <li>
+       <a href="questions1">
+           <i class="pe-7s-science"></i>
+           <p>Questions</p>
+       </a>
+   </li>
+
     <!-- <li>
       <a href="icons.html">
         <i class="pe-7s-science"></i>
@@ -142,13 +149,13 @@
 
 
         <div class="content">
-            <div class="container-fluid">                    
+            <div class="container-fluid">
               <form method="POST" id="form1" action="/testing">
                   <div class="form-group">
                   <label for="comment">ENTER THE QUESTION:</label>
-                  <textarea class="form-control" rows="5" id="comment" name="user[question]"></textarea> 
+                  <textarea class="form-control" rows="5" id="comment" name="user[question]"></textarea>
                   <br><br>
-                  <div class="rows-xs-2">  
+                  <div class="rows-xs-2">
                   <label> OPTION 1: <input type="text" name="user[one]"></input> </label> <br>
                   </div>
                   <div class="rows-xs-2">
@@ -158,12 +165,12 @@
                   <label> OPTION 3: <input type="text" name="user[three]"> </label> <br>
                   </div>
                   <div class="rows-xs-2">
-                  <label> OPTION 4: <input type="text" name="user[four]"> </label> 
+                  <label> OPTION 4: <input type="text" name="user[four]"> </label>
                   </div>
 
                   <br>
                   <div class="rows-xs-2">
-                  <label> ANSWER: <input type="text" name="user[solution]"> </label> 
+                  <label> ANSWER: <input type="text" name="user[solution]"> </label>
                   </div>
                   <div class='slider-example'>
                   <label> INSTRUCTOR RECOMMENDATION: <input type="text" name="user[instLink]"> </label> <br><br>
@@ -176,8 +183,8 @@
                         <option> Inheritance </option>
                         <option> Exceptions </option>
                         <option> Concurrent Programming </option>
-                  </select> 
-                  <select id="mySelect1" name="user[subTopic]" >  
+                  </select>
+                  <select id="mySelect1" name="user[subTopic]" >
                         <option> Pick SubTopic </option>
                         <option> Branching statements </option>
                         <option> Conditional Statements </option>
@@ -188,7 +195,7 @@
                         <option> Object life Cycle </option>
                         <option> Scope </option>
                         <option> Client Server Programming </option>
-                        <option> Basic Synchronization </option>    
+                        <option> Basic Synchronization </option>
                         <option> Branching statements </option>
                         <option> while loops </option>
                         <option> Switch statements </option>
@@ -197,9 +204,9 @@
                   <input id="ex1" name="user[Weightage]" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="14"/><br>
                   <br><br>
                   <center> <button type="submit" class="btn btn-info"> Send E-Mail </button> </center>
-                  </div> 
                   </div>
-              </form>        
+                  </div>
+              </form>
             </div>
         </div>
 
@@ -226,7 +233,7 @@
 
     <!--  Notifications Plugin    -->
     <script src="bootstrap/js/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
   <script src="bootstrap/js/light-bootstrap-dashboard.js"></script>
   <script type="text/javascript">
   var input = [{
@@ -273,20 +280,20 @@
           document.getElementsByTagName('head')[0].appendChild(script);
           script.onreadystatechange = callback;
           script.onload = callback;
-      }    
+      }
 
       $(document).ready(function() {
-        $('#ex1').slider({
-              formatter: function(value) {
-                return 'Current value: ' + value;
-              }
-          });
-
-        $('#ex2').slider({
-              formatter: function(value) {
-                return 'Current value: ' + value;
-              }
-          });
+        // $('#ex1').slider({
+        //       formatter: function(value) {
+        //         return 'Current value: ' + value;
+        //       }
+        //   });
+        //
+        // $('#ex2').slider({
+        //       formatter: function(value) {
+        //         return 'Current value: ' + value;
+        //       }
+        //   });
       });
 
       function populate()
@@ -298,7 +305,7 @@
           select.add(option, 0);
         }
       }
-      
+
 </script>
 
 </html>
